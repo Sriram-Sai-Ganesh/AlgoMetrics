@@ -1,5 +1,6 @@
 # AlgoMetrics
 This repo contains C++ implementations of popular data structures and algorithms.
+
 The goal is to create a comprehensive testing framework to study the effect of various input parameters on algorithm performance.
 
 ## Getting started
