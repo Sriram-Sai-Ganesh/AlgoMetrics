@@ -22,18 +22,18 @@ You might need to install ```make```
   - [ ] ExportUtils
 - [ ] Data structures
   - [ ] Trees
-   - [ ] Binary Search Trees
-   - [ ] AVL Trees
-   - [ ] Red and Black Trees
+    - [ ] Binary Search Trees
+    - [ ] AVL Trees
+    - [ ] Red and Black Trees
   - [ ] Graphs
-   - [ ] Directed
-   - [ ] Undirected
+    - [ ] Directed
+    - [ ] Undirected
   - [ ] Linked Lists
-   - [ ] Singly Linked Lists
-   - [ ] Doubly Linked Lists 
+    - [ ] Singly Linked Lists
+    - [ ] Doubly Linked Lists 
   - [ ] Stacks
   - [ ] Queues
   - [ ] Heaps
   - [ ] Dictionaries
-   - [ ] HashMaps
-   - [ ] HashSets
+    - [ ] HashMaps
+    - [ ] HashSets
