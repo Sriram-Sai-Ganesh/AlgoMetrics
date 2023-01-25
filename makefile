@@ -26,4 +26,4 @@ run:
 	./main
 
 clean:
-	rm -f $(OBJDIR)/*.o $(INCLDIR)/*.gch *~ core
+	rm -f $(OBJDIR)/*.o $(SRCDIR)/*.exe *.exe $(INCLDIR)/*.gch *~ core
