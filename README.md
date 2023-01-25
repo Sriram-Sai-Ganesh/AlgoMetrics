@@ -42,7 +42,7 @@ You'll need to install ```make``` if you want to use the makefile.
     - [ ] HashSets
 
 ## Acknowledgements
-- Pseudorandom number generator library by [Reputeless](https://github.com/Reputeless/Xoshiro-cpp)
+- Pseudorandom number generator [library](https://www.pcg-random.org/posts/ease-of-use-without-loss-of-power.html) by [imneme](https://gist.github.com/imneme)
 
 ## License
 AlgoMetrics is distributed under the MIT License.
