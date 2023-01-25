@@ -7,11 +7,12 @@ The goal is to create a comprehensive testing framework to study the effect of v
 
 I'd recommend using VSCode with the [C++ compiler extension](https://code.visualstudio.com/docs/languages/cpp).
 
-Clone the repo with    
+Clone the repo with
 ```sh
    git clone https://github.com/Sriram-Sai-Ganesh/AlgoMetrics
 ```
-You might need to install ```make```
+You'll need to install ```make``` if you want to use the makefile.
+
 ## Roadmap
 
 - [ ] Utility Namespaces
