@@ -16,8 +16,7 @@ You'll need to install ```make``` if you want to use the makefile.
 ## Roadmap
 
 - [ ] Utility Namespaces
-  - [ ] SearchUtils
-  - [ ] SortUtils
+  - [ ] ArrayUtils
   - [ ] GraphUtils
   - [ ] TreeUtils
   - [ ] HelperUtils
