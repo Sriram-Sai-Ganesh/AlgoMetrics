@@ -13,9 +13,11 @@ int main()
 {
 	currentType min=-100, max=100;
 	endl(2);
+
 	array<currentType, len> ar = HelperUtils::GetRandomArray<currentType, len>(min, max);
 	HelperUtils::PrintArray<currentType, len>(ar);
 	endl(2);
+	
 	cout<<"After BubbleSort:\n";
 	ar = SortUtils::BubbleSort<currentType, len>(ar);
 	HelperUtils::PrintArray<currentType, len>(ar);
@@ -23,6 +25,7 @@ int main()
 
 
 	cout<<"Searching:\n";
+	
 	int iterSearch = SearchUtils::IterativeSearch<currentType, len>(ar, 2);
 	cout<<"result of iterative search is "<<iterSearch<<endl;
 	
