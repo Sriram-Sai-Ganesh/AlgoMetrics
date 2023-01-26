@@ -3,7 +3,7 @@
 
 using namespace std;
 
-namespace SearchUtils{
+namespace ArrayUtils{
 
 // sequential search iteratively in 'ar' for 'target'
 template <class T, size_t len> int IterativeSearch(array<T, len> ar, T target)
@@ -36,7 +36,7 @@ template <class T, size_t len> int binaryFind(array<T, len> ar, int start, int e
 template <class T, size_t len> int RecursiveBinarySearch(array<T, len> ar, T target)
 {
 	int length = len;
-	int result = SearchUtils::binaryFind<T, len>(ar, 0, length-1, target);
+	int result = ArrayUtils::binaryFind<T, len>(ar, 0, length-1, target);
 	return result;
 }
 
@@ -56,6 +56,18 @@ template <class T, size_t len> int IterativeBinarySearch(array<T, len> ar, T tar
 		else return mid;
 	}
 	return -1;
+}
+
+
+// bubblesort ar and return copy
+template <class T, size_t len> array<T, len> BubbleSort(array<T, len> ar)
+{
+	int length = len;
+	for (int i = 0; i < length - 1; i++)
+        for (int j = length - 1; i < j; j--)
+            if (ar[j] < ar[j - 1])
+                swap(ar[j], ar[j - 1]);
+	return ar;
 }
 
 }		// end namespace

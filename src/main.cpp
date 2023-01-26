@@ -1,7 +1,6 @@
 #include <iostream>
 #include <array>
-#include "../inc/SearchUtils.hpp"
-#include "../inc/SortUtils.hpp"
+#include "../inc/ArrayUtils.hpp"
 #include "../inc/HelperUtils.hpp"
 
 typedef int myType;				// type of variable in array
@@ -24,20 +23,20 @@ int main()
 	
 	// sort elements
 	cout<<"After BubbleSort:\n";
-	ar = SortUtils::BubbleSort<myType, len>(ar);
+	ar = ArrayUtils::BubbleSort<myType, len>(ar);
 	HelperUtils::PrintArray<myType, len>(ar);
 	endl(2);
 
 	// perform 3 search operations
 	cout<<"Searching for "<<target<<" in array:\n";
 	
-	int iterSearch = SearchUtils::IterativeSearch<myType, len>(ar, target);
+	int iterSearch = ArrayUtils::IterativeSearch<myType, len>(ar, target);
 	cout<<"result of iterative search is "<<iterSearch<<endl;
 	
-	int binSearch = SearchUtils::RecursiveBinarySearch<myType, len>(ar, target);
+	int binSearch = ArrayUtils::RecursiveBinarySearch<myType, len>(ar, target);
 	cout<<"result of recursive binary search is "<<binSearch<<endl;
 
-	binSearch = SearchUtils::IterativeBinarySearch<myType, len>(ar, target);
+	binSearch = ArrayUtils::IterativeBinarySearch<myType, len>(ar, target);
 	cout<<"result of iterative binary search is "<<binSearch<<endl;
 
 	return 0;
