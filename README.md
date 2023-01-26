@@ -19,8 +19,11 @@ You'll need to install ```make``` if you want to use the makefile.
   - [ ] ArrayUtils
   - [ ] TimerUtils
   - [ ] LinkedListUtils
-  - [ ] GraphUtils
   - [ ] TreeUtils
+  - [ ] GraphUtils
+  	- [ ] Minimum Spanning
+  	- [ ] Shortest Path
+  	- [ ] Travelling Salesman
   - [ ] HelperUtils
   - [ ] ExportUtils
 - [ ] Data structures
@@ -31,8 +34,8 @@ You'll need to install ```make``` if you want to use the makefile.
   	- [ ] Queues
   - [ ] Trees
     - [ ] Binary Search Trees
-    - [ ] AVL Trees
     - [ ] Red and Black Trees
+    - [ ] AVL Trees
   - [ ] Graphs
     - [ ] Directed
     - [ ] Undirected
