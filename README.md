@@ -17,12 +17,18 @@ You'll need to install ```make``` if you want to use the makefile.
 
 - [ ] Utility Namespaces
   - [ ] ArrayUtils
+  - [ ] TimerUtils
+  - [ ] LinkedListUtils
   - [ ] GraphUtils
   - [ ] TreeUtils
   - [ ] HelperUtils
-  - [ ] TimerUtils
   - [ ] ExportUtils
 - [ ] Data structures
+  - [ ] Linked Lists
+    - [ ] Singly Linked Lists
+    - [ ] Doubly Linked Lists 
+  	- [ ] Stacks
+  	- [ ] Queues
   - [ ] Trees
     - [ ] Binary Search Trees
     - [ ] AVL Trees
@@ -30,11 +36,6 @@ You'll need to install ```make``` if you want to use the makefile.
   - [ ] Graphs
     - [ ] Directed
     - [ ] Undirected
-  - [ ] Linked Lists
-    - [ ] Singly Linked Lists
-    - [ ] Doubly Linked Lists 
-  - [ ] Stacks
-  - [ ] Queues
   - [ ] Heaps
   - [ ] Dictionaries
     - [ ] HashMaps

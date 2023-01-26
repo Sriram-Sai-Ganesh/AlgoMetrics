@@ -5,6 +5,26 @@ using namespace std;
 
 namespace ArrayUtils{
 
+// anonymous namespace to hold private helper
+namespace{
+	template <class T, size_t len> int binaryFind(array<T, len> ar, int start, int end, T target)
+	{
+		int mid = (end+start)/2;
+		if(end<start){
+			return -1;
+		}
+		else if(target==ar[mid]){
+			return mid;
+		}
+		else if(target>ar[mid]){
+			return binaryFind(ar, mid+1, end, target);
+		}
+		else {
+			return binaryFind(ar, start, mid-1, target);
+		}
+	}
+}
+
 // sequential search iteratively in 'ar' for 'target'
 template <class T, size_t len> int IterativeSearch(array<T, len> ar, T target)
 {
@@ -13,30 +33,11 @@ template <class T, size_t len> int IterativeSearch(array<T, len> ar, T target)
 		if(ar[i]==target)return i;
 	return -1;
 }
-
-// private helper to BinarySearch
-template <class T, size_t len> int binaryFind(array<T, len> ar, int start, int end, T target)
-{
-	int mid = (end+start)/2;
-	if(end<start){
-		return -1;
-	}
-	else if(target==ar[mid]){
-		return mid;
-	}
-	else if(target>ar[mid]){
-		return binaryFind(ar, mid+1, end, target);
-	}
-	else {
-		return binaryFind(ar, start, mid-1, target);
-	}
-}
-
 // Binary Search recursively in 'ar' for 'target'
 template <class T, size_t len> int RecursiveBinarySearch(array<T, len> ar, T target)
 {
 	int length = len;
-	int result = ArrayUtils::binaryFind<T, len>(ar, 0, length-1, target);
+	int result = binaryFind<T, len>(ar, 0, length-1, target);
 	return result;
 }
 
@@ -69,5 +70,7 @@ template <class T, size_t len> array<T, len> BubbleSort(array<T, len> ar)
                 swap(ar[j], ar[j - 1]);
 	return ar;
 }
+
+
 
 }		// end namespace
