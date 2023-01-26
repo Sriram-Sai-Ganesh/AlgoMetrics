@@ -4,35 +4,35 @@
 #include "../inc/SortUtils.hpp"
 #include "../inc/HelperUtils.hpp"
 
-typedef int currentType;				// type of variable in array
+typedef int myType;				// type of variable in array
 const size_t len = 100;					// array length
-const uint64_t seed=33489857205;		// prng seed
 
 using namespace std;
 int main()
 {
-	currentType min=-100, max=100;
+	myType min=-10, max=70;
+	myType target = HelperUtils::GetRandomNumber<myType>(min, max);
 	endl(2);
 
-	array<currentType, len> ar = HelperUtils::GetRandomArray<currentType, len>(min, max);
-	HelperUtils::PrintArray<currentType, len>(ar);
+	array<myType, len> ar = HelperUtils::GetRandomArray<myType, len>(min, max);
+	HelperUtils::PrintArray<myType, len>(ar);
 	endl(2);
 	
 	cout<<"After BubbleSort:\n";
-	ar = SortUtils::BubbleSort<currentType, len>(ar);
-	HelperUtils::PrintArray<currentType, len>(ar);
+	ar = SortUtils::BubbleSort<myType, len>(ar);
+	HelperUtils::PrintArray<myType, len>(ar);
 	endl(2);
 
 
-	cout<<"Searching:\n";
+	cout<<"Searching for "<<target<<" in array:\n";
 	
-	int iterSearch = SearchUtils::IterativeSearch<currentType, len>(ar, 2);
+	int iterSearch = SearchUtils::IterativeSearch<myType, len>(ar, target);
 	cout<<"result of iterative search is "<<iterSearch<<endl;
 	
-	int binSearch = SearchUtils::RecursiveBinarySearch<currentType, len>(ar, 2);
+	int binSearch = SearchUtils::RecursiveBinarySearch<myType, len>(ar, target);
 	cout<<"result of recursive binary search is "<<binSearch<<endl;
 
-	binSearch = SearchUtils::IterativeBinarySearch<currentType, len>(ar, 2);
+	binSearch = SearchUtils::IterativeBinarySearch<myType, len>(ar, target);
 	cout<<"result of iterative binary search is "<<binSearch<<endl;
 
 

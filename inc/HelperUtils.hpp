@@ -4,19 +4,26 @@
 
 #include "randutils.hpp"		// prng header
 
+const uint64_t seed=33489857205;		// prng seed, unused
+
 using namespace std;
 
 namespace HelperUtils{
 
+randutils::mt19937_rng rng;
+
 // returns array populated with random T in range [min, max)
 template <class T, size_t len> array<T, len> GetRandomArray(T min, T max)
 {
-	randutils::mt19937_rng rng;
 	array<T, len> result;
 	cout<<"Creating array of "<<len<<" (type '"<<typeid(T).name()<<"') randoms range ("<<min<<", "<<max<<"].\n";
 	for (size_t i=0; i<result.size(); i++)
         result[i]=rng.uniform(min, max-1);
 	return result;
+}
+
+template<class T> T GetRandomNumber(T min, T max){
+	return rng.uniform(min, max-1);
 }
 
 

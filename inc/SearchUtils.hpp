@@ -18,7 +18,7 @@ template <class T, size_t len> int IterativeSearch(array<T, len> ar, T target)
 template <class T, size_t len> int binaryFind(array<T, len> ar, int start, int end, T target)
 {
 	int mid = (end+start)/2;
-	if(end>start){
+	if(end<start){
 		return -1;
 	}
 	else if(target==ar[mid]){
