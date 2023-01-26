@@ -36,7 +36,14 @@ You'll need to install ```make``` if you want to use the makefile.
   - [ ] Graphs
     - [ ] Directed
     - [ ] Undirected
+  - [ ] Linked Lists
+    - [ ] Singly Linked Lists
+    - [ ] Doubly Linked Lists 
+    - [ ] Stacks
+    - [ ] Queues
   - [ ] Heaps
+    - [ ] Binary
+    - [ ] K-ary
   - [ ] Dictionaries
     - [ ] HashMaps
     - [ ] HashSets
