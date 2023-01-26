@@ -1,0 +1,5 @@
+# Untracked files:
+*.md
+.vscode
+obj/
+*.exe
