@@ -17,6 +17,7 @@ You'll need to install ```make``` if you want to use the makefile.
 
 - [ ] Utility Namespaces
   - [ ] ArrayUtils
+    - [ ] Multithreading  
   - [ ] GraphUtils
   - [ ] TreeUtils
   - [ ] HelperUtils
@@ -33,9 +34,11 @@ You'll need to install ```make``` if you want to use the makefile.
   - [ ] Linked Lists
     - [ ] Singly Linked Lists
     - [ ] Doubly Linked Lists 
-  - [ ] Stacks
-  - [ ] Queues
+    - [ ] Stacks
+    - [ ] Queues
   - [ ] Heaps
+    - [ ] Binary
+    - [ ] K-ary
   - [ ] Dictionaries
     - [ ] HashMaps
     - [ ] HashSets
