@@ -22,8 +22,9 @@ template <class T, size_t len> array<T, len> GetRandomArray(T min, T max)
 	return result;
 }
 
+// return random T number in range [min,max]
 template<class T> T GetRandomNumber(T min, T max){
-	return rng.uniform(min, max-1);
+	return rng.uniform(min, max);
 }
 
 
@@ -50,6 +51,7 @@ template<class T, size_t len> void PrintArray(array<T, len> a)
 }
 }		// end namespace
 
+// print 'n' blank lines
 void endl(int n=1){
 	while(n-->0)
 	{
