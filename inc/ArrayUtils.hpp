@@ -7,7 +7,8 @@ namespace ArrayUtils{
 
 // anonymous namespace to hold private helper
 namespace{
-	template <class T, size_t len> int binaryFind(array<T, len> ar, int start, int end, T target)
+	template <class T, size_t len> 
+	int binaryFind(array<T, len> ar, int start, int end, T target)
 	{
 		int mid = (end+start)/2;
 		if(end<start){
@@ -26,7 +27,8 @@ namespace{
 }
 
 // sequential search iteratively in 'ar' for 'target'
-template <class T, size_t len> int IterativeSearch(array<T, len> ar, T target)
+template <class T, size_t len> 
+int IterativeSearch(array<T, len> ar, T target)
 {
 	int length = len;
 	for(int i=0;i<length;i++)
@@ -34,7 +36,8 @@ template <class T, size_t len> int IterativeSearch(array<T, len> ar, T target)
 	return -1;
 }
 // Binary Search recursively in 'ar' for 'target'
-template <class T, size_t len> int RecursiveBinarySearch(array<T, len> ar, T target)
+template <class T, size_t len> 
+int RecursiveBinarySearch(array<T, len> ar, T target)
 {
 	int length = len;
 	int result = binaryFind<T, len>(ar, 0, length-1, target);
@@ -42,7 +45,8 @@ template <class T, size_t len> int RecursiveBinarySearch(array<T, len> ar, T tar
 }
 
 // Binary Search iteratively in 'ar' for 'target'
-template <class T, size_t len> int IterativeBinarySearch(array<T, len> ar, T target)
+template <class T, size_t len> 
+int IterativeBinarySearch(array<T, len> ar, T target)
 {
 	int start=0, end=len-1;
 	int mid=-1;
@@ -61,13 +65,42 @@ template <class T, size_t len> int IterativeBinarySearch(array<T, len> ar, T tar
 
 
 // bubblesort ar and return copy
-template <class T, size_t len> array<T, len> BubbleSort(array<T, len> ar)
+template <class T, size_t len> 
+array<T, len> BubbleSort(array<T, len> ar)
 {
 	int length = len;
 	for (int i = 0; i < length - 1; i++)
         for (int j = length - 1; i < j; j--)
             if (ar[j] < ar[j - 1])
                 swap(ar[j], ar[j - 1]);
+	return ar;
+}
+
+
+// selection sort ar and return copy
+template <class T, size_t len> 
+array<T, len> SelectionSort(array<T, len> ar)
+{
+	int length = len, boundary=0;
+	int min, minIndex;
+	T temp;
+	// until entire array is within the 'sorted' range
+	for(int boundary=0;boundary<length;boundary++)
+	{
+		min=ar[boundary];
+		minIndex=boundary;
+		// find min in array
+		for(int i=boundary+1;i<length;i++){
+			if(ar[i]<min){
+				min=ar[i];
+				minIndex=i;
+			}
+		}
+		// swap min value with last index of sorted region
+		temp=ar[boundary];
+		ar[boundary]=min;
+		ar[minIndex]=temp;
+	}
 	return ar;
 }
 

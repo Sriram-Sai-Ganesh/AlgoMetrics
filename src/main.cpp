@@ -23,21 +23,30 @@ int main()
 	
 	// sort elements
 	cout<<"After BubbleSort:\n";
-	ar = ArrayUtils::BubbleSort<myType, len>(ar);
-	HelperUtils::PrintArray<myType, len>(ar);
+	array<myType, len> sorted = ArrayUtils::BubbleSort<myType, len>(ar);
+
+	// print result
+	HelperUtils::PrintArray<myType, len>(sorted);
 	endl(2);
+	// sort elements
+	cout<<"After SelectionSort:\n";
+	array<myType, len> selectionSorted = ArrayUtils::SelectionSort<myType, len>(ar);
 
+	// print result
+	HelperUtils::PrintArray<myType, len>(selectionSorted);
+	endl(2);
+	
 	// perform 3 search operations
-	cout<<"Searching for "<<target<<" in array:\n";
+	// cout<<"Searching for "<<target<<" in array:\n";
 	
-	int iterSearch = ArrayUtils::IterativeSearch<myType, len>(ar, target);
-	cout<<"result of iterative search is "<<iterSearch<<endl;
+	// int iterSearch = ArrayUtils::IterativeSearch<myType, len>(ar, target);
+	// cout<<"result of iterative search is "<<iterSearch<<endl;
 	
-	int binSearch = ArrayUtils::RecursiveBinarySearch<myType, len>(ar, target);
-	cout<<"result of recursive binary search is "<<binSearch<<endl;
+	// int binSearch = ArrayUtils::RecursiveBinarySearch<myType, len>(sorted, target);
+	// cout<<"result of recursive binary search is "<<binSearch<<endl;
 
-	binSearch = ArrayUtils::IterativeBinarySearch<myType, len>(ar, target);
-	cout<<"result of iterative binary search is "<<binSearch<<endl;
+	// binSearch = ArrayUtils::IterativeBinarySearch<myType, len>(sorted, target);
+	// cout<<"result of iterative binary search is "<<binSearch<<endl;
 
 	return 0;
 }

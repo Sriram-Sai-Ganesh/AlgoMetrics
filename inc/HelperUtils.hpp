@@ -13,7 +13,8 @@ namespace HelperUtils{
 randutils::mt19937_rng rng;
 
 // returns array populated with random T in range [min, max)
-template <class T, size_t len> array<T, len> GetRandomArray(T min, T max)
+template <class T, size_t len> 
+array<T, len> GetRandomArray(T min, T max)
 {
 	array<T, len> result;
 	cout<<"Creating array of "<<len<<" (type '"<<typeid(T).name()<<"') randoms range ("<<min<<", "<<max<<"].\n";
@@ -23,13 +24,15 @@ template <class T, size_t len> array<T, len> GetRandomArray(T min, T max)
 }
 
 // return random T number in range [min,max]
-template<class T> T GetRandomNumber(T min, T max){
+template<class T> 
+T GetRandomNumber(T min, T max){
 	return rng.uniform(min, max);
 }
 
 
 // returns array populated with uniform distribution from [min, max]
-template <class T, size_t len> array<T, len> GetUniformArray(T min, T max)
+template <class T, size_t len> 
+array<T, len> GetUniformArray(T min, T max)
 {
 	cout<<"Creating array of "<<len<<" (type'"<<typeid(T).name()<<"') uniform in  range ["<<min<<", "<<max<<"].\n";
 	
@@ -40,7 +43,8 @@ template <class T, size_t len> array<T, len> GetUniformArray(T min, T max)
 }
 
 // print array 'a' separated by ' '
-template<class T, size_t len> void PrintArray(array<T, len> a)
+template<class T, size_t len> 
+void PrintArray(array<T, len> a)
 {
 	cout<<"Printing array of "<<len<<" (type'"<<typeid(T).name()<<"').\n\t";
 	cout<<"[";
