@@ -77,21 +77,20 @@ array<T, len> BubbleSort(array<T, len> ar)
 	return ar;
 }
 
-
 // selection sort ar and return copy
 template <class T, size_t len> 
 array<T, len> SelectionSort(array<T, len> ar)
 {
-	int length = len, boundary=0;
+	int lim = len, boundary=0;
 	int min, minIndex;
 	T temp;
 	// until entire array is within the 'sorted' range
-	for(boundary=0;boundary<length;boundary++)
+	for(boundary=0;boundary<lim;boundary++)
 	{
 		min=ar[boundary];
 		minIndex=boundary;
 		// find min in array
-		for(int i=boundary+1;i<length;i++){
+		for(int i=boundary+1;i<lim;i++){
 			if(ar[i]<min){
 				min=ar[i];
 				minIndex=i;
@@ -106,5 +105,27 @@ array<T, len> SelectionSort(array<T, len> ar)
 }
 
 
+// selection sort ar and return copy
+template <class T, size_t len> 
+array<T, len> InsertionSort(array<T, len> ar)
+{
+	int j, current, lim=len;
+    for (int i = 1; i < lim; i++)
+    {
+        current = ar[i];
+        j = i - 1;
+
+        // swap current with left neighbor
+		// until it is in sorted order
+        while (j >= 0 && ar[j] > current)
+        {
+            ar[j + 1] = ar[j];
+            j--;
+        }
+        ar[j + 1] = current;
+    }
+	
+	return ar;
+}
 
 }		// end namespace

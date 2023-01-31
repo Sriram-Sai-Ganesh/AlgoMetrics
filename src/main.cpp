@@ -18,22 +18,18 @@ int main()
 	// set arrray value bounds
 	myType min=-10, max=700;
 
-	//get random target for search
-	myType target = HelperUtils::GetRandomNumber<myType>(min, max);
-	endl(2);
-
 	// initialize array
 	array<myType, len> ar = HelperUtils::GetRandomArray<myType, len>(min, max-1);
 	HelperUtils::PrintArray<myType, len>(ar);
 	endl(2);
 	
 	testSortUtils(ar);
+
 	// sort ar
 	ar = ArrayUtils::SelectionSort(ar);
 
 	// int index = HelperUtils::GetRandomNumber<int>(0, len-1);
 	// testSearchUtils(ar, ar[index]);
-	
 	
 
 	return 0;
@@ -42,19 +38,25 @@ int main()
 
 void testSortUtils(array<myType, len> ar){
 
-	// sort elements
+	// BubbleSort elements
 	cout<<"After BubbleSort:\n";
 	array<myType, len> bubbleSorted = ArrayUtils::BubbleSort<myType, len>(ar);
-
 	// print result
 	HelperUtils::PrintArray<myType, len>(bubbleSorted);
 	endl(2);
-	// sort elements
+
+	// SelectionSort elements
 	cout<<"After SelectionSort:\n";
 	array<myType, len> selectionSorted = ArrayUtils::SelectionSort<myType, len>(ar);
-
 	// print result
 	HelperUtils::PrintArray<myType, len>(selectionSorted);
+	endl(2);
+
+	// InsertionSort elements
+	cout<<"After InsertionSort:\n";
+	array<myType, len> insertionSorted = ArrayUtils::InsertionSort<myType, len>(ar);
+	// print result
+	HelperUtils::PrintArray<myType, len>(insertionSorted);
 	endl(2);
 }
 
