@@ -31,8 +31,9 @@ template <class T, size_t len>
 int IterativeSearch(array<T, len> ar, T target)
 {
 	int length = len;
-	for(int i=0;i<length;i++)
+	for(int i=0;i<length;i++){
 		if(ar[i]==target)return i;
+	}
 	return -1;
 }
 // Binary Search recursively in 'ar' for 'target'
@@ -85,7 +86,7 @@ array<T, len> SelectionSort(array<T, len> ar)
 	int min, minIndex;
 	T temp;
 	// until entire array is within the 'sorted' range
-	for(int boundary=0;boundary<length;boundary++)
+	for(boundary=0;boundary<length;boundary++)
 	{
 		min=ar[boundary];
 		minIndex=boundary;
