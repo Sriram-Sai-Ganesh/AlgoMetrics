@@ -21,25 +21,13 @@ int main()
 	// initialize array
 	auto randArray = HelperUtils::GetUniformRandomArray<myType, len>(min, max-1);
 	HelperUtils::PrintArray<myType, len>(randArray);
-	// endl(2);
-	
-	// testSortUtils(randArray);
-
-
-	// auto sortedArray = randArray;
-	// ArrayUtils::SelectionSort(sortedArray);
-	
-	
-	// int index = HelperUtils::GetRandomNumber<int>(0, len-1);
-	// testSearchUtils(sortedArray, sortedArray[index]);
-
-	// SortTimer<myType, len>(&ArrayUtils::test);
-	cout<<"printing initial array..."<<endl;
-	HelperUtils::PrintArray<myType, len>(randArray);
 	endl(2);
 
-	cout<<"running timer..."<<endl;
-	TimerUtils::SortTimer<myType, len>(ArrayUtils::QuickSort<myType, len>, randArray);
+	auto unsorted = randArray;
+	for(int i=0;i<100;i++){
+		unsorted=randArray;
+		TimerUtils::SortTimer<myType, len>(ArrayUtils::QuickSort<myType, len>, unsorted);
+	}
 	
 	cout<<"printing final array..."<<endl;
 	HelperUtils::PrintArray<myType, len>(randArray);
