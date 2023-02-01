@@ -2,6 +2,7 @@
 #include <array>
 #include "../inc/ArrayUtils.hpp"
 #include "../inc/HelperUtils.hpp"
+#include "../inc/TimerUtils.hpp"
 
 typedef int myType;					// type of variable in array
 const size_t len = 100;				// array length
@@ -14,29 +15,37 @@ void testSortUtils(array<myType, len> array);
 
 int main()
 {
-	// set arrray value bounds
-	myType min=-10, max=700;
+	// set array value bounds
+	myType min=0, max=len*3;
 
 	// initialize array
-	auto randArray = HelperUtils::GetRandomArray<myType, len>(min, max-1);
+	auto randArray = HelperUtils::GetUniformRandomArray<myType, len>(min, max-1);
+	HelperUtils::PrintArray<myType, len>(randArray);
+	// endl(2);
+	
+	// testSortUtils(randArray);
+
+
+	// auto sortedArray = randArray;
+	// ArrayUtils::SelectionSort(sortedArray);
+	
+	
+	// int index = HelperUtils::GetRandomNumber<int>(0, len-1);
+	// testSearchUtils(sortedArray, sortedArray[index]);
+
+	// SortTimer<myType, len>(&ArrayUtils::test);
+	cout<<"printing initial array..."<<endl;
 	HelperUtils::PrintArray<myType, len>(randArray);
 	endl(2);
+
+	cout<<"running timer..."<<endl;
+	TimerUtils::SortTimer<myType, len>(ArrayUtils::QuickSort<myType, len>, randArray);
 	
-	testSortUtils(randArray);
-
-
-	auto sortedArray = randArray;
-	// ArrayUtils::BogoSort(sortedArray);
-	// cout<<"After BogoSort:\n";
-	// HelperUtils::PrintArray<myType, len>(sortedArray);
-	ArrayUtils::SelectionSort(sortedArray);
-
-	int index = HelperUtils::GetRandomNumber<int>(0, len-1);
-	testSearchUtils(sortedArray, sortedArray[index]);
-
+	cout<<"printing final array..."<<endl;
+	HelperUtils::PrintArray<myType, len>(randArray);
+	endl(2);
 	return 0;
 }
-
 
 void testSortUtils(array<myType, len> randArray){
 

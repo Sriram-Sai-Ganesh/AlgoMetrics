@@ -12,6 +12,8 @@
 		"vector": "cpp",
 		"xstring": "cpp",
 		"chrono": "cpp",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"initializer_list": "cpp",
+		"xutility": "cpp"
 	}
 }
