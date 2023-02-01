@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <array>
+#include <algorithm>
 #include <typeinfo>
 
 #include "randutils.hpp"		// prng header
@@ -11,6 +12,18 @@ using namespace std;
 namespace HelperUtils{
 
 randutils::mt19937_rng rng;
+
+// print array 'a' separated by ' '
+template<class T, size_t len> 
+void PrintArray(array<T, len> a)
+{
+	cout<<"Printing array of "<<len<<" (type'"<<typeid(T).name()<<"').\n\t";
+	cout<<"[";
+    for(size_t i=0;i<a.size()-1;i++){
+        cout << a[i] << ", ";
+	}
+	cout<<a[a.size()-1]<<"]";
+}
 
 // returns array populated with random T in range [min, max)
 template <class T, size_t len> 
@@ -29,7 +42,6 @@ T GetRandomNumber(T min, T max){
 	return rng.uniform(min, max);
 }
 
-
 // returns array populated with uniform distribution from [min, max]
 template <class T, size_t len> 
 array<T, len> GetUniformArray(T min, T max)
@@ -42,17 +54,15 @@ array<T, len> GetUniformArray(T min, T max)
 	return result;	
 }
 
-// print array 'a' separated by ' '
-template<class T, size_t len> 
-void PrintArray(array<T, len> a)
+// returns array with values uniform in [min, max) in random order.
+template <class T, size_t len> 
+array<T, len> GetUniformRandomArray(T min, T max)
 {
-	cout<<"Printing array of "<<len<<" (type'"<<typeid(T).name()<<"').\n\t";
-	cout<<"[";
-    for(size_t i=0;i<a.size()-1;i++){
-        cout << a[i] << ", ";
-	}
-	cout<<a[a.size()-1]<<"]";
+	auto result = GetUniformArray<T, len>(min, max);
+	random_shuffle(begin(result), end(result));
+	return result;
 }
+
 }		// end namespace
 
 // print 'n' blank lines
