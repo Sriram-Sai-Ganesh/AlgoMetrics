@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <functional>
 #include <array>
 #include <algorithm> 
 
@@ -41,6 +42,21 @@ namespace{
 		swap(ar[i + 1], ar[high]);
 		return (i + 1);
 	}
+
+	// helper to QuickSort
+	template<class T, size_t len>
+	void quicksort(array<T, len>& ar, int low, int high) {
+		if (low < high) {
+			
+			// partition around 
+			int prt = partition(ar, low, high);
+
+			// Separately sort elements before and after partition
+			quicksort<T, len>(ar, low, prt - 1);
+			quicksort<T, len>(ar, prt + 1, high);
+		}
+	}
+
 }
 
 // Sequential search iteratively
@@ -141,17 +157,9 @@ void InsertionSort(array<T, len>& ar)
 
 // QuickSort ar
 template <class T, size_t len> 
-void QuickSort(array<T, len> &ar, int low=0, int high=len-1)
+void QuickSort(array<T, len> &ar)
 {
-    if (low < high) {
-        
-		// partition around 
-        int prt = partition(ar, low, high);
-
-        // Separately sort elements before and after partition
-        QuickSort<T, len>(ar, low, prt - 1);
-        QuickSort<T, len>(ar, prt + 1, high);
-    }
+    quicksort(ar, 0, len-1);
 }
 
 // BogoSort ar
@@ -170,5 +178,6 @@ void BogoSort(array<T, len> &ar)
 		}
 	}
 }
+
 
 }		// end namespace
