@@ -6,7 +6,6 @@ SRCDIR = ./src
 OBJDIR = ./obj
 CC=g++
 CFLAGS= -pedantic -W -Wall -Wextra
-# CFLAGS= -I inc
 
 all: main
 
