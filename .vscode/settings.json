@@ -1,5 +1,17 @@
 {
 	"files.associations": {
-		"array": "cpp"
+		"array": "cpp",
+		"thread": "cpp",
+		"exception": "cpp",
+		"functional": "cpp",
+		"list": "cpp",
+		"memory": "cpp",
+		"tuple": "cpp",
+		"unordered_map": "cpp",
+		"utility": "cpp",
+		"vector": "cpp",
+		"xstring": "cpp",
+		"chrono": "cpp",
+		"algorithm": "cpp"
 	}
 }

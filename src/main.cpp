@@ -3,11 +3,10 @@
 #include "../inc/ArrayUtils.hpp"
 #include "../inc/HelperUtils.hpp"
 
-typedef int myType;				// type of variable in array
-const size_t len = 100;					// array length
+typedef int myType;					// type of variable in array
+const size_t len = 100;				// array length
 
 using namespace std;
-
 
 void testSearchUtils(array<myType, len> sorted, myType target);
 void testSortUtils(array<myType, len> array);
@@ -19,44 +18,58 @@ int main()
 	myType min=-10, max=700;
 
 	// initialize array
-	array<myType, len> ar = HelperUtils::GetRandomArray<myType, len>(min, max-1);
-	HelperUtils::PrintArray<myType, len>(ar);
+	auto randArray = HelperUtils::GetRandomArray<myType, len>(min, max-1);
+	HelperUtils::PrintArray<myType, len>(randArray);
 	endl(2);
 	
-	testSortUtils(ar);
+	testSortUtils(randArray);
 
-	// sort ar
-	ar = ArrayUtils::SelectionSort(ar);
 
-	// int index = HelperUtils::GetRandomNumber<int>(0, len-1);
-	// testSearchUtils(ar, ar[index]);
-	
+	auto sortedArray = randArray;
+	// ArrayUtils::BogoSort(sortedArray);
+	// cout<<"After BogoSort:\n";
+	// HelperUtils::PrintArray<myType, len>(sortedArray);
+	ArrayUtils::SelectionSort(sortedArray);
+
+	int index = HelperUtils::GetRandomNumber<int>(0, len-1);
+	testSearchUtils(sortedArray, sortedArray[index]);
 
 	return 0;
 }
 
 
-void testSortUtils(array<myType, len> ar){
+void testSortUtils(array<myType, len> randArray){
 
 	// BubbleSort elements
-	cout<<"After BubbleSort:\n";
-	array<myType, len> bubbleSorted = ArrayUtils::BubbleSort<myType, len>(ar);
+	auto bubbleSorted=randArray;
+	ArrayUtils::BubbleSort<myType, len>(bubbleSorted);
 	// print result
+	cout<<"After BubbleSort:\n";
 	HelperUtils::PrintArray<myType, len>(bubbleSorted);
 	endl(2);
 
 	// SelectionSort elements
-	cout<<"After SelectionSort:\n";
-	array<myType, len> selectionSorted = ArrayUtils::SelectionSort<myType, len>(ar);
+	auto selectionSorted=randArray;
+	ArrayUtils::SelectionSort<myType, len>(selectionSorted);
 	// print result
+	cout<<"After SelectionSort:\n";
 	HelperUtils::PrintArray<myType, len>(selectionSorted);
 	endl(2);
 
 	// InsertionSort elements
-	cout<<"After InsertionSort:\n";
-	array<myType, len> insertionSorted = ArrayUtils::InsertionSort<myType, len>(ar);
+	auto insertionSorted=randArray;
+	ArrayUtils::InsertionSort<myType, len>(insertionSorted);
 	// print result
+	cout<<"After InsertionSort:\n";
 	HelperUtils::PrintArray<myType, len>(insertionSorted);
+	endl(2);
+
+	// QuickSort elements
+	auto quickSorted=randArray;
+	ArrayUtils::QuickSort<myType, len>(quickSorted);
+	// print result
+	cout<<"After QuickSort:\n";
+	HelperUtils::PrintArray<myType, len>(quickSorted);
 	endl(2);
 }
 

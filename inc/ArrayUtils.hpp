@@ -1,12 +1,14 @@
 #include <cstdlib>
 #include <array>
+#include <algorithm> 
 
 using namespace std;
 
 namespace ArrayUtils{
 
-// anonymous namespace to hold private helper
+// anonymous local namespace to hold private helper functions
 namespace{
+	// helper to BinarySearch
 	template <class T, size_t len> 
 	int binaryFind(array<T, len> ar, int start, int end, T target)
 	{
@@ -24,9 +26,24 @@ namespace{
 			return binaryFind(ar, start, mid-1, target);
 		}
 	}
+
+	// helper to QuickSort
+	template<class T, size_t len>
+	int partition(array<T, len>& ar, int low, int high) {
+		int pivot = ar[high]; // pivot around high
+		int i = (low - 1);
+		for (int j = low; j <= high - 1; j++) {
+			if (ar[j] < pivot) {
+				i++;
+				swap(ar[i], ar[j]);
+			}
+		}
+		swap(ar[i + 1], ar[high]);
+		return (i + 1);
+	}
 }
 
-// sequential search iteratively in 'ar' for 'target'
+// Sequential search iteratively
 template <class T, size_t len> 
 int IterativeSearch(array<T, len> ar, T target)
 {
@@ -36,7 +53,7 @@ int IterativeSearch(array<T, len> ar, T target)
 	}
 	return -1;
 }
-// Binary Search recursively in 'ar' for 'target'
+// Binary Search recursively
 template <class T, size_t len> 
 int RecursiveBinarySearch(array<T, len> ar, T target)
 {
@@ -45,7 +62,7 @@ int RecursiveBinarySearch(array<T, len> ar, T target)
 	return result;
 }
 
-// Binary Search iteratively in 'ar' for 'target'
+// Binary Search iteratively
 template <class T, size_t len> 
 int IterativeBinarySearch(array<T, len> ar, T target)
 {
@@ -64,26 +81,23 @@ int IterativeBinarySearch(array<T, len> ar, T target)
 	return -1;
 }
 
-
-// bubblesort ar and return copy
+// BubbleSort ar
 template <class T, size_t len> 
-array<T, len> BubbleSort(array<T, len> ar)
+void BubbleSort(array<T, len>& ar)
 {
 	int length = len;
 	for (int i = 0; i < length - 1; i++)
         for (int j = length - 1; i < j; j--)
             if (ar[j] < ar[j - 1])
                 swap(ar[j], ar[j - 1]);
-	return ar;
 }
 
-// selection sort ar and return copy
+// SelectionSort ar
 template <class T, size_t len> 
-array<T, len> SelectionSort(array<T, len> ar)
+void SelectionSort(array<T, len>& ar)
 {
 	int lim = len, boundary=0;
 	int min, minIndex;
-	T temp;
 	// until entire array is within the 'sorted' range
 	for(boundary=0;boundary<lim;boundary++)
 	{
@@ -97,17 +111,16 @@ array<T, len> SelectionSort(array<T, len> ar)
 			}
 		}
 		// swap min value with last index of sorted region
-		temp=ar[boundary];
-		ar[boundary]=min;
-		ar[minIndex]=temp;
+		swap(ar[boundary], ar[minIndex]);
+		// temp=ar[boundary];
+		// ar[boundary]=min;
+		// ar[minIndex]=temp;
 	}
-	return ar;
 }
 
-
-// selection sort ar and return copy
+// InsertionSort ar
 template <class T, size_t len> 
-array<T, len> InsertionSort(array<T, len> ar)
+void InsertionSort(array<T, len>& ar)
 {
 	int j, current, lim=len;
     for (int i = 1; i < lim; i++)
@@ -124,8 +137,38 @@ array<T, len> InsertionSort(array<T, len> ar)
         }
         ar[j + 1] = current;
     }
-	
-	return ar;
+}
+
+// QuickSort ar
+template <class T, size_t len> 
+void QuickSort(array<T, len> &ar, int low=0, int high=len-1)
+{
+    if (low < high) {
+        
+		// partition around 
+        int prt = partition(ar, low, high);
+
+        // Separately sort elements before and after partition
+        QuickSort<T, len>(ar, low, prt - 1);
+        QuickSort<T, len>(ar, prt + 1, high);
+    }
+}
+
+// BogoSort ar
+template <class T, size_t len> 
+void BogoSort(array<T, len> &ar)
+{
+	// loop until sorted
+	for(int i=0, lim=len-1;i<lim;i++)
+	{
+		// check if non-decreasing, 
+		if(ar[i]>ar[i+1])
+		{
+			// std::random_shuffle and reset if decreasing
+			random_shuffle(begin(ar), end(ar));
+			i=-1;
+		}
+	}
 }
 
 }		// end namespace
