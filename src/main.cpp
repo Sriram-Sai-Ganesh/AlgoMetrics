@@ -27,7 +27,7 @@ int main()
 	for(int i=0;i<iterations;i++){
 		unsorted=randArray;
 		// QuickSort > MergeSort
-		TimerUtils::SortTimer<myType, len>(ArrayUtils::MergeSort<myType, len>, unsorted);
+		TimerUtils::SortTimer<myType, len>(ArrayUtils::RecursiveInsertionSort<myType, len>, unsorted);
 	}
 	
 	out<<"\nFinal:\n";
@@ -57,7 +57,7 @@ void testSortUtils(array<myType, len> randArray, ostream &out=cout){
 
 	// InsertionSort elements
 	auto insertionSorted=randArray;
-	ArrayUtils::InsertionSort<myType, len>(insertionSorted);
+	ArrayUtils::IterativeInsertionSort<myType, len>(insertionSorted);
 	// print result
 	out<<"After InsertionSort:\n";
 	HelperUtils::PrintArray<myType, len>(insertionSorted);

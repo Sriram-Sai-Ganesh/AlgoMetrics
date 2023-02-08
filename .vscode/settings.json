@@ -14,6 +14,9 @@
 		"chrono": "cpp",
 		"algorithm": "cpp",
 		"initializer_list": "cpp",
-		"xutility": "cpp"
+		"xutility": "cpp",
+		"cmath": "cpp",
+		"iostream": "cpp",
+		"iosfwd": "cpp"
 	}
 }

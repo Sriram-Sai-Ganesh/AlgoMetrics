@@ -77,6 +77,28 @@ namespace{
 	}
 
 
+
+	// helper to RecursiveInsertionSort
+	template<class T, size_t len>
+	void insertionsort(array<T, len>& ar, int size) {
+		if (size <= 1)return;
+		
+		// sort the first size-1 elements
+		insertionsort(ar, size-1);
+		// SortedInsert the last element
+		T last = ar[size-1];
+		int index = size-2;
+		/* Move elements of arr[0..i-1], that are
+		greater than key, to one position ahead
+		of their current position */
+		while (index >= 0 && ar[index] > last)
+		{
+			ar[index+1] = ar[index];
+			index--;
+		}
+		ar[index+1] = last;
+	}
+
 	// helper to QuickSort
 	template<class T, size_t len>
 	int partition(array<T, len>& ar, int low, int high) {
@@ -187,9 +209,9 @@ void SelectionSort(array<T, len>& ar)
 	}
 }
 
-// InsertionSort ar
+// iteratively perform InsertionSort on ar
 template <class T, size_t len> 
-void InsertionSort(array<T, len>& ar)
+void IterativeInsertionSort(array<T, len>& ar)
 {
 	int j, current, lim=len;
     for (int i = 1; i < lim; i++){
@@ -204,6 +226,14 @@ void InsertionSort(array<T, len>& ar)
         }
         ar[j + 1] = current;
     }
+}
+
+
+// recursively perform InsertionSort on ar
+template <class T, size_t len> 
+void RecursiveInsertionSort(array<T, len>& ar)
+{
+	insertionsort<T, len>(ar, len);
 }
 
 // QuickSort ar
