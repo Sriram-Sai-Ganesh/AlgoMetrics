@@ -1,10 +1,9 @@
 #include <cstdlib>
 #include <functional>
 #include <array>
-#include <algorithm> 
+// #include <algorithm> 
 
 using namespace std;
-
 namespace ArrayUtils{
 
 // anonymous local namespace to hold private helper functions
@@ -27,6 +26,56 @@ namespace{
 			return binaryFind(ar, start, mid-1, target);
 		}
 	}
+
+	// helper to mergesort
+	// merges sorted sub-arrays of an array 
+	template<class T, size_t len>
+	void merge(array<T, len>& ar, int start, int mid, int end)
+	{
+		int leftSize = mid - start + 1, rightSize = end - mid;
+		// allocate memory for temporary arrays
+		T *tempLeft  = (T*) (malloc(sizeof(T)*(leftSize)));
+    	T *tempRight = (T*) (malloc(sizeof(T)*(rightSize)));
+
+		for (int i = 0; i < leftSize; i++)
+			tempLeft[i] = ar[start + i];
+		for (int j = 0; j < rightSize; j++)
+			tempRight[j] = ar[mid + 1 + j];
+
+		// iterate over temp and main arrays
+		int i=0, j=0, k=start;
+
+		// pick smaller of the pair from the two temp arrays
+		while (i < leftSize && j < rightSize) {
+			if (tempLeft[i] <= tempRight[j]) {
+				ar[k++] = tempLeft[i++];
+			} else {
+				ar[k++] = tempRight[j++];
+			}
+		}
+
+		// if we exhaust 1 temp array, fill in the main 
+		// array with remaining elements from the other.
+		while (i < leftSize) {
+			ar[k++] = tempLeft[i++];
+		}
+
+		while (j < rightSize) {
+			ar[k++] = tempRight[j++];
+		}
+	}
+
+	// helper to ArrayUtils::MergeSort.
+	template<class T, size_t len>
+	void mergesort(array<T, len>& ar, int start, int end)
+	{
+		if(start>=end)return;
+		int mid = start + (end - start) / 2;
+		mergesort(ar, start, mid);
+		mergesort(ar, mid + 1, end);
+		merge(ar, start, mid, end);
+	}
+
 
 	// helper to QuickSort
 	template<class T, size_t len>
@@ -81,9 +130,10 @@ int RecursiveBinarySearch(array<T, len> ar, T target)
 // Binary Search iteratively
 template <class T, size_t len> 
 int IterativeBinarySearch(array<T, len> ar, T target)
-{
-	int start=0, end=len-1;
-	int mid=-1;
+{ 
+	// define bounds
+	int start=0, end=len-1, mid=-1;
+	// interval halve until we pass ourselves
 	while(start<=end){
 		mid=start+(end-start)/2;
 		if(ar[mid]>target){
@@ -97,14 +147,17 @@ int IterativeBinarySearch(array<T, len> ar, T target)
 	return -1;
 }
 
-// BubbleSort ar
+// BubbleSort iteratively
 template <class T, size_t len> 
 void BubbleSort(array<T, len>& ar)
 {
+	// number of swaps
 	int length = len;
+	// swap 1 fewer element each time
 	for (int i = 0; i < length - 1; i++)
-        for (int j = length - 1; i < j; j--)
+        for (int j = length - 1; j > i ; j--)
             if (ar[j] < ar[j - 1])
+				// smallest element bubbles to the bottom
                 swap(ar[j], ar[j - 1]);
 }
 
@@ -139,15 +192,13 @@ template <class T, size_t len>
 void InsertionSort(array<T, len>& ar)
 {
 	int j, current, lim=len;
-    for (int i = 1; i < lim; i++)
-    {
+    for (int i = 1; i < lim; i++){
         current = ar[i];
         j = i - 1;
 
         // swap current with left neighbor
 		// until it is in sorted order
-        while (j >= 0 && ar[j] > current)
-        {
+        while (j >= 0 && ar[j] > current){
             ar[j + 1] = ar[j];
             j--;
         }
@@ -157,12 +208,20 @@ void InsertionSort(array<T, len>& ar)
 
 // QuickSort ar
 template <class T, size_t len> 
+void MergeSort(array<T, len>& ar)
+{
+	// calls private function
+    mergesort(ar, 0, len-1);
+}
+
+// QuickSort ar
+template <class T, size_t len> 
 void QuickSort(array<T, len> &ar)
 {
     quicksort(ar, 0, len-1);
 }
 
-// BogoSort ar
+// BogoSort ar in O(n!) time
 template <class T, size_t len> 
 void BogoSort(array<T, len> &ar)
 {
