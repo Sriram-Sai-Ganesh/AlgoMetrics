@@ -2,27 +2,24 @@
 #include <array>
 #include <algorithm>
 #include <typeinfo>
-
-#include "randutils.hpp"		// prng header
+#include "randutils.hpp"
 
 const uint64_t seed=33489857205;		// prng seed, unused
-
+randutils::mt19937_rng rng;
 using namespace std;
 
 namespace HelperUtils{
 
-randutils::mt19937_rng rng;
-
-// print array 'a' separated by ' '
+// print array 'arr' separated by ', '
 template<class T, size_t len> 
-void PrintArray(array<T, len> a)
+void PrintArray(array<T, len> arr, ostream &out=cout)
 {
-	cout<<"Printing array of "<<len<<" (type'"<<typeid(T).name()<<"').\n\t";
-	cout<<"[";
-    for(size_t i=0;i<a.size()-1;i++){
-        cout << a[i] << ", ";
+	out<<"Printing array of "<<len<<" (type'"<<typeid(T).name()<<"').\n\t";
+	out<<"[";
+    for(size_t i=0;i<len-1;i++){
+        cout << arr[i] << ", ";
 	}
-	cout<<a[a.size()-1]<<"]";
+	out<<arr[len-1]<<"]";
 }
 
 // returns array populated with random T in range [min, max)
@@ -30,7 +27,6 @@ template <class T, size_t len>
 array<T, len> GetRandomArray(T min, T max)
 {
 	array<T, len> result;
-	cout<<"Creating array of "<<len<<" (type '"<<typeid(T).name()<<"') randoms range ("<<min<<", "<<max<<"].\n";
 	for (size_t i=0; i<result.size(); i++)
         result[i]=rng.uniform(min, max-1);
 	return result;
@@ -46,8 +42,6 @@ T GetRandomNumber(T min, T max){
 template <class T, size_t len> 
 array<T, len> GetUniformArray(T min, T max)
 {
-	cout<<"Creating array of "<<len<<" (type'"<<typeid(T).name()<<"') uniform in  range ["<<min<<", "<<max<<"].\n";
-	
 	array<T, len> result;
 	for (size_t i=0; i<result.size(); i++)
         result[i] = min + ((max-min)*(i*1.0/result.size()));
@@ -67,7 +61,7 @@ array<T, len> GetUniformRandomArray(T min, T max)
 
 // print 'n' blank lines
 void endl(int n=1){
-	while(n-->0)
+	while(n--)
 	{
 		cout<<endl;
 	}
