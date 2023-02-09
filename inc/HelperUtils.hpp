@@ -26,7 +26,7 @@ void PrintArray(array<T, len> arr, ostream &out=cout)
 
 // print linked list 'link'
 template<class T> 
-void PrintLinkedList(LinkedList<T> link, ostream &out=cout)
+void PrintLinkedList(SinglyLinkedList<T> link, ostream &out=cout)
 {
 	Node<T> *current = link.head;
 	out<<"Printing linked list of "<<link.length<<" (type'"<<typeid(T).name()<<"').\n";
