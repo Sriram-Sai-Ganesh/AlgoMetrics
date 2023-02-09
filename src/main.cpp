@@ -3,6 +3,7 @@
 #include "../inc/ArrayUtils.hpp"
 #include "../inc/HelperUtils.hpp"
 #include "../inc/ExecTimer.hpp"
+#include "../inc/LinkedList.hpp"
 
 typedef int myType;					// type of variable
 const size_t len = 100;				// array length
@@ -41,6 +42,19 @@ int main()
 	
 	out<<"\nFinal:\n";
 	HelperUtils::PrintArray<myType, len>(unsorted);
-	endl();
+	endl(3);
+	cout<<"linked list: \n";
+	LinkedList<myType> link;
+	link.Add(1);
+	link.Add(2);
+	link.Add(3);
+	link.Add(4);
+	link.Add(5);
+	link.Print();
+	cout<<"3rd element is "<<link[3];
+
+	link.Print();
+
+
 	return 0;
 }

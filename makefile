@@ -6,10 +6,11 @@ SRCDIR = ./src/
 OBJDIR = ./obj/
 CC=g++
 CFLAGS= -pedantic -W -Wall -Wextra
-
+OBJECTS = $(OBJDIR)main.o
 all: main
 
-main: $(OBJDIR)main.o
+
+main: $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^ 
 
 $(OBJDIR)main.o: $(SRCDIR)main.cpp $(INCLDIR)*.hpp

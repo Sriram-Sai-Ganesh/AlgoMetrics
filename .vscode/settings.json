@@ -20,6 +20,9 @@
 		"iosfwd": "cpp",
 		"iterator": "cpp",
 		"xhash": "cpp",
-		"ratio": "cpp"
+		"ratio": "cpp",
+		"charconv": "cpp",
+		"format": "cpp",
+		"xlocnum": "cpp"
 	}
 }

@@ -13,6 +13,7 @@ typedef chrono::high_resolution_clock Clock;
 // forward declaration
 template<class R, class... args> class ExecTimer;
 
+
 // struct for generic FunctionTimers
 template<class R, class... args> 
 struct ExecTimer<R(args ...)>{
