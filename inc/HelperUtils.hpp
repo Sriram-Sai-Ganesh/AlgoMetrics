@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <typeinfo>
 #include "randutils.hpp"
+#include "LinkedList.hpp"
 
 const uint64_t seed=33489857205;		// prng seed, unused
 randutils::mt19937_rng rng;
@@ -17,11 +18,27 @@ void PrintArray(array<T, len> arr, ostream &out=cout)
 	out<<"Printing array of "<<len<<" (type'"<<typeid(T).name()<<"').\n\t";
 	out<<"[";
     for(size_t i=0;i<len-1;i++){
-        cout << arr[i] << ", ";
+        out << arr[i] << ", ";
 	}
 	out<<arr[len-1]<<"]";
 }
 
+
+// print linked list 'link'
+template<class T> 
+void PrintLinkedList(LinkedList<T> link, ostream &out=cout)
+{
+	Node<T> *current = link.head;
+	out<<"Printing linked list of "<<link.length<<" (type'"<<typeid(T).name()<<"').\n";
+	out<<"First : "<<link.head->data<<"\t";
+	out<<"Last : "<<link.last->data<<"\n";
+	out<<"[  ";
+	while(current!=NULL){
+		out<<current->data<<"  ";
+		current=current->next;
+	}
+	out<<"]";
+}
 // returns array populated with random T in range [min, max)
 template <class T, size_t len> 
 array<T, len> GetRandomArray(T min=-len, T max=len)
@@ -60,9 +77,9 @@ array<T, len> GetUniformRandomArray(T min=0, T max=len)
 }		// end namespace
 
 // print 'n' blank lines
-void endl(int n=1){
+void endl(ostream &out, int n=1){
 	while(n--)
 	{
-		cout<<endl;
+		out<<endl;
 	}
 }
