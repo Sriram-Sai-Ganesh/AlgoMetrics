@@ -8,16 +8,16 @@ struct Node {
 	Node<T>* next;
 };
 
-// LinkedList
+// SinglyLinkedList
 template<class T>
-struct LinkedList{
+struct SinglyLinkedList{
 
 public:
 Node<T> *head;
 Node<T> *last;
 int length;
 // constructor
-LinkedList<T>() {
+SinglyLinkedList<T>() {
 	head = NULL;
 	last = NULL;
 	length=0;
