@@ -128,6 +128,20 @@ namespace{
 		}
 	}
 
+	// helper to TailRecursiveQuickSort
+	template<class T, size_t len>
+	void tailquicksort(array<T, len>& ar, int low, int high) {
+		while (low < high) {
+			
+			// partition around 
+			int prt = partition(ar, low, high);
+
+			// Separately sort elements before and after partition
+			tailquicksort<T, len>(ar, low, prt - 1);
+			low=prt+1;
+		}
+	}
+
 }
 
 // Sequential search iteratively
@@ -249,6 +263,12 @@ template <class T, size_t len>
 void QuickSort(array<T, len> &ar)
 {
     quicksort(ar, 0, len-1);
+}
+// QuickSort ar
+template <class T, size_t len> 
+void TailRecursiveQuickSort(array<T, len> &ar)
+{
+    tailquicksort(ar, 0, len-1);
 }
 
 // BogoSort ar in O(n!) time
