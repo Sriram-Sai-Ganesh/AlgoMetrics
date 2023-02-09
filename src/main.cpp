@@ -24,8 +24,8 @@ int main()
 	// set array value bounds
 	myType min=0, max=len*3;
 	// initialize array
-	auto randArray = HelperUtils::GetUniformRandomArray<myType, len>(min, max-1);
 	
+	auto randArray = HelperUtils::GetUniformRandomArray<myType, len>(min, max-1);
 	
 	auto funcTimer = CreateTimer(ArrayUtils::QuickSort<myType, len>);
 	out<<"\nInitial:\n";

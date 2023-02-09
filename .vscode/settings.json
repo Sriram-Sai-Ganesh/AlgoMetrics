@@ -17,6 +17,9 @@
 		"xutility": "cpp",
 		"cmath": "cpp",
 		"iostream": "cpp",
-		"iosfwd": "cpp"
+		"iosfwd": "cpp",
+		"iterator": "cpp",
+		"xhash": "cpp",
+		"ratio": "cpp"
 	}
 }

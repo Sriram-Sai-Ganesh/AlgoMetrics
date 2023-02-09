@@ -19,7 +19,7 @@ struct ExecTimer<R(args ...)>{
 	private:
 		// member variables
 		function<R(args...)> myFunc;
-		float elapsed;
+		int elapsed;
 	public:
 
 		// constructor
@@ -45,7 +45,8 @@ struct ExecTimer<R(args ...)>{
 		}
 };
 
+// wrapper function to constructor
 template<class R, class... args> 
 ExecTimer<R(args ...)> CreateTimer(R (*func)(args ...)) {
-    return ExecTimer<R(args...)>(function<R(args...)>(func));    
+    return ExecTimer<R(args...)>(function<R(args...)>(func));
 }
