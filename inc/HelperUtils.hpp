@@ -24,7 +24,7 @@ void PrintArray(array<T, len> arr, ostream &out=cout)
 
 // returns array populated with random T in range [min, max)
 template <class T, size_t len> 
-array<T, len> GetRandomArray(T min, T max)
+array<T, len> GetRandomArray(T min=-len, T max=len)
 {
 	array<T, len> result;
 	for (size_t i=0; i<result.size(); i++)
@@ -40,7 +40,7 @@ T GetRandomNumber(T min, T max){
 
 // returns array populated with uniform distribution from [min, max]
 template <class T, size_t len> 
-array<T, len> GetUniformArray(T min, T max)
+array<T, len> GetUniformArray(T min=0, T max=len)
 {
 	array<T, len> result;
 	for (size_t i=0; i<result.size(); i++)
@@ -50,7 +50,7 @@ array<T, len> GetUniformArray(T min, T max)
 
 // returns array with values uniform in [min, max) in random order.
 template <class T, size_t len> 
-array<T, len> GetUniformRandomArray(T min, T max)
+array<T, len> GetUniformRandomArray(T min=0, T max=len)
 {
 	auto result = GetUniformArray<T, len>(min, max);
 	random_shuffle(begin(result), end(result));
