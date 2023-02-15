@@ -5,7 +5,7 @@ INCLDIR = ./inc/
 SRCDIR = ./src/
 OBJDIR = ./obj/
 CC=g++
-CFLAGS= -pedantic -W -Wall -Wextra
+CFLAGS= -pedantic -W -Wall -Wextra -std=c++11
 OBJECTS = $(OBJDIR)main.o
 all: main
 

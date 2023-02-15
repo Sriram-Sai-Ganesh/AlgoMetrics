@@ -23,6 +23,14 @@
 		"ratio": "cpp",
 		"charconv": "cpp",
 		"format": "cpp",
-		"xlocnum": "cpp"
+		"xlocnum": "cpp",
+		"__locale": "cpp",
+		"__string": "cpp",
+		"bitset": "cpp",
+		"locale": "cpp",
+		"ostream": "cpp",
+		"string": "cpp",
+		"string_view": "cpp",
+		"ios": "cpp"
 	}
 }
