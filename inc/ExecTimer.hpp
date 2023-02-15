@@ -11,7 +11,7 @@ using namespace std;
 typedef chrono::high_resolution_clock Clock;
 
 // forward declaration
-template<class R, class... args> class ExecTimer;
+template<class R, class... args> struct ExecTimer;
 
 /// @brief struct for generic FunctionTimers
 /// @tparam R function return type
