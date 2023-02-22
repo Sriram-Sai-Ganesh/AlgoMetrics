@@ -147,7 +147,7 @@ Node* GetNodePtr(int n){
 /// @param data node to be inserted
 /// @param location index to be inserted at
 /// @return true if insertion was successful.
-boolean Add(T data, int location) {
+bool Add(T data, int location) {
 	if(location>size){
 		cout<<"ERROR: DoublyLinkedList.Add : insertion location "<<location<<" out of bounds for size "<<size<<"\n";
 		return false;
