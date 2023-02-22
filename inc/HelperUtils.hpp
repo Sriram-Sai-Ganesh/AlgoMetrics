@@ -30,32 +30,27 @@ void PrintArray(array<T, len> arr, ostream &out=cout)
 // print singly linked list 'link'
 template<class T> 
 void PrintSinglyLinkedList(SinglyLinkedList<T> link, ostream &out=cout){
-	auto *current = link.GetHeadPtr();
-	out<<"Printing singly linked list of "<<link.length()<<" (type'"<<typeid(T).name()<<"').\n";
-	out<<"First : "<<link.head->data<<"\t";
-	out<<"Last : "<<link.last->data<<"\n";
+	out<<"Printing SinglyLinkedList of length "<<link.Size()<<" (type'"<<typeid(T).name()<<"'):\n";
 	out<<"[  ";
-	while(current!=NULL){
-		out<<current->data<<"-("<<current->next->data<<")  ";
-		current=current->next;
+	for(auto h:link)
+	{
+		out<<h<<"  ";
 	}
-	out<<"]";
+	out<<"]\n";
 }
 
 
 // print doubly linked list 'link'
 template<class T> 
 void PrintDoublyLinkedList(DoublyLinkedList<T> link, ostream &out=cout){
-	auto current = link.head;
-	out<<"Printing doubly linked list of "<<link.length()<<" (type'"<<typeid(T).name()<<"').\n";
-	out<<"First : "<<link.head->data<<"\t";
-	out<<"Last : "<<link.last->data<<"\n";
-	out<<"[ ";
-	while(current!=NULL){
-		out<<current->data<<"-("<<current->prev->data<<","<<current->next->data<<")  ";
-		current=current->next;
+	
+	out<<"Printing DoublyLinkedList of length "<<link.Size()<<" (type'"<<typeid(T).name()<<"'):\n";
+	out<<"[  ";
+	for(auto h:link)
+	{
+		out<<h<<"  ";
 	}
-	out<<"]";
+	out<<"]\n";
 }
 
 // returns array populated with random T in range [min, max)
