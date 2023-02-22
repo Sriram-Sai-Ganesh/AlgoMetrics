@@ -8,7 +8,7 @@
 #include "ExecTimer.hpp"
 #include "DoublyLinkedList.hpp"
 
-const uint64_t seed=33489857205;		// prng seed, unused
+const unsigned seed=chrono::system_clock::now().time_since_epoch().count();		// prng seed
 randutils::mt19937_rng rng;
 using namespace std;
 
@@ -83,7 +83,8 @@ array<T, len> GetUniformArray(T min=0, T max=len)
 template <class T, size_t len>
 array<T, len> GetUniformRandomArray(T min=0, T max=len){
 	auto result = GetUniformArray<T, len>(min, max);
-	random_shuffle(begin(result), end(result));
+	
+	shuffle (begin(result), end(result), default_random_engine(seed));
 	return result;
 }
 
