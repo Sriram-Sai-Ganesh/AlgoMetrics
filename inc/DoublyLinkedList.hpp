@@ -6,8 +6,8 @@ using namespace std;
 // implementation with 2 bookend nodes
 template<class T>
 class DoublyLinkedList{
+
 private:
-int size;
 
 // Node
 typedef struct Node {
@@ -15,6 +15,8 @@ typedef struct Node {
 	Node* prev;
 	Node* next;
 }Node;
+
+int size;
 
 public:
 Node *head;
@@ -84,18 +86,19 @@ Iterator end(){
 
 // get pointer to node at index n
 Node* GetNodePtr(T n){
-	n=(n<0)?n+size:n;
+	// n=(n<0)?n+size:n;
 	if(n>=size){
 		cout<<"\nERROR: DoublyLinkedList.GetNodePtr : index out of bounds.";
 		return NULL;
 	}
 	Node *current;
-	if(n<size/2){
-		current=head->next;
-		while(n-->0){
+	if(n<=size/2.0){
+		current=head;
+		while(n-->=0){
 			current=current->next;
 		}
-	}else{
+	}
+	else{
 		n++;
 		current = last->prev;
 		while(n++<size){
@@ -106,7 +109,11 @@ Node* GetNodePtr(T n){
 }
 
 // append node to end of linked list
-void Add(T data) {
+void Add(T data, int location) {
+	if(location>size){
+		cout<<"ERROR: DoublyLinkedList.Add : insertion location "<<location<<" out of bounds for size "<<size<<"\n";
+		return;
+	}
 	Node* insert = new Node;
 	insert->data = data;
 	// list has 2 bookend nodes
@@ -120,15 +127,22 @@ void Add(T data) {
 		insert->prev = head;
 	}
 	else{
-		// when ll has more than one element, append
-		insert->next = last;
-		insert->prev = last->prev;
-		last->prev->next = insert;
-		last->prev=insert;
+		// when ll has more than one element, insert at 'location'
+		Node* before = GetNodePtr(location-1);
+		insert->prev=before;
+		insert->next=before->next;
+		before->next->prev=insert;
+		before->next=insert;
 	}
 	size++;
 }
 
+// default insertion mode is append
+// (default param is a class variable
+// so we have to overload function)
+void Add(T data){
+	Add(data,size);
+}
 
 // remove node at index 'n' from head
 T RemoveNode(T n) {
