@@ -1,12 +1,11 @@
 #include <cstdlib>
 #include <functional>
 #include <array>
-// #include <algorithm> 
 
 using namespace std;
 namespace ArrayUtils{
 
-// anonymous local namespace to hold private helper functions
+/// @brief anonymous local namespace to hold private helper functions
 namespace{
 	// helper to BinarySearch
 	template <class T, size_t len> 
@@ -27,8 +26,13 @@ namespace{
 		}
 	}
 
-	// helper to mergesort
-	// merges sorted sub-arrays of an array 
+	/// @brief helper to MergeSort. Merges sorted sub-arrays of 1 array.
+	/// @tparam T Type of array element.
+	/// @tparam len Length of array.
+	/// @param ar array to be sorted.
+	/// @param start first index of sub-array to be merged.
+	/// @param mid middle index of sub-array to be merged.
+	/// @param end last index of sub-array to be merged.
 	template<class T, size_t len>
 	void merge(array<T, len>& ar, int start, int mid, int end)
 	{
@@ -65,7 +69,12 @@ namespace{
 		}
 	}
 
-	// helper to ArrayUtils::MergeSort.
+	/// @brief helper to ArrayUtils::MergeSort.
+	/// @tparam T type of array element.
+	/// @tparam len length of array.
+	/// @param ar array to be sorted.
+	/// @param start start index of sub-array to be sorted.
+	/// @param end last index of sub-array to be sorted.
 	template<class T, size_t len>
 	void mergesort(array<T, len>& ar, int start, int end)
 	{
@@ -78,11 +87,14 @@ namespace{
 
 
 
-	// helper to RecursiveInsertionSort
+	/// @brief helper to RecursiveInsertionSort.
+	/// @tparam T type of array element.
+	/// @tparam len length of array to be sorted.
+	/// @param ar array to be sorted.
+	/// @param size size of sub-array to be sorted.
 	template<class T, size_t len>
 	void insertionsort(array<T, len>& ar, int size) {
 		if (size <= 1)return;
-		
 		// sort the first size-1 elements
 		insertionsort(ar, size-1);
 		// SortedInsert the last element
