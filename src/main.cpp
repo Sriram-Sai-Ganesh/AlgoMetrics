@@ -15,7 +15,6 @@ using namespace std;
 // output stream
 ostream &out = cout;
 
-
 void RunSinglyLinkedList(){
 	out<<"\nSinglyLinkedList Tests: \n";
 	SinglyLinkedList<myType> link;
@@ -43,9 +42,10 @@ void RunDoublyLinkedList(){
 	DoublyLinkedList<myType> link;
 	link.Add(1);
 	link.Add(2);
-	link.Add(3);
-	link.Add(4);
-	link.Add(5);
+	link.Add(3,2);
+	link.Add(4,3);
+	link.Add(6,4);
+	link.Add(5,4);
 	HelperUtils::PrintDoublyLinkedList<myType>(link);	
 	
 	out<<"3rd index of data is "<<link(3)<<":\n";
@@ -53,15 +53,13 @@ void RunDoublyLinkedList(){
 	HelperUtils::PrintDoublyLinkedList<myType>(link);	
 	link.RemoveNode(4);
 	link.RemoveNode(3);
-	link.Add(4);
-	link.Add(5);
-	link.Add(6);
-	out<<"5th index of data is "<<link(5)<<":\n";
-	HelperUtils::PrintDoublyLinkedList<myType>(link);	
-	link.RemoveNode(5);
 	link.Add(7);
 	link.Add(8);
+	link.Add(4,3);
 	link.Add(9);
+	out<<"5th index of data is "<<link(5)<<":\n";
+	HelperUtils::PrintDoublyLinkedList<myType>(link);	
+	link.Add(5,4);
 	out<<"2nd index of data is "<<link(2)<<":\n";
 	HelperUtils::PrintDoublyLinkedList<myType>(link);
 }
