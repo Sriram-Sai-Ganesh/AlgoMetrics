@@ -1,13 +1,11 @@
 #include <cstdlib>
+#include <random>	// prng for bogosort
 #include <functional>
 #include <array>
 
 using namespace std;
 
-// prng seed for bogosort
-const unsigned seed=chrono::system_clock::now().time_since_epoch().count();		
-
-/// @brief Utility function for arrays
+/// @brief namespace to hold utility functions for arrays
 namespace ArrayUtils{
 
 /// @brief anonymous local namespace to hold private helper functions
@@ -358,6 +356,7 @@ void TailRecursiveQuickSort(array<T, len> &ar)
 template <class T, size_t len> 
 void BogoSort(array<T, len> &ar)
 {
+	auto seed=chrono::system_clock::now().time_since_epoch().count();		
 	// loop until sorted
 	for(int i=0, lim=len-1;i<lim;i++)
 	{
