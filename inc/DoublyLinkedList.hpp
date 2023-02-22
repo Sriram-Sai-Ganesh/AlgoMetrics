@@ -1,14 +1,14 @@
-#include <iterator> 
-#include <cstddef>
+#include <iterator>
 #pragma once
 using namespace std;
 
-
 // DoublyLinkedList
+// implementation with 2 bookend nodes
 template<class T>
-struct DoublyLinkedList{
+class DoublyLinkedList{
 private:
 int size;
+
 // Node
 typedef struct Node {
 	T data;
@@ -22,139 +22,132 @@ Node *last;
 
 // constructor
 DoublyLinkedList<T>() {
-	head = NULL;
-	last = NULL;
+	head = new Node;
+	last = new Node;
 	size=0;
 }
 
-struct Iterator 
-{
-    using iterator_category = forward_iterator_tag;
+class Iterator {
+    using iterator_category = bidirectional_iterator_tag;
     using difference_type   = std::ptrdiff_t;
     using value_type        = T;
     using pointer           = T*;  // or also value_type*
     using reference         = T&;  // or also value_type&
+	
 	private:
-	Node *current;
+	Node *myNode;
+	
 	public:
 	Iterator(Node *n){
-		current=n;
+		myNode=n;
 	}
 
-    reference operator*() const { return *current; }
-    pointer operator->() { return current->data; }
+    reference operator*() const { 
+		return this->myNode->data; 
+	}
+    pointer operator->() { 
+		return this->myNode->data; 
+	}
 
     // Prefix increment
-    Iterator& operator++() { current=current->next; return *this; }  
+    Iterator& operator++() { 
+		if(this->myNode){
+			this->myNode=this->myNode->next; 
+		}
+		return *this; 
+	}  
 
     // Postfix increment
-    Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+    Iterator operator++(int) { 
+		Iterator tmp = *this; 
+		++*this; 
+		return tmp; 
+	}
 
-    friend bool operator== (const Iterator& a, const Iterator& b) { return ((a->data == b->data) && (a->prev == b->prev) && (a->next==b->next)); };
-    friend bool operator!= (const Iterator& a, const Iterator& b) { return !((a->data == b->data) && (a->prev == b->prev) && (a->next==b->next)); };  
+    bool operator== (const Iterator& inc) { 
+		return (this->myNode->data==inc.myNode->data && this->myNode->next==inc.myNode->next && this->myNode->prev==inc.myNode->prev); 
+	};
 
-	// Iterator begin() { return Iterator(head); }
-    // Iterator end()   { return Iterator(last); }
+    bool operator!= (const Iterator& inc) { 
+		return !(this->myNode->data==inc.myNode->data && this->myNode->next==inc.myNode->next && this->myNode->prev==inc.myNode->prev); 
+	};  
+
 };
 
-// append node
+Iterator begin(){
+	return Iterator(head->next);
+}
+Iterator end(){ 
+	return Iterator(last);
+}
+
+
+// get pointer to node at index n
+Node* GetNodePtr(T n){
+	n=(n<0)?n+size:n;
+	if(n>=size){
+		cout<<"\nERROR: DoublyLinkedList.GetNodePtr : index out of bounds.";
+		return NULL;
+	}
+	Node *current;
+	if(n<size/2){
+		current=head->next;
+		while(n-->0){
+			current=current->next;
+		}
+	}else{
+		n++;
+		current = last->prev;
+		while(n++<size){
+			current=current->prev;
+		}
+	}
+	return current;
+}
+
+// append node to end of linked list
 void Add(T data) {
 	Node* insert = new Node;
 	insert->data = data;
-	// assign pointers based on initial list length
-	switch(size){
-		case 0:
-			// when ll has no elements
-			head = insert;
-			head->next = NULL;
-			head->prev = NULL;
-			last = head;
-			break;
-		case 1:
-			// when ll has one element
-			last = insert;
-			last->next = NULL;
-			last->prev = head;
-			head->next = last;
-			break;
-		default:
-			// when ll has more than one element, append
-			insert->next = NULL;
-			insert->prev = last;
-			last->next = insert;
-			last = insert;
+	// list has 2 bookend nodes
+	if(size==0){
+		// when ll has no elements
+		last = new Node;
+		head = new Node;
+		head->next = insert;
+		last->prev = insert;
+		insert->next = last;
+		insert->prev = head;
+	}
+	else{
+		// when ll has more than one element, append
+		insert->next = last;
+		insert->prev = last->prev;
+		last->prev->next = insert;
+		last->prev=insert;
 	}
 	size++;
 }
 
-// remove first occurence of 'bad'
-void RemoveValue(T bad) {
-	if(size==0)return;
-	if(head->data==bad){	// remove head
-		head=head->next;
-		head->prev=NULL;
-		size--;
-	}
-	Node *current = head;
-	while(current->next!=NULL){
-		if(current->next->data==bad){
-			if(current->next == last){
-				current->next=NULL;
-				last=current;
-			}
-			else{
-				current->next=current->next->next;
-			}
-			size--;
-			return;
-		}
-		current=current->next;
-	}
-}
 
 // remove node at index 'n' from head
-void RemoveNode(T n) {
-	if(size<=n)return;
-	if(n==0){	// remove head
-		head=head->next;
-		head->prev=NULL;
-	}
-	else{
-		Node *current=head;
-		while(--n>0){
-			current=current->next;
-		}
-		if(current->next==last){
-			last=current;
-			last->next=NULL;
-		}
-		else{
-			current->next=current->next->next;
-		}
-	}
+T RemoveNode(T n) {
+	Node* bad = GetNodePtr(n);
+	bad->next->prev = bad->prev;
+	bad->prev->next = bad->next;
 	size--;
+	return bad->data;
 }
 
 // overload () operator
 T operator()(int index) {
-	return GetNode(index);
+	return GetNodePtr(index)->data;
 }
-
-Node *GetHeadPtr(){
-	return head;
+void Clear(){
+	head->next=last;
+	last->prev=head;
 }
-int length() {
+int Size() {
 	return size;
-}
-
-private:
-// return data at the ith element of ll
-T GetNode(int n) const{
-	n=(n<0)?size-n:n;	// support negative index params
-	Node *current = this->head;
-	if(n>=this->size || current==NULL)return NULL; // todo
-	// Get the ith element
-	for(int i = 0; i < n;current = current->next, i++);
-	return current->data;
 }
 };
