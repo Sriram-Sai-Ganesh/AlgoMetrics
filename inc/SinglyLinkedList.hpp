@@ -30,31 +30,31 @@ SinglyLinkedList<T>() {
 /// @brief add a node to the end of the list.
 /// @param data stored in the new added node.
 void Add(T data) {
-	if(!head) {
-		// when there is no element in the list
-		head = new Node;
-		head->data = data;
-		head->next = NULL;
-		last = head;
-	} else {
-		// when the list is not empty
-		if(last == head) {
-			// when the list has one element
-			last = new Node;
-			last->data = data;
+	Node* insert = new Node;
+	insert->data = data;
+	// assign pointers based on initial list length
+	switch(size){
+		case 0:
+			// when ll has no elements
+			head = insert;
+			head->next = NULL;
+			last = head;
+			break;
+		case 1:
+			// when ll has one element
+			last = insert;
 			last->next = NULL;
 			head->next = last;
-		} else {
-			// when the list has more than one element
-			Node* insdata = new Node;
-			insdata->data = data;
-			insdata->next = NULL;
-			last->next = insdata;
-			last = insdata;
-		}
+			break;
+		default:
+			// when ll has more than one element, append
+			insert->next = NULL;
+			last->next = insert;
+			last = insert;
 	}
 	size++;
 }
+
 /// @brief removes node with first occurrence of param 'bad'
 /// @param bad value to be removed from the list.
 void RemoveValue(T bad) {
@@ -78,7 +78,9 @@ void RemoveValue(T bad) {
 }
 
 // remove node at index 'n' from head
-void RemoveNode(T n) {
+void RemoveNode(int n) {
+
+	
 	if(size<=n)return;
 	if(n==0){	// remove head
 		head=head->next;
