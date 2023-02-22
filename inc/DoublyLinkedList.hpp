@@ -1,3 +1,5 @@
+#include <iterator> 
+#include <cstddef>
 #pragma once
 using namespace std;
 
@@ -5,24 +7,55 @@ using namespace std;
 // DoublyLinkedList
 template<class T>
 struct DoublyLinkedList{
+private:
+int size;
 // Node
-struct Node {
+typedef struct Node {
 	T data;
 	Node* prev;
 	Node* next;
-};
+}Node;
 
-private:
-int size;
 public:
 Node *head;
 Node *last;
+
 // constructor
 DoublyLinkedList<T>() {
 	head = NULL;
 	last = NULL;
 	size=0;
 }
+
+struct Iterator 
+{
+    using iterator_category = forward_iterator_tag;
+    using difference_type   = std::ptrdiff_t;
+    using value_type        = T;
+    using pointer           = T*;  // or also value_type*
+    using reference         = T&;  // or also value_type&
+	private:
+	Node *current;
+	public:
+	Iterator(Node *n){
+		current=n;
+	}
+
+    reference operator*() const { return *current; }
+    pointer operator->() { return current->data; }
+
+    // Prefix increment
+    Iterator& operator++() { current=current->next; return *this; }  
+
+    // Postfix increment
+    Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+
+    friend bool operator== (const Iterator& a, const Iterator& b) { return ((a->data == b->data) && (a->prev == b->prev) && (a->next==b->next)); };
+    friend bool operator!= (const Iterator& a, const Iterator& b) { return !((a->data == b->data) && (a->prev == b->prev) && (a->next==b->next)); };  
+
+	// Iterator begin() { return Iterator(head); }
+    // Iterator end()   { return Iterator(last); }
+};
 
 // append node
 void Add(T data) {
