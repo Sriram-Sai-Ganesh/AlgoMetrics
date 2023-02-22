@@ -2,14 +2,14 @@
 #pragma once
 using namespace std;
 
-// DoublyLinkedList
-// implementation with 2 bookend nodes
+/// @brief implementation of DoublyLinkedList.
+/// 2 bookend nodes.
+/// @tparam T type of data in linked list.
 template<class T>
 class DoublyLinkedList{
 
 private:
-
-// Node
+/// @brief Node of doubly linked list.
 typedef struct Node {
 	T data;
 	Node* prev;
@@ -22,13 +22,14 @@ public:
 Node *head;
 Node *last;
 
-// constructor
+/// @brief constructor.
 DoublyLinkedList<T>() {
 	head = new Node;
 	last = new Node;
 	size=0;
 }
 
+/// @brief iterator implementation.
 class Iterator {
     using iterator_category = bidirectional_iterator_tag;
     using difference_type   = std::ptrdiff_t;
@@ -51,7 +52,8 @@ class Iterator {
 		return this->myNode->data; 
 	}
 
-    // Prefix increment
+    /// @brief prefix increment operator.
+    /// @return value after increment.
     Iterator& operator++() { 
 		if(this->myNode){
 			this->myNode=this->myNode->next; 
@@ -59,39 +61,72 @@ class Iterator {
 		return *this; 
 	}  
 
-    // Postfix increment
+    /// @brief postfix increment.
+    /// @param  \dummy parameter to change signature.
+    /// @return value prior to increment.
     Iterator operator++(int) { 
 		Iterator tmp = *this; 
 		++*this; 
 		return tmp; 
 	}
 
+    /// @brief prefix decrement.
+    /// @return value after decrement.
+    Iterator& operator--() { 
+		if(this->myNode){
+			this->myNode=this->myNode->prev; 
+		}
+		return *this; 
+	}  
+
+    /// @brief postfix decrement.
+    /// @param  \dummy parameter to change signature.
+    /// @return value prior to decrement.
+    Iterator operator--(int) { 
+		Iterator tmp = *this; 
+		--*this; 
+		return tmp; 
+	}
+
+    /// @brief operator overload for equality comparison.
+    /// @param inc incoming value to compare against.
+    /// @return true if this==inc and vice versa.
     bool operator== (const Iterator& inc) { 
 		return (this->myNode->data==inc.myNode->data && this->myNode->next==inc.myNode->next && this->myNode->prev==inc.myNode->prev); 
 	};
 
+    /// @brief operator overload for inequality comparison.
+    /// @param inc incoming value to compare against.
+    /// @return true if this!=inc and vice versa.
     bool operator!= (const Iterator& inc) { 
 		return !(this->myNode->data==inc.myNode->data && this->myNode->next==inc.myNode->next && this->myNode->prev==inc.myNode->prev); 
-	};  
+	};
 
 };
 
+/// @brief iterator begin() function
+/// @return first element of doubly linked list.
 Iterator begin(){
 	return Iterator(head->next);
 }
+
+/// @brief iterator end() function
+/// @return last element of doubly linked list.
 Iterator end(){ 
 	return Iterator(last);
 }
 
-
-// get pointer to node at index n
-Node* GetNodePtr(T n){
+/// @brief get pointer to node at index 'n' from beginning of doubly linked list.
+/// @param n index of linked list element
+/// @return reference to 'n'th node of linked list.
+Node* GetNodePtr(int n){
 	// n=(n<0)?n+size:n;
 	if(n>=size){
 		cout<<"\nERROR: DoublyLinkedList.GetNodePtr : index out of bounds.";
 		return NULL;
 	}
 	Node *current;
+	// traverse from end of linked list if more efficient
 	if(n<=size/2.0){
 		current=head;
 		while(n-->=0){
@@ -108,11 +143,14 @@ Node* GetNodePtr(T n){
 	return current;
 }
 
-// append node to end of linked list
-void Add(T data, int location) {
+/// @brief insert node 'data' at index 'location' in doubly linked list.
+/// @param data node to be inserted
+/// @param location index to be inserted at
+/// @return true if insertion was successful.
+boolean Add(T data, int location) {
 	if(location>size){
 		cout<<"ERROR: DoublyLinkedList.Add : insertion location "<<location<<" out of bounds for size "<<size<<"\n";
-		return;
+		return false;
 	}
 	Node* insert = new Node;
 	insert->data = data;
@@ -135,16 +173,18 @@ void Add(T data, int location) {
 		before->next=insert;
 	}
 	size++;
+	return true;
 }
 
-// default insertion mode is append
-// (default param is a class variable
-// so we have to overload function)
+/// @brief overloaded add function. (overload necessary since parameter is class variable)
+/// @param data node to be inserted
 void Add(T data){
 	Add(data,size);
 }
 
-// remove node at index 'n' from head
+/// @brief remove node at index 'n' from doubly linked list.
+/// @param n index of node to be removed
+/// @return data of removed node.
 T RemoveNode(T n) {
 	Node* bad = GetNodePtr(n);
 	bad->next->prev = bad->prev;
@@ -153,14 +193,20 @@ T RemoveNode(T n) {
 	return bad->data;
 }
 
-// overload () operator
+/// @brief overloaded () operator. Returns pointer to 'index'th node of doubly linked list.
+/// @param index location of node to be returned
+/// @return node at location 'index' in linked list.
 T operator()(int index) {
 	return GetNodePtr(index)->data;
 }
+
+/// @brief clears all entries from linked list.
 void Clear(){
 	head->next=last;
 	last->prev=head;
 }
+/// @brief get number of nodes in doubly linked list.
+/// @return int size.
 int Size() {
 	return size;
 }
