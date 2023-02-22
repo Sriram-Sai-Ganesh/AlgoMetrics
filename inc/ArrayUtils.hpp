@@ -3,11 +3,24 @@
 #include <array>
 
 using namespace std;
+
+// prng seed for bogosort
+const unsigned seed=chrono::system_clock::now().time_since_epoch().count();		
+
+/// @brief Utility function for arrays
 namespace ArrayUtils{
 
 /// @brief anonymous local namespace to hold private helper functions
 namespace{
-	// helper to BinarySearch
+
+	/// @brief helper to BinarySearch. Use interval halving to find value.
+	/// @tparam T type of elements in the array
+	/// @tparam len length of the array
+	/// @param ar array to be searched
+	/// @param start start index of sub-array to be searched
+	/// @param end end index of sub-array to be searched
+	/// @param target element to search for
+	/// @return index of element in sub-array [start, end]
 	template <class T, size_t len> 
 	int binaryFind(array<T, len> ar, int start, int end, T target)
 	{
@@ -111,7 +124,13 @@ namespace{
 		ar[index+1] = last;
 	}
 
-	// helper to QuickSort
+	/// @brief helper to QuickSort. Uses last element as pivot.
+	/// @tparam T type of array elements.
+	/// @tparam len length of array to be sorted.
+	/// @param ar array to be sorted.
+	/// @param low first index of sub-array to be sorted.
+	/// @param high last index of sub-array to be sorted.
+	/// @return 
 	template<class T, size_t len>
 	int partition(array<T, len>& ar, int low, int high) {
 		int pivot = ar[high]; // pivot around high
@@ -126,7 +145,12 @@ namespace{
 		return (i + 1);
 	}
 
-	// helper to QuickSort
+	/// @brief helper to QuickSort. Calls Parition.
+	/// @tparam T type of array elements.
+	/// @tparam len length of array to be sorted.
+	/// @param ar array to be sorted.
+	/// @param low first index of sub-array to be sorted.
+	/// @param high last index of sub-array to be sorted.
 	template<class T, size_t len>
 	void quicksort(array<T, len>& ar, int low, int high) {
 		if (low < high) {
@@ -140,7 +164,12 @@ namespace{
 		}
 	}
 
-	// helper to TailRecursiveQuickSort
+    /// @brief helper to QuickSort.
+	/// @tparam T type of array elements.
+	/// @tparam len length of array to be sorted.
+	/// @param ar array to be sorted.
+	/// @param low first index of sub-array to be sorted.
+	/// @param high last index of sub-array to be sorted.
 	template<class T, size_t len>
 	void tailquicksort(array<T, len>& ar, int low, int high) {
 		while (low < high) {
@@ -155,8 +184,12 @@ namespace{
 	}
 
 }
-
-// Sequential search iteratively
+/// @brief iteratively search through an array.
+/// @tparam T type of array element.
+/// @tparam len length of array to search through.
+/// @param ar array to be searched.
+/// @param target element to search for.
+/// @return index of target if found, -1 otherwise.
 template <class T, size_t len> 
 int IterativeSearch(array<T, len> ar, T target)
 {
@@ -166,7 +199,13 @@ int IterativeSearch(array<T, len> ar, T target)
 	}
 	return -1;
 }
-// Binary Search recursively
+
+/// @brief Recursive implementation of Binary Search. Wrapper to the binaryFind helper function.
+/// @tparam T type of array element.
+/// @tparam len length of array to search through.
+/// @param ar array to be searched.
+/// @param target element to search for.
+/// @return index of target if found, -1 otherwise.
 template <class T, size_t len> 
 int RecursiveBinarySearch(array<T, len> ar, T target)
 {
@@ -175,7 +214,12 @@ int RecursiveBinarySearch(array<T, len> ar, T target)
 	return result;
 }
 
-// Binary Search iteratively
+/// @brief iterative implementation of Binary Search.
+/// @tparam T type of array element.
+/// @tparam len length of array to search through.
+/// @param ar array to be searched.
+/// @param target element to search for.
+/// @return index of target if found, -1 otherwise.
 template <class T, size_t len> 
 int IterativeBinarySearch(array<T, len> ar, T target)
 { 
@@ -195,7 +239,10 @@ int IterativeBinarySearch(array<T, len> ar, T target)
 	return -1;
 }
 
-// BubbleSort iteratively
+/// @brief iterative implementation of BubbleSort.
+/// @tparam T type of array elements.
+/// @tparam len length of array to be sorted.
+/// @param ar array to be sorted.
 template <class T, size_t len> 
 void BubbleSort(array<T, len>& ar)
 {
@@ -209,10 +256,15 @@ void BubbleSort(array<T, len>& ar)
                 swap(ar[j], ar[j - 1]);
 }
 
-// SelectionSort ar
+/// @brief iterative implementation of Selection Sort.
+/// @tparam T type of array elements.
+/// @tparam len length of array to be sorted.
+/// @param ar array to be sorted.
 template <class T, size_t len> 
 void SelectionSort(array<T, len>& ar)
 {
+	// tracks location of moving boundary between 
+	// sorted/unsorted elements
 	int lim = len, boundary=0;
 	int min, minIndex;
 	// until entire array is within the 'sorted' range
@@ -229,13 +281,12 @@ void SelectionSort(array<T, len>& ar)
 		}
 		// swap min value with last index of sorted region
 		swap(ar[boundary], ar[minIndex]);
-		// temp=ar[boundary];
-		// ar[boundary]=min;
-		// ar[minIndex]=temp;
 	}
 }
-
-// iteratively perform InsertionSort on ar
+/// @brief iterative implementation of Insertion Sort.
+/// @tparam T type of array elements.
+/// @tparam len length of array to be sorted.
+/// @param ar array to be sorted.
 template <class T, size_t len> 
 void IterativeInsertionSort(array<T, len>& ar)
 {
@@ -254,15 +305,22 @@ void IterativeInsertionSort(array<T, len>& ar)
     }
 }
 
-
-// recursively perform InsertionSort on ar
+/// @brief recursive implementation of Insertion Sort. 
+/// Wrapper to the insertion sort helper function.
+/// @tparam T type of array elements.
+/// @tparam len length of array to be sorted.
+/// @param ar array to be sorted.
 template <class T, size_t len> 
 void RecursiveInsertionSort(array<T, len>& ar)
 {
 	insertionsort<T, len>(ar, len);
 }
 
-// QuickSort ar
+/// @brief recursive implementation of MergeSort. 
+/// Wrapper to the merge sort helper function.
+/// @tparam T type of array elements.
+/// @tparam len length of array to be sorted.
+/// @param ar array to be sorted.
 template <class T, size_t len> 
 void MergeSort(array<T, len>& ar)
 {
@@ -270,20 +328,33 @@ void MergeSort(array<T, len>& ar)
     mergesort(ar, 0, len-1);
 }
 
-// QuickSort ar
+/// @brief recursive implementation of QuickSort. 
+/// Wrapper to the merge sort helper function.
+/// @tparam T type of array elements.
+/// @tparam len length of array to be sorted.
+/// @param ar array to be sorted.
 template <class T, size_t len> 
 void QuickSort(array<T, len> &ar)
 {
     quicksort(ar, 0, len-1);
 }
-// QuickSort ar
+
+/// @brief recursive implementation of TailRecursive QuickSort. 
+/// Wrapper to the merge sort helper function.
+/// @tparam T type of array elements.
+/// @tparam len length of array to be sorted.
+/// @param ar array to be sorted.
 template <class T, size_t len> 
 void TailRecursiveQuickSort(array<T, len> &ar)
 {
     tailquicksort(ar, 0, len-1);
 }
 
-// BogoSort ar in O(n!) time
+/// @brief working! implementation of BogoSort. 
+/// Wrapper to the merge sort helper function.
+/// @tparam T type of array elements.
+/// @tparam len length of array to be sorted.
+/// @param ar array to be sorted.
 template <class T, size_t len> 
 void BogoSort(array<T, len> &ar)
 {
@@ -294,11 +365,9 @@ void BogoSort(array<T, len> &ar)
 		if(ar[i]>ar[i+1])
 		{
 			// std::random_shuffle and reset if decreasing
-			random_shuffle(begin(ar), end(ar));
+			shuffle(begin(ar), end(ar), default_random_engine(seed));
 			i=-1;
 		}
 	}
 }
-
-
 }		// end namespace
