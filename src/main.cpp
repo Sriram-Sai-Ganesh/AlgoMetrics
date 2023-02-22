@@ -11,39 +11,35 @@
 
 typedef int myType;					// type of variable
 
-
 using namespace std;
-
-const size_t len = 10000;				// array length
-
-const size_t numIterations = 500;				// number of timers to run
-const unsigned char mu=230;		// ASCII 230 = 'µ'
 // output stream
 ostream &out = cout;
-// file out stream
-ofstream csv;
 
-void trySinglyLinkedList(){
-	out<<"LinkedLists: \n";
+
+void RunSinglyLinkedList(){
+	out<<"\nSinglyLinkedList Tests: \n";
 	SinglyLinkedList<myType> link;
 	link.Add(1);
 	link.Add(2);
 	link.Add(3);
 	link.Add(4);
 	link.Add(5);
+	link.Add(6);
+	link.Add(7);
+	link.Add(8);
+	link.Add(9);
 	HelperUtils::PrintSinglyLinkedList<myType>(link);	
-	
 	out<<"\n3rd index node is "<<link(3)<<endl;
 	HelperUtils::PrintSinglyLinkedList<myType>(link);	
 	link.RemoveNode(4);
-	link.RemoveValue(2);
+	link.RemoveNode(2);
 	out<<"\n2nd index node is "<<link(2)<<endl;
-	HelperUtils::PrintSinglyLinkedList<myType>(link);	
+	HelperUtils::PrintSinglyLinkedList<myType>(link);
 	endl(out);
 }
 
-void tryDoublyLinkedList(){
-	out<<"LinkedLists: \n";
+void RunDoublyLinkedList(){
+	out<<"\nDoublyLinkedList Tests: \n";
 	DoublyLinkedList<myType> link;
 	link.Add(1);
 	link.Add(2);
@@ -52,19 +48,31 @@ void tryDoublyLinkedList(){
 	link.Add(5);
 	HelperUtils::PrintDoublyLinkedList<myType>(link);	
 	
-	out<<"\n3rd index node is "<<link(3)<<endl;
+	out<<"3rd index of data is "<<link(3)<<":\n";
+	out<<"4th index of data is "<<link(4)<<":\n";
 	HelperUtils::PrintDoublyLinkedList<myType>(link);	
 	link.RemoveNode(4);
-	link.RemoveValue(2);
-	out<<"\n2nd index node is "<<link(2)<<endl;
+	link.RemoveNode(3);
+	link.Add(4);
+	link.Add(5);
+	link.Add(6);
+	out<<"5th index of data is "<<link(5)<<":\n";
 	HelperUtils::PrintDoublyLinkedList<myType>(link);	
-	endl(out);
+	link.RemoveNode(5);
+	link.Add(7);
+	link.Add(8);
+	link.Add(9);
+	out<<"2nd index of data is "<<link(2)<<":\n";
+	HelperUtils::PrintDoublyLinkedList<myType>(link);
 }
 
-int main()
-{
+void RunSorterTests(){
+	const size_t len = 10000;				// array length
+	const size_t numIterations = 500;		// number of timers to run
+	const unsigned char mu=230;		// ASCII 230 = 'µ'
+	// file out stream
+	ofstream csv;
 	auto randArray = HelperUtils::GetUniformRandomArray<myType, len>(0, 3*len);		// initialize array
-	
 	// create a vector of pairs<string name, ExecTimer func>
 	auto sorterList = HelperUtils::CreateSorterVector<myType, len>();
 	
@@ -101,7 +109,12 @@ int main()
 	}
 	out<<"done\n";
 	// endl(out, 2);
-	// trySinglyLinkedList();
-	// tryDoublyLinkedList();
+}
+
+int main()
+{
+	// RunSorterTests();
+	// RunSinglyLinkedList();
+	RunDoublyLinkedList();
 	return 0;
 }
