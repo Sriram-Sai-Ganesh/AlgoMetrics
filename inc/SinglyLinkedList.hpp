@@ -1,30 +1,121 @@
 #pragma once
+#include<iterator>
 using namespace std;
 
-
-
-/// @brief Singly linked list class. Keeps track of its own size.
-/// @tparam T data type of data at each node.
+/// @brief Singly linked list class with 1 leading bookend.
+/// @tparam T type of data at each node.
 template<class T>
-struct SinglyLinkedList{
-
-/// @brief Node class for singly linked list.
-/// @tparam T data type.
-struct Node {
-	T data;
-	Node* next;
-};
+class SinglyLinkedList{
 
 private:
+/// @brief Node class for singly linked list.
+/// @tparam T data type.
+typedef struct Node {
+	T data;
+	Node* next;
+}Node;
 int size;
+
 public:
 Node *head;
 Node *last;
+
 /// @brief constructor.
 SinglyLinkedList<T>() {
-	head = NULL;
-	last = NULL;
+	head = new Node;
+	last = new Node;
 	size=0;
+}
+
+/// @brief Iterator implementation for singly linked list.
+class Iterator {
+    /// @brief specifics about iterator type
+    using iterator_category = forward_iterator_tag;
+    using difference_type   = std::ptrdiff_t;
+    using value_type        = T;
+    using pointer           = T*;  // or also value_type*
+    using reference         = T&;  // or also value_type&
+	
+	private:
+	Node *myNode;
+	
+	public:
+	Iterator(Node *n){
+		myNode=n;
+	}
+
+    /// @brief dereference
+    /// @return data at current node
+    reference operator*() const { 
+		return this->myNode->data; 
+	}
+    /// @brief dereference
+    /// @return data at current node
+    pointer operator->() { 
+		return this->myNode->data; 
+	}
+
+
+
+    /// @brief prefix increment
+    /// @return data at next node
+    Iterator& operator++() { 
+		if(this->myNode){
+			this->myNode=this->myNode->next; 
+		}
+		return *this; 
+	}  
+
+    /// @brief postfix increment
+    /// @param dummy passed to change signature
+    /// @return data at original node
+    Iterator operator++(int) { 
+		Iterator tmp = *this; 
+		++*this; 
+		return tmp; 
+	}
+    /// @brief equality check
+    /// @param inc incoming value to compare with
+    /// @return true if equal
+    bool operator== (const Iterator& inc) { 
+		return (this->myNode->data==inc.myNode->data && this->myNode->next==inc.myNode->next); 
+	};
+
+    /// @brief non-equality check
+    /// @param inc incoming value to compare with 
+    /// @return true if dissimilar
+    bool operator!= (const Iterator& inc) { 
+		return !(this->myNode->data==inc.myNode->data && this->myNode->next==inc.myNode->next); 
+	};  
+
+};
+
+/// @brief required for iterator implementation
+/// @return first of class
+Iterator begin(){
+	return Iterator(head->next);
+}
+
+/// @brief required for iterator implementation
+/// @return last of class
+Iterator end(){ 
+	return Iterator(last);
+}
+
+/// @brief obtain pointer to node at index n
+/// @param n index to get pointer from
+/// @return Node* at 'n'
+Node* GetNodePtr(T n){
+	n=(n<0)?n+size:n;
+	if(n>=size){
+		cout<<"\nERROR: SinglyLinkedList.GetNodePtr : index out of bounds.";
+		return NULL;
+	}
+	Node *current=head->next;
+	while(n-->0){
+		current=current->next;
+	}
+	return current;
 }
 
 /// @brief add a node to the end of the list.
@@ -32,95 +123,51 @@ SinglyLinkedList<T>() {
 void Add(T data) {
 	Node* insert = new Node;
 	insert->data = data;
-	// assign pointers based on initial list length
-	switch(size){
-		case 0:
-			// when ll has no elements
-			head = insert;
-			head->next = NULL;
-			last = head;
-			break;
-		case 1:
-			// when ll has one element
-			last = insert;
-			last->next = NULL;
-			head->next = last;
-			break;
-		default:
-			// when ll has more than one element, append
-			insert->next = NULL;
-			last->next = insert;
-			last = insert;
+	// list has 2 bookend nodes
+	if(size==0){
+		// when ll has no elements
+		last = new Node;
+		head = new Node;
+		head->next = insert;
+		insert->next = last;
+	}
+	else{
+		Node* preLast = GetNodePtr(size-1);
+		// when ll has more than one element, append to LL
+		// maintain bookend at back
+		insert->next = last;
+		preLast->next=insert;
 	}
 	size++;
 }
-
-/// @brief removes node with first occurrence of param 'bad'
-/// @param bad value to be removed from the list.
-void RemoveValue(T bad) {
-	if(size==0)return;
-	if(head->data==bad){	// remove head
-		this->head=head->next;
-		this->size--;
-	}
-	Node *current = head;
-	while(current->next!=NULL){
-		if(current->next->data==bad){
-			if(current->next == this->last){
-				this->last=current;
-			}
-			current->next=current->next->next;
-			this->size--;
-			return;
-		}
-		current=current->next;
-	}
-}
-
-// remove node at index 'n' from head
-void RemoveNode(int n) {
-
-	
-	if(size<=n)return;
-	if(n==0){	// remove head
-		head=head->next;
-	}
-	else{
-		Node *current=head;
-	while(--n>0){
-		current=current->next;
-		}
-		if(current->next==last)
-		{
-			last=current;
-		}
-		current->next=current->next->next;
-	}
+/// @brief remove node at index 'n'
+/// @param n index to remove node from
+/// @return data in removed node
+T RemoveNode(int n) {
+	Node* before = GetNodePtr(n-1);
+	T bad = before->next->data;
+	before->next = before->next->next;
 	size--;
+	return bad;
 }
-int length(){
+
+/// @brief number of data elements in linked list
+/// @return int length of linked list
+int Size(){
 	return this->size;
 }
-// overload () operator
+
+/// @brief get data at index 'index'
+/// @param index location from which data is obtained
+/// @return value of the data
 T operator()(int index) {
-	return GetNode(index);
+	return GetNodePtr(index)->data;
 }
 
-Node *GetHeadPtr(){
-	return head;
+/// @brief clear out contents of linked list
+void Clear(){
+	head->next=last;
+	last->prev=head;
 }
-
-
-private:
-// return data at the ith element of ll
-T GetNode(int n) const{
-	n=(n<0)?size-n:n;	// support negative index params
-	Node *current = this->head;
-	if(n>=this->size || current==NULL)return NULL; // todo
-	// Get the ith element
-	for(int i = 0; i < n;current = current->next, i++);
-	return current->data;
-}
-
 
 };
