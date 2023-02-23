@@ -143,7 +143,7 @@ void Add(T data) {
 /// @brief remove node at index 'n'
 /// @param n index to remove node from
 /// @return data in removed node
-T RemoveNode(int n) {
+T Remove(int n) {
 	Node* before = GetNodePtr(n-1);
 	T bad = before->next->data;
 	before->next = before->next->next;
@@ -190,9 +190,7 @@ void AddAll(array<T, len> ar){
 template<class C, size_t len>
 static SinglyLinkedList<C> Initialize(array<C, len> ar){
 	SinglyLinkedList<C> ll;
-	for(C val:ar){
-		ll.Add(val);
-	}
+	ll.AddAll(ar);
 	return ll;
 }
 
