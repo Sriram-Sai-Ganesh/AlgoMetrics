@@ -10,6 +10,7 @@
 #include "../inc/DoublyLinkedList.hpp"
 
 typedef int myType;					// type of variable
+const size_t len = 50;				// array length
 
 using namespace std;
 // output stream
@@ -28,13 +29,19 @@ void RunSinglyLinkedList(){
 	link.Add(8);
 	link.Add(9);
 	HelperUtils::PrintSinglyLinkedList<myType>(link);	
-	out<<"\n3rd index node is "<<link(3)<<endl;
+	out<<"3rd index node is "<<link(3)<<endl;
 	HelperUtils::PrintSinglyLinkedList<myType>(link);	
 	link.RemoveNode(4);
 	link.RemoveNode(2);
-	out<<"\n2nd index node is "<<link(2)<<endl;
+	out<<"2nd index node is "<<link(2)<<endl;
 	HelperUtils::PrintSinglyLinkedList<myType>(link);
 	endl(out);
+	
+	out<<"Test initializing SLL with array:\n";
+	// test initializing DLL with array
+	auto arr = HelperUtils::GetUniformArray<myType, len>();
+	auto ll = DoublyLinkedList<myType>::Initialize(arr);
+	HelperUtils::PrintDoublyLinkedList(ll);
 }
 
 void RunDoublyLinkedList(){
@@ -62,10 +69,15 @@ void RunDoublyLinkedList(){
 	link.Add(5,4);
 	out<<"2nd index of data is "<<link(2)<<":\n";
 	HelperUtils::PrintDoublyLinkedList<myType>(link);
+	
+	out<<"Test initializing DLL with array:\n";
+	// test initializing DLL with array
+	auto arr = HelperUtils::GetUniformArray<myType, len>();
+	auto ll = DoublyLinkedList<myType>::Initialize(arr);
+	HelperUtils::PrintDoublyLinkedList(ll);
 }
 
 void RunSorterTests(){
-	const size_t len = 10000;				// array length
 	const size_t numIterations = 500;		// number of timers to run
 	const unsigned char mu=230;		// ASCII 230 = 'µ'
 	// file out stream
@@ -95,24 +107,24 @@ void RunSorterTests(){
 		// calculate average
 		float sum=0;
 		for(int i=10;i<(int)numIterations-10;i++){
-			out<<timeArray[i]<<" "<<mu<<" seconds\n";
+			out<<timeArray[i]<<" "<<mu<<",  ";
 			csv<<timeArray[i]<<"\n";
 			sum+=timeArray[i];
 		}
 		// print to console
 		sum/=(numIterations-20.0);
-		out<<"\nAverage of the median "<<(numIterations-20)<<" runs is "<<sum<<" "<<mu<<" seconds.";
+		out<<"\nAverage of the median "<<(numIterations-20)<<" runs is "<<sum<<" "<<mu<<" seconds.\n";
 		
 		csv.close();
 	}
-	out<<"done\n";
-	// endl(out, 2);
+	endl(out);
 }
 
 int main()
 {
 	// RunSorterTests();
-	// RunSinglyLinkedList();
+	RunSinglyLinkedList();
 	RunDoublyLinkedList();
+
 	return 0;
 }
