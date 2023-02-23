@@ -126,21 +126,34 @@ void RunQueue(){
 	out<<"Test Queue:\n";
 	// test initializing DLL with array
 	auto arr = HelperUtils::GetUniformArray<myType, len>();
-	auto q = Queue<myType>::Initialize(arr);
+	Queue<myType> q;
+	q = Queue<myType>::Initialize(arr);
+	cout<<"Is Queue empty?: "<<q.IsEmpty()<<endl;
 	q.Enqueue(50);
+	cout<<"[ ";
 	while(q.Size()>0)
 		cout<<q.Dequeue()<<" ";
+	cout<<"]";
+	endl();
+	cout<<"Is Queue empty?: "<<q.IsEmpty()<<endl;
 	endl();
 }
 
 void RunStack(){
-	out<<"Test Stack:\n";
+	out<<"Test Stacks:\n";
 	// test initializing DLL with array
 	auto arr = HelperUtils::GetUniformArray<myType, len>();
-	auto q = Stack<myType>::Initialize(arr);
-	q.Push(50);
-	while(q.Size()>0)
-		cout<<q.Pop()<<" ";
+	
+	Stack<myType> stack;
+	stack = Stack<myType>::Initialize(arr);
+	cout<<"Is Stack empty?: "<<stack.IsEmpty()<<endl;
+	stack.Push(50);
+	cout<<"[ ";
+	while(stack.Size()>0)
+		cout<<stack.Pop()<<" ";
+	cout<<"]";
+	endl();
+	cout<<"Is Stack empty?: "<<stack.IsEmpty()<<endl;
 	endl();
 }
 
@@ -149,9 +162,11 @@ int main()
 	// RunSorterTests();
 	// RunSinglyLinkedList();
 	// RunDoublyLinkedList();
+	endl();
 	RunQueue();
 	endl();
 	RunStack();
+	endl();
 
 	return 0;
 }

@@ -30,7 +30,7 @@ T Pop() {
 	}
 	else{
 		cout<<"ERROR: Stack.Pop: Cannot remove from empty stack.\n";
-		return NULL;
+		return -1;
 	}
 }
 
@@ -41,7 +41,8 @@ T Peek() {
 		return list(0);
 	}
 	else{
-		cout<<"ERROR: Stack.Peek: Cannot peek into empty stack.\n";return NULL;
+		cout<<"ERROR: Stack.Peek: Cannot peek into empty stack.\n";
+		return -1;
 	}
 }
 
@@ -54,6 +55,12 @@ void Clear(){
 /// @return int size.
 int Size() {
 	return list.Size();
+}
+
+/// @brief check if stack is empty.
+/// @return true if stack is empty.
+bool IsEmpty() {
+	return !list.Size();
 }
 
 /// @brief Add all elements from param array to this

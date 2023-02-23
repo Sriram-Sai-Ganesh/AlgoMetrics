@@ -29,7 +29,8 @@ T Dequeue() {
 		return list.Remove(list.Size()-1);
 	}
 	else{
-		cout<<"ERROR: Queue.Dequeue: Cannot peek into empty queue.\n";return NULL;
+		cout<<"ERROR: Queue.Dequeue: Cannot peek into empty queue.\n";
+		return -1;
 	}
 }
 
@@ -40,7 +41,8 @@ T Peek() {
 		return list(list.Size()-1);
 	}
 	else{
-		cout<<"ERROR: Queue.Peek: Cannot peek into empty queue.\n";return NULL;
+		cout<<"ERROR: Queue.Peek: Cannot peek into empty queue.\n";
+		return -1;
 	}
 }
 
@@ -53,6 +55,12 @@ void Clear(){
 /// @return int size.
 int Size() {
 	return list.Size();
+}
+
+/// @brief check if queue is empty.
+/// @return true if queue is empty.
+bool IsEmpty() {
+	return !list.Size();
 }
 
 /// @brief Add all elements from param array to this
