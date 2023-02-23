@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <random>	// prng for bogosort
+#include <chrono>	// clock time for seed
 #include <functional>
 #include <array>
 
