@@ -185,7 +185,7 @@ void Add(T data){
 /// @brief remove node at index 'n' from doubly linked list.
 /// @param n index of node to be removed
 /// @return data of removed node.
-T RemoveNode(T n) {
+T Remove(T n) {
 	Node* bad = GetNodePtr(n);
 	bad->next->prev = bad->prev;
 	bad->prev->next = bad->next;
@@ -230,9 +230,7 @@ void AddAll(array<T, len> ar){
 template<class C, size_t len>
 static DoublyLinkedList<C> Initialize(array<C, len> ar){
 	DoublyLinkedList<C> ll;
-	for(C val:ar){
-		ll.Add(val);
-	}
+	ll.AddAll(ar);
 	return ll;
 }
 };
