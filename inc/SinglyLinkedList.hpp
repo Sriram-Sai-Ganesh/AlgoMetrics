@@ -170,4 +170,30 @@ void Clear(){
 	last->prev=head;
 }
 
+
+
+/// @brief Add all elements from param array to this
+/// @tparam len length of array parameter
+/// @param ar array containing values to initialize 
+template<size_t len>
+void AddAll(array<T, len> ar){
+	// TODO check this.type = T
+	this->Clear();
+	for(T val:ar){
+		this->Add(val);
+	}
+}
+
+/// @brief Initialize this with all elements of param array
+/// @tparam len length of array parameter
+/// @param ar array containing values to initialize 
+template<class C, size_t len>
+static SinglyLinkedList<C> Initialize(array<C, len> ar){
+	SinglyLinkedList<C> ll;
+	for(C val:ar){
+		ll.Add(val);
+	}
+	return ll;
+}
+
 };
