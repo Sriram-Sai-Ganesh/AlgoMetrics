@@ -100,7 +100,7 @@ decltype(auto) CreateSorterVector(){
 }		// end namespace
 
 // print 'n' blank lines
-void endl(ostream &out, int n=1){
+void endl(ostream &out=cout, int n=1){
 	while(n--)
 	{
 		out<<"\n";
