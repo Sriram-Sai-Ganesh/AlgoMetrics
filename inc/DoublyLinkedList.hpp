@@ -205,9 +205,34 @@ void Clear(){
 	head->next=last;
 	last->prev=head;
 }
+
 /// @brief get number of nodes in doubly linked list.
 /// @return int size.
 int Size() {
 	return size;
+}
+
+/// @brief Add all elements from param array to this
+/// @tparam len length of array parameter
+/// @param ar array containing values to initialize 
+template<size_t len>
+void AddAll(array<T, len> ar){
+	// TODO check this.type = T
+	this->Clear();
+	for(T val:ar){
+		this->Add(val);
+	}
+}
+
+/// @brief Initialize this with all elements of param array
+/// @tparam len length of array parameter
+/// @param ar array containing values to initialize 
+template<class C, size_t len>
+static DoublyLinkedList<C> Initialize(array<C, len> ar){
+	DoublyLinkedList<C> ll;
+	for(C val:ar){
+		ll.Add(val);
+	}
+	return ll;
 }
 };
