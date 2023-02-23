@@ -8,6 +8,8 @@
 #include "../inc/ExecTimer.hpp"
 #include "../inc/SinglyLinkedList.hpp"
 #include "../inc/DoublyLinkedList.hpp"
+#include "../inc/Queue.hpp"
+#include "../inc/Stack.hpp"
 
 typedef int myType;					// type of variable
 const size_t len = 50;				// array length
@@ -15,67 +17,6 @@ const size_t len = 50;				// array length
 using namespace std;
 // output stream
 ostream &out = cout;
-
-void RunSinglyLinkedList(){
-	out<<"\nSinglyLinkedList Tests: \n";
-	SinglyLinkedList<myType> link;
-	link.Add(1);
-	link.Add(2);
-	link.Add(3);
-	link.Add(4);
-	link.Add(5);
-	link.Add(6);
-	link.Add(7);
-	link.Add(8);
-	link.Add(9);
-	HelperUtils::PrintSinglyLinkedList<myType>(link);	
-	out<<"3rd index node is "<<link(3)<<endl;
-	HelperUtils::PrintSinglyLinkedList<myType>(link);	
-	link.RemoveNode(4);
-	link.RemoveNode(2);
-	out<<"2nd index node is "<<link(2)<<endl;
-	HelperUtils::PrintSinglyLinkedList<myType>(link);
-	endl(out);
-	
-	out<<"Test initializing SLL with array:\n";
-	// test initializing DLL with array
-	auto arr = HelperUtils::GetUniformArray<myType, len>();
-	auto ll = DoublyLinkedList<myType>::Initialize(arr);
-	HelperUtils::PrintDoublyLinkedList(ll);
-}
-
-void RunDoublyLinkedList(){
-	out<<"\nDoublyLinkedList Tests: \n";
-	DoublyLinkedList<myType> link;
-	link.Add(1);
-	link.Add(2);
-	link.Add(3,2);
-	link.Add(4,3);
-	link.Add(6,4);
-	link.Add(5,4);
-	HelperUtils::PrintDoublyLinkedList<myType>(link);	
-	
-	out<<"3rd index of data is "<<link(3)<<":\n";
-	out<<"4th index of data is "<<link(4)<<":\n";
-	HelperUtils::PrintDoublyLinkedList<myType>(link);	
-	link.RemoveNode(4);
-	link.RemoveNode(3);
-	link.Add(7);
-	link.Add(8);
-	link.Add(4,3);
-	link.Add(9);
-	out<<"5th index of data is "<<link(5)<<":\n";
-	HelperUtils::PrintDoublyLinkedList<myType>(link);	
-	link.Add(5,4);
-	out<<"2nd index of data is "<<link(2)<<":\n";
-	HelperUtils::PrintDoublyLinkedList<myType>(link);
-	
-	out<<"Test initializing DLL with array:\n";
-	// test initializing DLL with array
-	auto arr = HelperUtils::GetUniformArray<myType, len>();
-	auto ll = DoublyLinkedList<myType>::Initialize(arr);
-	HelperUtils::PrintDoublyLinkedList(ll);
-}
 
 void RunSorterTests(){
 	const size_t numIterations = 500;		// number of timers to run
@@ -120,11 +61,97 @@ void RunSorterTests(){
 	endl(out);
 }
 
+void RunSinglyLinkedList(){
+	out<<"\nSinglyLinkedList Tests: \n";
+	SinglyLinkedList<myType> link;
+	link.Add(1);
+	link.Add(2);
+	link.Add(3);
+	link.Add(4);
+	link.Add(5);
+	link.Add(6);
+	link.Add(7);
+	link.Add(8);
+	link.Add(9);
+	HelperUtils::PrintSinglyLinkedList<myType>(link);	
+	out<<"3rd index node is "<<link(3)<<endl;
+	HelperUtils::PrintSinglyLinkedList<myType>(link);	
+	link.Remove(4);
+	link.Remove(2);
+	out<<"2nd index node is "<<link(2)<<endl;
+	HelperUtils::PrintSinglyLinkedList<myType>(link);
+	endl(out);
+	
+	out<<"Test initializing SLL with array:\n";
+	// test initializing DLL with array
+	auto arr = HelperUtils::GetUniformArray<myType, len>();
+	auto ll = DoublyLinkedList<myType>::Initialize(arr);
+	HelperUtils::PrintDoublyLinkedList(ll);
+}
+
+void RunDoublyLinkedList(){
+	out<<"\nDoublyLinkedList Tests: \n";
+	DoublyLinkedList<myType> link;
+	link.Add(1);
+	link.Add(2);
+	link.Add(3,2);
+	link.Add(4,3);
+	link.Add(6,4);
+	link.Add(5,4);
+	HelperUtils::PrintDoublyLinkedList<myType>(link);	
+	
+	out<<"3rd index of data is "<<link(3)<<":\n";
+	out<<"4th index of data is "<<link(4)<<":\n";
+	HelperUtils::PrintDoublyLinkedList<myType>(link);	
+	link.Remove(4);
+	link.Remove(3);
+	link.Add(7);
+	link.Add(8);
+	link.Add(4,3);
+	link.Add(9);
+	out<<"5th index of data is "<<link(5)<<":\n";
+	HelperUtils::PrintDoublyLinkedList<myType>(link);	
+	link.Add(5,4);
+	out<<"2nd index of data is "<<link(2)<<":\n";
+	HelperUtils::PrintDoublyLinkedList<myType>(link);
+	
+	out<<"Test initializing DLL with array:\n";
+	// test initializing DLL with array
+	auto arr = HelperUtils::GetUniformArray<myType, len>();
+	auto ll = DoublyLinkedList<myType>::Initialize(arr);
+	HelperUtils::PrintDoublyLinkedList(ll);
+}
+
+void RunQueue(){
+	out<<"Test Queue:\n";
+	// test initializing DLL with array
+	auto arr = HelperUtils::GetUniformArray<myType, len>();
+	auto q = Queue<myType>::Initialize(arr);
+	q.Enqueue(50);
+	while(q.Size()>0)
+		cout<<q.Dequeue()<<" ";
+	endl();
+}
+
+void RunStack(){
+	out<<"Test Stack:\n";
+	// test initializing DLL with array
+	auto arr = HelperUtils::GetUniformArray<myType, len>();
+	auto q = Stack<myType>::Initialize(arr);
+	q.Push(50);
+	while(q.Size()>0)
+		cout<<q.Pop()<<" ";
+	endl();
+}
+
 int main()
 {
 	// RunSorterTests();
-	RunSinglyLinkedList();
-	RunDoublyLinkedList();
+	// RunSinglyLinkedList();
+	// RunDoublyLinkedList();
+	RunQueue();
+	endl();
+	RunStack();
 
 	return 0;
 }
