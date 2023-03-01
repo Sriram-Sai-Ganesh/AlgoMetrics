@@ -6,11 +6,11 @@ using namespace std;
 
 int main()
 {
-	TestRunner::RunSorterTests();
-	TestRunner::RunSinglyLinkedList();
-	TestRunner::RunDoublyLinkedList();
-	TestRunner::RunQueue();
-	TestRunner::RunStack();
-
+	// TestRunner::RunSorterTests();
+	// TestRunner::RunSinglyLinkedList();
+	// TestRunner::RunDoublyLinkedList();
+	// TestRunner::RunQueue();
+	// TestRunner::RunStack();
+	TestRunner::RunArrayList();
 	return 0;
 }
