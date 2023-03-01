@@ -16,6 +16,18 @@ DoublyLinkedList<T> list;
 
 public:
 
+/// @brief iterator begin() function
+/// @return first element of doubly linked list.
+decltype(auto) begin(){
+	return Iterator(list.head->next);
+}
+
+/// @brief iterator end() function
+/// @return last element of doubly linked list.
+decltype(auto) end(){ 
+	return Iterator(list.last);
+}
+
 /// @brief add element to the front of the queue
 /// @param value value of the element to be added
 void Enqueue(T value) {
@@ -63,16 +75,24 @@ bool IsEmpty() {
 	return !list.Size();
 }
 
+/// @brief add all elements from (Iterator) first to (Iterator) last to this queue.
+/// @param first first element to add
+/// @param last element terminating iterator.
+template<typename Iter>
+void AddAll(Iter first, Iter last) {
+	while(first!= last) {
+		this->Enqueue(*first);
+		first++;
+	}
+}
+
 /// @brief Add all elements from param array to this
 /// @tparam len length of array parameter
 /// @param ar array containing values to initialize 
 template<size_t len>
 void AddAll(array<T, len> ar){
 	// TODO check this.type = T
-	this->Clear();
-	for(T val:ar){
-		this->Enqueue(val);
-	}
+	this->AddAll(ar.begin(), ar.end());
 }
 
 /// @brief Construct and initialize a Queue<C> with all elements of param array
@@ -81,7 +101,7 @@ void AddAll(array<T, len> ar){
 template<class C, size_t len>
 static Queue<C> Initialize(array<C, len> ar){
 	Queue<C> q;
-	q.AddAll(ar);
+	q.AddAll(ar.begin(), ar.end());
 	return q;
 }
 
