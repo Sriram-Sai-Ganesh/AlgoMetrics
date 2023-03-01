@@ -5,16 +5,16 @@
 #include <typeinfo>
 #include <random>
 
-#include "../util/randutils.hpp"
 #include "../util/ExecTimer.hpp"
 
 #include "../class/SinglyLinkedList.hpp"
 #include "../class/DoublyLinkedList.hpp"
 
-const unsigned seed=chrono::system_clock::now().time_since_epoch().count();		// prng seed
-randutils::mt19937_rng rng;
-
 using namespace std;
+
+const unsigned seed=chrono::system_clock::now().time_since_epoch().count();		// prng seed
+random_device rd;
+mt19937 engine(rd());
 
 namespace HelperUtils{
 
@@ -62,15 +62,17 @@ template <class T, size_t len>
 array<T, len> GetRandomArray(T min=-len, T max=len)
 {
 	array<T, len> result;
+	uniform_real_distribution<T> distr(min, max);
 	for (size_t i=0; i<result.size(); i++)
-        result[i]=rng.uniform(min, max-1);
+        result[i]=distr(engine);
 	return result;
 }
 
 // return random T number in range [min,max]
 template<class T> 
 T GetRandomNumber(T min, T max){
-	return rng.uniform(min, max);
+	uniform_real_distribution<T> distr(min, max);
+	return distr(engine);
 }
 
 // returns std::array populated with uniform distribution from [min, max]

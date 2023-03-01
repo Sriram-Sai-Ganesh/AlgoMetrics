@@ -20,7 +20,7 @@ using namespace std;
 ostream &out = cout;
 
 void RunSorterTests(){
-	const size_t numIterations = 500;		// number of timers to run
+	const size_t numIterations = 100;		// number of timers to run
 	const unsigned char mu=230;		// ASCII 230 = 'µ'
 	// file out stream
 	ofstream csv;
