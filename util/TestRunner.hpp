@@ -12,6 +12,7 @@
 #include "../class/DoublyLinkedList.hpp"
 #include "../class/Queue.hpp"
 #include "../class/Stack.hpp"
+#include "../class/ArrayList.hpp"
 
 typedef int myType;					// type of variable
 const size_t len = 50;				// array length
@@ -160,4 +161,31 @@ namespace TestRunner{
 		cout<<"Is Stack empty?: "<<stack.IsEmpty()<<endl;
 		endl();
 	}
+
+	void RunArrayList(){
+
+		out<<"Test ArrayLists.\n";
+		ArrayList<myType> arr;
+		out<<"Initial table limit is "<<arr.Limit()<<endl;
+		out<<"Inserting 100 elements.\n";
+		for(int i=0; i<100; i++){
+			arr.Insert(i);
+		}
+
+		out<<"ArrayList length = "<<arr.Length()<<"\n";
+		out<<"Current table limit is "<<arr.Limit()<<endl;
+		out<<"Printing ArrayList:\n";
+		for(int i=0;i<arr.Length();i++){
+			out<<arr.Get(i)<<" ";
+		}
+		endl();
+		out<<"Inserting 101st element.\n";
+		arr.Insert(100);
+		out<<"Current table limit is "<<arr.Limit()<<endl;
+		out<<"Removing 101st element.\n";
+		arr.Remove();
+		out<<"Current table limit is "<<arr.Limit()<<endl;
+
+	}
+
 }	// end namespace
