@@ -3,13 +3,14 @@
 #include <array>
 #include <vector>
 
-#include "../inc/ArrayUtils.hpp"
-#include "../inc/HelperUtils.hpp"
-#include "../inc/ExecTimer.hpp"
-#include "../inc/SinglyLinkedList.hpp"
-#include "../inc/DoublyLinkedList.hpp"
-#include "../inc/Queue.hpp"
-#include "../inc/Stack.hpp"
+#include "../util/ArrayUtils.hpp"
+#include "../util/HelperUtils.hpp"
+#include "../util/ExecTimer.hpp"
+
+#include "../class/SinglyLinkedList.hpp"
+#include "../class/DoublyLinkedList.hpp"
+#include "../class/Queue.hpp"
+#include "../class/Stack.hpp"
 
 typedef int myType;					// type of variable
 const size_t len = 50;				// array length
@@ -159,9 +160,11 @@ void RunStack(){
 
 int main()
 {
-	// RunSorterTests();
-	// RunSinglyLinkedList();
-	// RunDoublyLinkedList();
+	RunSorterTests();
+	endl();
+	RunSinglyLinkedList();
+	endl();
+	RunDoublyLinkedList();
 	endl();
 	RunQueue();
 	endl();

@@ -1,5 +1,5 @@
-#include <iterator>
 #pragma once
+#include <iterator>
 using namespace std;
 
 /// @brief implementation of DoublyLinkedList.

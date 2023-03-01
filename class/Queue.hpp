@@ -1,21 +1,20 @@
 #pragma once
 
 #include <iterator>
-#include "../inc/DoublyLinkedList.hpp"
+#include "../class/DoublyLinkedList.hpp"
 
 using namespace std;
 
-/// @brief implementation of Stack on DoublyLinkedList.
-/// @tparam T type of data in Stack.
+/// @brief implementation of Queue on DoublyLinkedList.
+/// @tparam T type of data in Queue.
 template<class T>
-class Stack{
+class Queue{
 
 private:
 /// @brief DoublyLinkedList secret
 DoublyLinkedList<T> list;
 
 public:
-
 
 /// @brief iterator begin() function
 /// @return first element of doubly linked list.
@@ -29,65 +28,63 @@ decltype(auto) end(){
 	return Iterator(list.last);
 }
 
-
-/// @brief add element to the top of the stack
-/// @param value 
-void Push(T value) {
+/// @brief add element to the front of the queue
+/// @param value value of the element to be added
+void Enqueue(T value) {
 	list.Add(value, 0);
 }
 
-/// @brief remove element from the top of the stack
+/// @brief remove element at the end of the queue.
 /// @return value of element removed
-T Pop() {
+T Dequeue() {
 	if(list.Size()>0){
-		return list.Remove(0);
+		return list.Remove(list.Size()-1);
 	}
 	else{
-		cout<<"ERROR: Stack.Pop: Cannot remove from empty stack.\n";
+		cout<<"ERROR: Queue.Dequeue: Cannot peek into empty queue.\n";
 		return -1;
 	}
 }
 
-/// @brief read element at the top of the stack (without removal)
-/// @return value of the element at the top of the stack
+/// @brief read element at the end of the queue (without removal)
+/// @return value of last element
 T Peek() {
 	if(list.Size()>0){
-		return list(0);
+		return list(list.Size()-1);
 	}
 	else{
-		cout<<"ERROR: Stack.Peek: Cannot peek into empty stack.\n";
+		cout<<"ERROR: Queue.Peek: Cannot peek into empty queue.\n";
 		return -1;
 	}
 }
 
-/// @brief clears all entries from the stack.
+/// @brief clears all entries from linked list.
 void Clear(){
 	list.Clear();
 }
 
-/// @brief get number of elements in the stack.
+/// @brief get number of elements in the queue.
 /// @return int size.
 int Size() {
 	return list.Size();
 }
 
-/// @brief check if stack is empty.
-/// @return true if stack is empty.
+/// @brief check if queue is empty.
+/// @return true if queue is empty.
 bool IsEmpty() {
 	return !list.Size();
 }
 
-/// @brief add all elements from (Iterator) first to (Iterator) last to this stack.
+/// @brief add all elements from (Iterator) first to (Iterator) last to this queue.
 /// @param first first element to add
 /// @param last element terminating iterator.
 template<typename Iter>
 void AddAll(Iter first, Iter last) {
 	while(first!= last) {
-		this->Push(*first);
+		this->Enqueue(*first);
 		first++;
 	}
 }
-
 
 /// @brief Add all elements from param array to this
 /// @tparam len length of array parameter
@@ -98,12 +95,12 @@ void AddAll(array<T, len> ar){
 	this->AddAll(ar.begin(), ar.end());
 }
 
-/// @brief Construct and initialize a Stack<C> with all elements of param array
+/// @brief Construct and initialize a Queue<C> with all elements of param array
 /// @tparam len length of array parameter
 /// @param ar array containing values to initialize 
 template<class C, size_t len>
-static Stack<C> Initialize(array<C, len> ar){
-	Stack<C> q;
+static Queue<C> Initialize(array<C, len> ar){
+	Queue<C> q;
 	q.AddAll(ar.begin(), ar.end());
 	return q;
 }

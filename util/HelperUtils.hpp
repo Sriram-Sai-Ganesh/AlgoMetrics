@@ -1,15 +1,19 @@
+#include <iostream>
 #include <cstdlib>
 #include <array>
 #include <algorithm>
 #include <typeinfo>
 #include <random>
-#include "randutils.hpp"
-#include "SinglyLinkedList.hpp"
-#include "ExecTimer.hpp"
-#include "DoublyLinkedList.hpp"
+
+#include "../util/randutils.hpp"
+#include "../util/ExecTimer.hpp"
+
+#include "../class/SinglyLinkedList.hpp"
+#include "../class/DoublyLinkedList.hpp"
 
 const unsigned seed=chrono::system_clock::now().time_since_epoch().count();		// prng seed
 randutils::mt19937_rng rng;
+
 using namespace std;
 
 namespace HelperUtils{

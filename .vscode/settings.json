@@ -31,6 +31,7 @@
 		"ostream": "cpp",
 		"string": "cpp",
 		"string_view": "cpp",
-		"ios": "cpp"
+		"ios": "cpp",
+		"filesystem": "cpp"
 	}
 }
