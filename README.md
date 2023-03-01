@@ -16,22 +16,22 @@ You'll need to install ```make``` if you want to use the makefile.
 ## Roadmap
 
 - [ ] Utility Namespaces
-  - [ ] ArrayUtils
-  - [ ] TimerUtils
-  - [ ] LinkedListUtils
+  - [x] ArrayUtils
+  - [ ] ExecTimer
   - [ ] TreeUtils
   - [ ] GraphUtils
   	- [ ] Minimum Spanning
   	- [ ] Shortest Path
   	- [ ] Travelling Salesman
-  - [ ] HelperUtils
+  - [x] HelperUtils
   - [ ] ExportUtils
 - [ ] Data structures
-  - [ ] Linked Lists
-    - [ ] Singly Linked Lists
-    - [ ] Doubly Linked Lists 
-  	- [ ] Stacks
-  	- [ ] Queues
+  - [ ] Lists (table doubling)
+  - [x] Linked Lists
+    - [x] Singly Linked Lists
+    - [x] Doubly Linked Lists 
+  	- [x] Stacks
+  	- [x] Queues
   - [ ] Trees
     - [ ] Binary Search Trees
     - [ ] Red and Black Trees
