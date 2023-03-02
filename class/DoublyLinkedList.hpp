@@ -31,7 +31,7 @@ DoublyLinkedList<T>() {
 
 /// @brief iterator implementation.
 class Iterator {
-    using iterator_category = bidirectional_iterator_tag;
+    using iterator_category = forward_iterator_tag;
     using difference_type   = std::ptrdiff_t;
     using value_type        = T;
     using pointer           = T*;  // or also value_type*
@@ -70,23 +70,6 @@ class Iterator {
 		return tmp; 
 	}
 
-    /// @brief prefix decrement.
-    /// @return value after decrement.
-    Iterator& operator--() { 
-		if(this->myNode){
-			this->myNode=this->myNode->prev; 
-		}
-		return *this; 
-	}  
-
-    /// @brief postfix decrement.
-    /// @param  \dummy parameter to change signature.
-    /// @return value prior to decrement.
-    Iterator operator--(int) { 
-		Iterator tmp = *this; 
-		--*this; 
-		return tmp; 
-	}
 
     /// @brief operator overload for equality comparison.
     /// @param inc incoming value to compare against.
