@@ -12,5 +12,6 @@ int main()
 	// TestRunner::RunQueue();
 	// TestRunner::RunStack();
 	TestRunner::RunArrayList();
+	TestRunner::RunMatrix();
 	return 0;
 }
