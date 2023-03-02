@@ -9,6 +9,7 @@
 
 #include "../class/SinglyLinkedList.hpp"
 #include "../class/DoublyLinkedList.hpp"
+#include "../class/Matrix.hpp"
 
 using namespace std;
 
@@ -103,6 +104,29 @@ decltype(auto) CreateSorterVector(){
 	result.push_back(make_pair("MergeSort", CreateTimer(ArrayUtils::MergeSort<T, len>)));
 	return result;
 }
+
+
+template<class T, size_t rows, size_t cols>
+decltype(auto) InitializeMatrix(array<T, rows*cols> ar){
+	Matrix<T> m = Matrix<T>(rows, cols);
+	for(size_t i = 0; i < rows;i++){
+		for(size_t j = 0; j < cols;j++){
+			m(i,j)=ar[i*rows+j];
+		}
+	}
+	return m;
+}
+
+template<class T, size_t rows, size_t cols>
+decltype(auto) CreateUniformMatrix(int low=0, int high=rows*cols){
+	return InitializeMatrix<T, rows, cols>(GetUniformArray<T, rows*cols>());
+}
+
+template<class T, size_t rows, size_t cols>
+decltype(auto) CreateUniformRandomMatrix(int low=0, int high=rows*cols){
+	return InitializeMatrix<T, rows, cols>(GetUniformRandomArray<T, rows*cols>(low, high));
+}
+
 }		// end namespace
 
 // print 'n' blank lines
