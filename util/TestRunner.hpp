@@ -13,6 +13,7 @@
 #include "../class/Queue.hpp"
 #include "../class/Stack.hpp"
 #include "../class/ArrayList.hpp"
+#include "../class/Matrix.hpp"
 
 typedef int myType;					// type of variable
 const size_t len = 50;				// array length
@@ -176,7 +177,7 @@ namespace TestRunner{
 		out<<"Current table limit is "<<arr.Limit()<<endl;
 		out<<"Printing ArrayList:\n";
 		for(int i=0;i<arr.Length();i++){
-			out<<arr.Get(i)<<" ";
+			out<<arr(i)<<" ";
 		}
 		endl();
 		out<<"Inserting 101st element.\n";
@@ -185,7 +186,32 @@ namespace TestRunner{
 		out<<"Removing 101st element.\n";
 		arr.Remove();
 		out<<"Current table limit is "<<arr.Limit()<<endl;
+		out<<endl;
+	}
 
+	void RunMatrix(){
+		const int rows=6, columns=6;
+		out<<"Creating uniform random matrix:\n";
+		auto matrix = HelperUtils::CreateUniformRandomMatrix<myType, rows, columns>();
+		out<<"Printing Matrix:\n";
+		for(int i=0;i<rows;i++){
+			for(int j=0;j<columns;j++){
+				cout<<matrix(i,j)<<"\t";
+			}
+			endl();
+		}
+
+		cout<<"Calling Transpose:\n";
+		auto result = matrix.Transpose();
+
+		out<<"Result is \n";
+		for(int i=0;i<result.Rows();i++){
+			for(int j=0;j<result.Columns();j++){
+				cout<<result(i,j)<<"\t";
+			}
+			endl();
+		}
+		endl();
 	}
 
 }	// end namespace
