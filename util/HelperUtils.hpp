@@ -14,8 +14,8 @@
 using namespace std;
 
 const unsigned seed=chrono::system_clock::now().time_since_epoch().count();		// prng seed
-random_device rd;
-mt19937 engine(rd());
+static random_device rd;
+static mt19937 engine(rd());
 
 namespace HelperUtils{
 
@@ -55,6 +55,34 @@ void PrintDoublyLinkedList(DoublyLinkedList<T> link, ostream &out=cout){
 		out<<h<<"  ";
 	}
 	out<<"]\n";
+}
+
+/// @brief print matrix with large brackets.
+/// @tparam T class contained in matrix
+/// @param mat object to print
+/// @param out output stream, &cout by default.
+template<class T>
+void PrintMatrix(Matrix<T> mat, ostream &out=cout){
+	unsigned char dash = 196;
+	unsigned char line = 179;
+	unsigned char topLeft = 218;
+	unsigned char bottomLeft = 192;
+	unsigned char topRight = 191;
+	unsigned char bottomRight = 217;
+	out<<topLeft<<dash;
+	for(size_t i=0;i<=mat.Columns();i++)out<<"\t";
+	out<<dash<<topRight<<endl;
+	for(size_t i=0;i<mat.Rows();i++){
+		out<<line<<"\t";
+		for(size_t j=0;j<mat.Columns();j++){
+			out<<mat(i,j)<<"\t";
+		}
+		out<<" "<<line<<endl;
+	}
+
+	out<<bottomLeft<<dash;
+	for(size_t i=0;i<=mat.Columns();i++)out<<"\t";
+	out<<dash<<bottomRight<<endl;
 }
 
 // returns array populated with random (INTEGRAL TYPE) T in range [min, max)
@@ -142,10 +170,13 @@ decltype(auto) CreateUniformRandomMatrix(int low=0, int high=rows*cols){
 
 }		// end namespace
 
-// print 'n' blank lines
-void endl(ostream &out=cout, int n=1){
-	while(n--)
-	{
-		out<<"\n";
+
+void printchar(char c,int count,ostream &out=cout){
+	while(count--){
+		out<<c;
 	}
+}
+// print 'n' blank lines
+void endl(int n=1, ostream &out=cout){
+	printchar('\n',n,out);
 }
