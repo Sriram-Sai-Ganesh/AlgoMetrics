@@ -5,7 +5,7 @@ SRCDIR = ./src/
 OBJDIR = ./obj/
 CLASSDIR=./class/
 CC=g++
-CFLAGS= -pedantic -W -Wall -Wextra -std=c++14
+CFLAGS= -pedantic -W -Wall -Wextra -std=c++17
 OBJECTS = $(OBJDIR)main.o
 all: main
 
