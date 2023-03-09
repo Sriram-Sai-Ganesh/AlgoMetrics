@@ -59,7 +59,7 @@ size_t Columns() {
 /// @return value at index (row, column)
 T operator()(size_t rowIndex, size_t colIndex)const{
 	assert(rowIndex<this->rows && colIndex<this->cols);
-	else return this->ar[rowIndex][colIndex];
+	return this->ar[rowIndex][colIndex];
 }
 
 /// @brief operator() overload for matrix assignment
