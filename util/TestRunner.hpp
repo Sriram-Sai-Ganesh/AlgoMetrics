@@ -15,7 +15,7 @@
 #include "../class/ArrayList.hpp"
 #include "../class/Matrix.hpp"
 
-typedef int myType;					// type of variable
+typedef long long myType;					// type of variable
 const size_t len = 50;				// array length
 
 // output stream
@@ -43,7 +43,7 @@ namespace TestRunner{
 				timeArray[i]=sortTimer.second(arrCopy);	//second part of pair is the ExecTimer object
 			}
 			// sort the array of times
-			ArrayUtils::TailRecursiveQuickSort<myType, numIterations>(timeArray);
+			ArrayUtils::TailRecursiveQuickSort<int, numIterations>(timeArray);
 
 			// open the CSV file
 			csv.open("out/"+sortTimer.first+".csv", ios::out);
@@ -193,31 +193,36 @@ namespace TestRunner{
 		for(int i=0;i<arr.Length();i++){
 			out<<arr(i)<<" ";
 		}
-		out<<endl;
+		endl(2);
 	}
 
 	void RunMatrix(){
-		const int rows=6, columns=6;
+		const int rows=5, columns=5;
 		out<<"Creating uniform random matrix:\n";
 		auto matrix = HelperUtils::CreateUniformRandomMatrix<myType, rows, columns>();
 		out<<"Printing Matrix:\n";
-		for(int i=0;i<rows;i++){
-			for(int j=0;j<columns;j++){
-				cout<<matrix(i,j)<<"\t";
-			}
-			endl();
-		}
-
+		HelperUtils::PrintMatrix<myType>(matrix);
 		cout<<"Calling Transpose:\n";
 		auto result = matrix.Transpose();
-
 		out<<"Result is \n";
-		for(size_t i=0;i<result.Rows();i++){
-			for(size_t j=0;j<result.Columns();j++){
-				cout<<result(i,j)<<"\t";
-			}
-			endl();
-		}
+		HelperUtils::PrintMatrix<myType>(result);
+
+
+		out<<"Creating random new matrix:\n";
+		auto randMatrix=HelperUtils::CreateUniformRandomMatrix<myType, rows, columns+2>();
+		HelperUtils::PrintMatrix<myType>(randMatrix);
+		auto product=matrix.Multiply(randMatrix);
+		out<<"Product of original matrix and new matrix is:\n";
+		HelperUtils::PrintMatrix<myType>(product);
+		out<<"Original Matrix:\n";
+		HelperUtils::PrintMatrix<myType>(matrix);
+		out<<"Naive Squaring: \n";
+		auto naiveSquare=matrix.NaivePower(2);
+		HelperUtils::PrintMatrix<myType>(naiveSquare);
+
+		out<<"Fast Squaring: \n";
+		auto fastSquare=matrix.Power(2);
+		HelperUtils::PrintMatrix<myType>(fastSquare);
 		endl();
 	}
 
