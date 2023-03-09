@@ -186,6 +186,13 @@ namespace TestRunner{
 		out<<"Removing 101st element.\n";
 		arr.Remove();
 		out<<"Current table limit is "<<arr.Limit()<<endl;
+		out<<"Inserting random 100 elements."<<endl;
+		auto ar= HelperUtils::GetRandomArray<myType, len>(0,10000);
+		arr.Initialize(ar);
+		out<<"Printing ArrayList:\n";
+		for(int i=0;i<arr.Length();i++){
+			out<<arr(i)<<" ";
+		}
 		out<<endl;
 	}
 
@@ -205,8 +212,8 @@ namespace TestRunner{
 		auto result = matrix.Transpose();
 
 		out<<"Result is \n";
-		for(int i=0;i<result.Rows();i++){
-			for(int j=0;j<result.Columns();j++){
+		for(size_t i=0;i<result.Rows();i++){
+			for(size_t j=0;j<result.Columns();j++){
 				cout<<result(i,j)<<"\t";
 			}
 			endl();
