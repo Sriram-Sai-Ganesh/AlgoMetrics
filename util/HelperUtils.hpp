@@ -51,17 +51,26 @@ void PrintDoublyLinkedList(DoublyLinkedList<T> link, ostream &out=cout){
 	
 	out<<"Printing DoublyLinkedList of length "<<link.Size()<<" (type'"<<typeid(T).name()<<"'):\n";
 	out<<"[  ";
-	for(auto h:link)
-	{
+	for(auto h:link){
 		out<<h<<"  ";
 	}
 	out<<"]\n";
 }
 
-// returns array populated with random T in range [min, max)
-template <class T, size_t len> 
-array<T, len> GetRandomArray(T min=-len, T max=len)
-{
+// returns array populated with random (INTEGRAL TYPE) T in range [min, max)
+template <class T, size_t len, enable_if_t<std::is_integral_v<T>, int> = 0> 
+array<T, len> GetRandomArray(T min, T max){
+	array<T, len> result;
+	uniform_int_distribution<T> distr(min, max);
+	for (size_t i=0; i<result.size(); i++)
+        result[i]=distr(engine);
+	return result;
+}
+
+// returns array populated with random (FLOAT TYPE) T in range [min, max)
+template <class T, size_t len,
+enable_if_t<std::is_floating_point_v<T>, int> = 0> 
+array<T, len> GetRandomArray(T min, T max){
 	array<T, len> result;
 	uniform_real_distribution<T> distr(min, max);
 	for (size_t i=0; i<result.size(); i++)
@@ -69,8 +78,14 @@ array<T, len> GetRandomArray(T min=-len, T max=len)
 	return result;
 }
 
-// return random T number in range [min,max]
-template<class T> 
+// return random T (INTEGRAL TYPE) number in range [min,max]
+template<class T, enable_if_t<std::is_integral_v<T>, int> = 0> 
+T GetRandomNumber(T min, T max){
+	uniform_int_distribution<T> distr(min, max);
+	return distr(engine);
+}
+// return random T (FLOAT TYPE) number in range [min,max]
+template<class T, enable_if_t<std::is_floating_point_v<T>, int> = 0> 
 T GetRandomNumber(T min, T max){
 	uniform_real_distribution<T> distr(min, max);
 	return distr(engine);
@@ -78,8 +93,7 @@ T GetRandomNumber(T min, T max){
 
 // returns std::array populated with uniform distribution from [min, max]
 template <class T, size_t len> 
-array<T, len> GetUniformArray(T min=0, T max=len)
-{
+array<T, len> GetUniformArray(T min=0, T max=len){
 	array<T, len> result;
 	for (size_t i=0; i<result.size(); i++)
         result[i] = min + ((max-min)*(i*1.0/result.size()));
@@ -90,7 +104,6 @@ array<T, len> GetUniformArray(T min=0, T max=len)
 template <class T, size_t len>
 array<T, len> GetUniformRandomArray(T min=0, T max=len){
 	auto result = GetUniformArray<T, len>(min, max);
-	
 	shuffle (begin(result), end(result), default_random_engine(seed));
 	return result;
 }
