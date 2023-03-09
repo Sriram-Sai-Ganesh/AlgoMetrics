@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdlib>	// malloc and free
+#include <cassert>	// assertions
 #include <iterator>	// TODO std::iterator
 #include <array>	// AddAll(array)
 
@@ -14,8 +15,8 @@ private:
 
 /// @brief private 2D array
 T** ar;
-int rows;
-int cols;
+size_t rows;
+size_t cols;
 
 public:
 /// @brief constructor. mallocs space for array.
@@ -23,7 +24,7 @@ Matrix<T>(int row, int col) {
 	rows=row;
 	cols=col;
 	ar = (T**)malloc(sizeof(T*)*rows);
-	for(int i=0;i<rows;i++){
+	for(size_t i=0;i<rows;i++){
 		ar[i]=(T*)malloc(sizeof(T)*cols);
 	}
 }
@@ -32,9 +33,9 @@ Matrix<T>(int row, int col) {
 
 /// @brief matrix transpose
 /// @return returns transpose of this
-decltype(auto) Transpose(){
+Matrix<T> Transpose(){
 	auto result = Matrix<T>(cols,rows);
-	for(int i=0;i<rows*cols;i++){
+	for(size_t i=0;i<rows*cols;i++){
 		result(i/cols, i%cols) = (*this)(i%rows, i/rows);
 	}
 	return result;
@@ -57,9 +58,7 @@ size_t Columns() {
 /// @param colIndex column to get element from
 /// @return value at index (row, column)
 T operator()(size_t rowIndex, size_t colIndex)const{
-	if(rowIndex<0 || rowIndex>=this->rows || colIndex<0 || colIndex>=this->cols){
-		cerr<<"ERROR: Matrix(row, col): Index out of bounds.\n";
-	}
+	assert(rowIndex<this->rows && colIndex<this->cols);
 	else return this->ar[rowIndex][colIndex];
 }
 
@@ -68,9 +67,8 @@ T operator()(size_t rowIndex, size_t colIndex)const{
 /// @param colIndex column to get reference to
 /// @return reference to index (row, column)
 T& operator()(size_t rowIndex, size_t colIndex){
-	if(rowIndex<0 || rowIndex>=this->rows || colIndex<0 || colIndex>=this->cols){
-		cerr<<"ERROR: Matrix(row, col): Index out of bounds.\n";
-	}
-	else return this->ar[rowIndex][colIndex];
+	// Index cannot be out of bounds."
+	assert(rowIndex<this->rows && colIndex<this->cols);
+	return this->ar[rowIndex][colIndex];
 }
 };

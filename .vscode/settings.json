@@ -32,6 +32,7 @@
 		"string": "cpp",
 		"string_view": "cpp",
 		"ios": "cpp",
-		"filesystem": "cpp"
+		"filesystem": "cpp",
+		"random": "cpp"
 	}
 }

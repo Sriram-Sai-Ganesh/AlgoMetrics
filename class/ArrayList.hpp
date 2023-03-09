@@ -3,7 +3,8 @@
 #include <cstdlib>	// malloc and free
 #include <iterator>	// TODO std::iterator
 #include <array>	// AddAll(array)
-
+#include <typeinfo>	// typechecking
+#include <cassert>	// type errors
 using namespace std;
 
 /// @brief implementation of variable-length array using table doubling
@@ -95,14 +96,11 @@ void Insert(T value){
 /// @brief remove element from 'index' in the ArrayList.
 /// @return value of element removed
 T Remove(int index) {
-	if(last==0){
-		cerr<<"ERROR: ArrayList.Remove(): Cannot remove from empty list."<<endl;
-		return NULL;
-	}
-	if(index<0){
-		cerr<<"ERROR: ArrayList.Remove(): "<<endl;
-		return NULL;
-	}
+	// cannot remove from empty list
+	assert(last>0);
+	// index is non-negative
+	assert(index>=0);
+
 	T bad = array[index];
 	for(int i=index;i<last;i++){
 		array[i]=array[i+1];
@@ -119,16 +117,17 @@ T Remove(){
 }
 
 /// @brief get element at position 'index' in the ArrayList.
-T Get(int index){
-	if(this->last==0){
-		cerr<<"ERROR: ArrayList.Get(index): Cannot get element from empty list."<<endl;
-		return NULL;
-	}
-	if(index<0 || index>=this->last){
-		cerr<<"ERROR: ArrayList.Get(): Index must be in range [0, " <<last<<")."<<endl;
-		return NULL;
-	}
+T Get(int index)const{
+	// cannot get element from empty list
+	assert(this->last!=0);	
+	// Index must be in range [0, 'last')
+	assert(index>=0 && index<this->last);
+	
 	return array[index];
+}
+
+T operator()(int index)const{
+	return (*this).Get(index);
 }
 
 /// @brief get number of valid elements in the current ArrayList.
@@ -150,42 +149,40 @@ bool IsEmpty() {
 }
 
 /// @brief clears all entries from the ArrayList.
-void Reset(){
+void Clear(){
 	free(array);
-	array = allocateArray(defaultSize);
-	limit=0;
-	last=0;
+	this->limit=this->defaultSize;
+	this->last=0;
+	this->array = allocateArray(this->limit);
 }
 /// @brief add all elements from (Iterator) first to (Iterator) last to ArrayList.
 /// @param first first element to add
 /// @param last element terminating iterator.
 template<typename Iter>
 void AddAll(Iter first, Iter last) {
+	assert(typeid(*first) != typeid(T()));
 	while(first!= last) {
-		this->Add(*first);
+		this->Insert(*first);
 		first++;
 	}
 }
-
 
 /// @brief Add all elements from param array to this
 /// @tparam len length of array parameter
 /// @param ar array containing values to initialize 
 template<size_t len>
 void AddAll(std::array<T, len> ar){
-	// TODO check this->type = T
+	assert(typeid(T()) == typeid(ar[0]));
 	this->AddAll(ar.begin(), ar.end());
 }
 
 /// @brief Construct and initialize a ArrayList<C> with all elements of param array
 /// @tparam len length of array parameter
 /// @param ar array containing values to initialize 
-template<class C, size_t len>
-static ArrayList<C> Initialize(std::array<C, len> ar){
-	ArrayList<C> l;
-	l.AddAll(ar.begin(), ar.end());
-	return l;
+template<size_t len>
+void Initialize(std::array<T, len> ar){
+	this->Clear();
+	this->AddAll(ar.begin(), ar.end());
 }
-
 
 };
