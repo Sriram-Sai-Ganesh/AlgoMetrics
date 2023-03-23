@@ -1,12 +1,10 @@
-import networkx as nx				# create graph object
+import networkx as nx				# graphs and layouts
 import matplotlib.pyplot as plt		# draw graphs
 import csv 							# read graphs from file
-import pydot						# 
-from networkx.drawing.nx_pydot import graphviz_layout	# pretty trees
 
 # return a list of pairs of connected vertices in graph
 def GetPairs(fileAddress):
-	# result is adjacency list of pairs
+	# result is adjacency list of vertices
 	result=[]
 	with open(fileAddress) as file:
 		reader = csv.reader(file)
@@ -14,25 +12,30 @@ def GetPairs(fileAddress):
 			result.append([s.strip() for s in row])
 	return result
 
-
-# takes a CSV file address as parameter
-# draws an undirected unweighted graph with contents of file
-def DrawUndirectedUnweightedGraph(fileAddress):
+# draw graph from 'fileAddress' in a structure descibed in 'structure'
+# param structure is in ['graph', 'tree']
+def Draw(fileAddress, structure="graph"):
+	assert structure in ["graph", "tree"]
 	# create graph object
 	myGraph=nx.Graph()
 	# initialize list of edges from CSV
 	edgeList=GetPairs(fileAddress)
 	# initialize graph from adjacency list
 	myGraph.add_edges_from(edgeList)
-	
-	# calculate positions of graph nodes (coordinates of edges 
-	# in the matplotlib plot) optimizing positions to 
-	# obtain a circular node layout 
-	pos = nx.circular_layout(myGraph)
+
+
+	if structure == "graph":
+		# circular arrangement of nodes
+		pos = nx.circular_layout(myGraph)
+	elif structure == "tree":
+		# k-ary tree
+		pos = nx.nx_agraph.graphviz_layout(myGraph, prog="dot")
 
 	# draw graph with nodes in evenly 
 	# distributed coordinate positions
+	# myTree = nx.balanced_tree(2, 5)
 	nx.draw_networkx(myGraph, pos=pos)
+
 	# show matplotlib plot
 	plt.tight_layout()
 	# plt.axis('circular')
@@ -45,38 +48,10 @@ def DrawUndirectedUnweightedGraph(fileAddress):
 	plt.close()
 
 
-# takes a CSV file address as parameter
-# draws a k-ary tree with contents of file
-def DrawTree(fileAddress):
-	# create graph object
-	myTree=nx.Graph()
-	# initialize list of edges from CSV
-	edgeList = GetPairs(fileAddress)
-	# initialize graph from adjacency list
-	myTree.add_edges_from(edgeList)
-	# myTree = nx.balanced_tree(2, 5)
-	# get positions of graph nodes in matplotlib window,
-	# in order to draw as a tree
-	pos = graphviz_layout(myTree, prog="dot")
-
-	nx.draw_networkx(myTree, pos=pos)
-	# show the matplotlib window
-	plt.show()
-	
-	nx.draw_networkx(myTree, pos=pos)
-	# save result as a png
-	plt.savefig('out/TreeImage.png')
-	# close plot
-	plt.close()
-
-
 # string address of file
 graphFileAddress = 'data/graph.csv'
 treeFileAddress = 'data/tree.csv'
 
-# call 'draw' on the graph in the file
-DrawUndirectedUnweightedGraph(graphFileAddress)
-
-# draw a tree
-DrawTree(treeFileAddress)
+Draw(graphFileAddress, structure="graph")
+Draw(treeFileAddress, structure="tree")
 
