@@ -11,7 +11,7 @@ int main()
 	// TestRunner::RunDoublyLinkedList();
 	// TestRunner::RunQueue();
 	// TestRunner::RunStack();
-	TestRunner::RunArrayList();
+	// TestRunner::RunArrayList();
 	TestRunner::RunMatrix();
 	return 0;
 }

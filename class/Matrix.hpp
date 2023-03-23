@@ -36,7 +36,7 @@ Matrix<T>(int row, int col) {
 /// @param colIndex column to get element from
 /// @return value at index (row, column)
 T operator()(size_t rowIndex, size_t colIndex)const{
-	assert(rowIndex<this->rows && colIndex<this->cols);
+	assert(rowIndex < this->rows && colIndex < this->cols);
 	return this->ar[rowIndex][colIndex];
 }
 
@@ -136,7 +136,7 @@ Matrix<T> Power(int exp){
 /// @param dim number of rows in zero matrix
 /// @return dim x dim zero matrix
 template<T>
-static Matrix<T> Zero(size_t dim) {
+static Matrix<T> Zeroes(size_t dim) {
 	Matrix<T> result = Matrix<T>(dim, dim);
 	return result;
 }
@@ -146,8 +146,8 @@ static Matrix<T> Zero(size_t dim) {
 /// @return dim x dim identity matrix
 template<T>
 static Matrix<T> Identity(size_t dim) {
-	Matrix<T> result = Zero(dim);
-	for(int i=0;i<dim;i++){
+	Matrix<T> result = Zeroes(dim);
+	for(size_t i=0;i<dim;i++){
 		result(i,i)=1;
 	}
 	return result;

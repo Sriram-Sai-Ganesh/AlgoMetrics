@@ -160,7 +160,7 @@ decltype(auto) InitializeMatrix(array<T, rows*cols> ar){
 
 template<class T, size_t rows, size_t cols>
 decltype(auto) CreateUniformMatrix(int low=0, int high=rows*cols){
-	return InitializeMatrix<T, rows, cols>(GetUniformArray<T, rows*cols>());
+	return InitializeMatrix<T, rows, cols>(GetUniformArray<T, rows*cols>(low, high));
 }
 
 template<class T, size_t rows, size_t cols>
