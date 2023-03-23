@@ -19,7 +19,12 @@ static mt19937 engine(rd());
 
 namespace HelperUtils{
 
-// print array 'arr' separated by ', '
+
+/// @brief print array 'arr' separated by ', '
+/// @tparam T class of array elements
+/// @tparam len length of param array
+/// @param arr array to print
+/// @param out &ostream
 template<class T, size_t len> 
 void PrintArray(array<T, len> arr, ostream &out=cout)
 {
@@ -31,8 +36,10 @@ void PrintArray(array<T, len> arr, ostream &out=cout)
 	out<<arr[len-1]<<"]";
 }
 
-
-// print singly linked list 'link'
+/// @brief print singly linked list 'link'
+/// @tparam T class of element in singly linked list
+/// @param link SinglyLinkedList object
+/// @param out &ostream
 template<class T> 
 void PrintSinglyLinkedList(SinglyLinkedList<T> link, ostream &out=cout){
 	out<<"Printing SinglyLinkedList of length "<<link.Size()<<" (type'"<<typeid(T).name()<<"'):\n";
@@ -45,7 +52,10 @@ void PrintSinglyLinkedList(SinglyLinkedList<T> link, ostream &out=cout){
 }
 
 
-// print doubly linked list 'link'
+/// @brief print doubly linked list 'link'
+/// @tparam T class of element in singly linked list
+/// @param link DoublyLinkedList object
+/// @param out &ostream
 template<class T> 
 void PrintDoublyLinkedList(DoublyLinkedList<T> link, ostream &out=cout){
 	
@@ -85,7 +95,13 @@ void PrintMatrix(Matrix<T> mat, ostream &out=cout){
 	out<<dash<<bottomRight<<endl;
 }
 
-// returns array populated with random (INTEGRAL TYPE) T in range [min, max)
+/// @brief initializes and returns array populated with random (INTEGRAL TYPE) T in range [min, max)
+/// @tparam T type of elements in array
+/// @tparam len length of result array
+/// @tparam run this version of the function only if type 'T' is similar to integers
+/// @param min lower limit of array values
+/// @param max ceiling of array values
+/// @return array populated with random (INTEGRAL TYPE) T in range [min, max)
 template <class T, size_t len, enable_if_t<std::is_integral_v<T>, int> = 0> 
 array<T, len> GetRandomArray(T min, T max){
 	array<T, len> result;
@@ -95,7 +111,13 @@ array<T, len> GetRandomArray(T min, T max){
 	return result;
 }
 
-// returns array populated with random (FLOAT TYPE) T in range [min, max)
+/// @brief initializes and returns array populated with random (FLOAT TYPE) T in range [min, max)
+/// @tparam T type of elements in array
+/// @tparam len length of result array
+/// @tparam run this version of the function only if type 'T' is similar to integers
+/// @param min lower limit of array values
+/// @param max ceiling of array values
+/// @return array populated with random (FLOAT TYPE) T in range [min, max)
 template <class T, size_t len,
 enable_if_t<std::is_floating_point_v<T>, int> = 0> 
 array<T, len> GetRandomArray(T min, T max){
@@ -106,20 +128,36 @@ array<T, len> GetRandomArray(T min, T max){
 	return result;
 }
 
-// return random T (INTEGRAL TYPE) number in range [min,max]
+/// @brief return a random T (INTEGRAL TYPE) in range [min,max]
+/// @tparam T type of number to return
+/// @tparam  run this version of the function only if type 'T' is similar to integers
+/// @param min lower limit of returned random value
+/// @param max ceiling of returned random value
+/// @return random T (INTEGRAL TYPE) number in range [min,max]
 template<class T, enable_if_t<std::is_integral_v<T>, int> = 0> 
 T GetRandomNumber(T min, T max){
 	uniform_int_distribution<T> distr(min, max);
 	return distr(engine);
 }
-// return random T (FLOAT TYPE) number in range [min,max]
+
+/// @brief return a random T (FLOAT TYPE) in range [min,max]
+/// @tparam T type of number to return
+/// @tparam  run this version of the function only if type 'T' is similar to integers
+/// @param min lower limit of returned random value
+/// @param max ceiling of returned random value
+/// @return random T (FLOAT TYPE) number in range [min,max]
 template<class T, enable_if_t<std::is_floating_point_v<T>, int> = 0> 
 T GetRandomNumber(T min, T max){
 	uniform_real_distribution<T> distr(min, max);
 	return distr(engine);
 }
 
-// returns std::array populated with uniform distribution from [min, max]
+/// @brief returns std::array populated with uniform distribution from [min, max]
+/// @tparam T type of element in array
+/// @tparam len length of resulting array
+/// @param min lower limit of array values
+/// @param max ceiling of array values 
+/// @return std::array with randoms in range of [min,max)
 template <class T, size_t len> 
 array<T, len> GetUniformArray(T min=0, T max=len){
 	array<T, len> result;
@@ -128,7 +166,12 @@ array<T, len> GetUniformArray(T min=0, T max=len){
 	return result;	
 }
 
-// returns std::array with values uniform in [min, max) in random order.
+/// @brief returns std::array populated with uniform distribution from [min, max] in random order
+/// @tparam T type of element in array
+/// @tparam len length of resulting array
+/// @param min lower limit of array values
+/// @param max ceiling of array values 
+/// @return std::array with randoms in range of [min,max)
 template <class T, size_t len>
 array<T, len> GetUniformRandomArray(T min=0, T max=len){
 	auto result = GetUniformArray<T, len>(min, max);
@@ -136,6 +179,10 @@ array<T, len> GetUniformRandomArray(T min=0, T max=len){
 	return result;
 }
 
+/// @brief return a list of multiple pairs of (std::string, ExecTimer object) in a vector
+/// @tparam T type of array to pass to the ExecTimer object
+/// @tparam len length of array to pass to the ExecTimer object
+/// @return std::vector of pairs of (string,ExecTimers)
 template<class T, size_t len>
 decltype(auto) CreateSorterVector(){
 	// create vector of (string,ExecTimers)
@@ -146,7 +193,12 @@ decltype(auto) CreateSorterVector(){
 	return result;
 }
 
-
+/// @brief initialize a matrix object from a std::array
+/// @tparam T type of array param
+/// @tparam rows number of rows in result matrix
+/// @tparam cols number of columns in result matrix
+/// @param ar array to create matrix from
+/// @return matrix initialized from arrray<T, rows*cols> object
 template<class T, size_t rows, size_t cols>
 decltype(auto) InitializeMatrix(array<T, rows*cols> ar){
 	Matrix<T> m = Matrix<T>(rows, cols);
@@ -158,11 +210,25 @@ decltype(auto) InitializeMatrix(array<T, rows*cols> ar){
 	return m;
 }
 
+/// @brief create a matrix with values uniformly distributed in [low, high)
+/// @tparam T type of param array object 
+/// @tparam rows number of rows in result matrix
+/// @tparam cols number of columns in result matrix
+/// @param low lower limit for uniform distribution range
+/// @param high upper limit for uniform distribution range
+/// @return matrix initialized with values uniform in [low, high)
 template<class T, size_t rows, size_t cols>
 decltype(auto) CreateUniformMatrix(int low=0, int high=rows*cols){
 	return InitializeMatrix<T, rows, cols>(GetUniformArray<T, rows*cols>(low, high));
 }
 
+/// @brief create a matrix with values uniformly distributed in [low, high) in random order
+/// @tparam T type of param array object 
+/// @tparam rows number of rows in result matrix
+/// @tparam cols number of columns in result matrix
+/// @param low lower limit for uniform distribution range
+/// @param high upper limit for uniform distribution range
+/// @return matrix initialized with values uniform in [low, high) in random order
 template<class T, size_t rows, size_t cols>
 decltype(auto) CreateUniformRandomMatrix(int low=0, int high=rows*cols){
 	return InitializeMatrix<T, rows, cols>(GetUniformRandomArray<T, rows*cols>(low, high));
@@ -170,13 +236,18 @@ decltype(auto) CreateUniformRandomMatrix(int low=0, int high=rows*cols){
 
 }		// end namespace
 
-
+/// @brief print 'c' 'count' times in a row
+/// @param c character to print
+/// @param count number of times to print
+/// @param out &ostream
 void printchar(char c,int count,ostream &out=cout){
 	while(count--){
 		out<<c;
 	}
 }
-// print 'n' blank lines
+/// @brief print "\n" 'n' times 
+/// @param n number of linebreaks to print
+/// @param out &ostream
 void endl(int n=1, ostream &out=cout){
 	printchar('\n',n,out);
 }
