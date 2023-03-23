@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <typeinfo>
 #include <random>
+#include <iomanip>
 
 #include "../util/ExecTimer.hpp"
 
@@ -16,6 +17,22 @@ using namespace std;
 const unsigned seed=chrono::system_clock::now().time_since_epoch().count();		// prng seed
 static random_device rd;
 static mt19937 engine(rd());
+
+/// @brief print 'c' 'count' times in a row
+/// @param c character to print
+/// @param count number of times to print
+/// @param out &ostream
+void printchar(char c,int count,ostream &out=cout){
+	while(count--){
+		out<<c;
+	}
+}
+/// @brief print "\n" 'n' times 
+/// @param n number of linebreaks to print
+/// @param out &ostream
+void endl(int n=1, ostream &out=cout){
+	printchar('\n',n,out);
+}
 
 namespace HelperUtils{
 
@@ -83,11 +100,12 @@ void PrintMatrix(Matrix<T> mat, ostream &out=cout){
 	for(size_t i=0;i<=mat.Columns();i++)out<<"\t";
 	out<<dash<<topRight<<endl;
 	for(size_t i=0;i<mat.Rows();i++){
-		out<<line<<"\t";
+		out<<line;
 		for(size_t j=0;j<mat.Columns();j++){
-			out<<mat(i,j)<<"\t";
+			out<<setw(8)<<setprecision(3)<<mat(i,j);
 		}
-		out<<" "<<line<<endl;
+		printchar(' ', 8, out);
+		out<<line<<endl;
 	}
 
 	out<<bottomLeft<<dash;
@@ -234,20 +252,18 @@ decltype(auto) CreateUniformRandomMatrix(int low=0, int high=rows*cols){
 	return InitializeMatrix<T, rows, cols>(GetUniformRandomArray<T, rows*cols>(low, high));
 }
 
-}		// end namespace
 
-/// @brief print 'c' 'count' times in a row
-/// @param c character to print
-/// @param count number of times to print
-/// @param out &ostream
-void printchar(char c,int count,ostream &out=cout){
-	while(count--){
-		out<<c;
-	}
+
+/// @brief create a matrix with values randomly distributed in [low, high)
+/// @tparam T type of param array object 
+/// @tparam rows number of rows in result matrix
+/// @tparam cols number of columns in result matrix
+/// @param low lower limit for uniform distribution range
+/// @param high upper limit for uniform distribution range
+/// @return matrix initialized with values uniform in [low, high) in random order
+template<class T, size_t rows, size_t cols>
+decltype(auto) CreateRandomMatrix(int low=0, int high=rows*cols){
+	return InitializeMatrix<T, rows, cols>(GetRandomArray<T, rows*cols>(low, high));
 }
-/// @brief print "\n" 'n' times 
-/// @param n number of linebreaks to print
-/// @param out &ostream
-void endl(int n=1, ostream &out=cout){
-	printchar('\n',n,out);
-}
+
+}		// end namespace
