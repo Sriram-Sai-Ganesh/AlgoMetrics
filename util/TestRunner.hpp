@@ -15,7 +15,7 @@
 #include "../class/ArrayList.hpp"
 #include "../class/Matrix.hpp"
 
-typedef long long myType;					// type of variable
+typedef long myType;					// type of variable
 const size_t len = 50;				// array length
 
 // output stream
@@ -224,6 +224,22 @@ namespace TestRunner{
 		auto fastSquare=matrix.Power(2);
 		HelperUtils::PrintMatrix<myType>(fastSquare);
 		endl();
+
+
+		out<<"Testing LU Decomposition:\nRandom matrix is\n";
+		const int squareMatrixSide=3;
+		auto squareMatrix=HelperUtils::CreateRandomMatrix<myType, squareMatrixSide, squareMatrixSide>(0,10);
+		HelperUtils::PrintMatrix<myType>(squareMatrix);
+		out<<"Running LUDecomposition: \n";
+		auto lowerUpperPair = squareMatrix.LUDecomposition();
+
+		
+		out<<"Lower matrix is: \n";
+		HelperUtils::PrintMatrix<double>(lowerUpperPair.first);
+		out<<"Upper matrix is: \n";
+		HelperUtils::PrintMatrix<double>(lowerUpperPair.second);
+
 	}
+
 
 }	// end namespace
