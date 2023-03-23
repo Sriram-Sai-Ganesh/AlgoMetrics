@@ -22,6 +22,10 @@ public:
 
 /// @brief constructor. mallocs space for array.
 Matrix<T>(int row, int col) {
+	
+	assert(row>0);
+	assert(col>0);
+
 	rows=row;
 	cols=col;
 	ar = (T**)malloc(sizeof(T*)*rows);
@@ -95,7 +99,7 @@ Matrix<T> Multiply(Matrix<T> mat){
 Matrix<T> NaivePower(int exp){
 
 	// ensure matrix is square
-	assert(this->cols == this->cols);
+	assert(this->rows == this->cols);
 	// positive powers only
 	assert(exp>0);
 	auto result=*this;
@@ -108,7 +112,7 @@ Matrix<T> NaivePower(int exp){
 /// @return this^exp
 Matrix<T> Square(){
 	// ensure matrix is square
-	assert(this->cols == this->cols);
+	assert(this->rows == this->cols);
 	return (*this) * (*this);
 }
 
@@ -118,7 +122,7 @@ Matrix<T> Square(){
 Matrix<T> Power(int exp){
 
 	// ensure matrix is square
-	assert(this->cols == this->cols);
+	assert(this->rows == this->cols);
 	assert(exp>0);
 
 	auto result=*this;
@@ -135,7 +139,6 @@ Matrix<T> Power(int exp){
 /// @brief returns a zero matrix with side 'dim'
 /// @param dim number of rows in zero matrix
 /// @return dim x dim zero matrix
-template<T>
 static Matrix<T> Zeroes(size_t dim) {
 	Matrix<T> result = Matrix<T>(dim, dim);
 	return result;
@@ -144,7 +147,6 @@ static Matrix<T> Zeroes(size_t dim) {
 /// @brief returns an identity matrix with side 'dim'
 /// @param dim number of rows in identity matrix
 /// @return dim x dim identity matrix
-template<T>
 static Matrix<T> Identity(size_t dim) {
 	Matrix<T> result = Zeroes(dim);
 	for(size_t i=0;i<dim;i++){
@@ -152,6 +154,53 @@ static Matrix<T> Identity(size_t dim) {
 	}
 	return result;
 }
+
+/// @brief perform LUDecomposition on this and return result
+/// @return std::pair of (lower, upper) triangular matrices 
+/// code adapted from https://www.codingninjas.com/codestudio/library/doolittle-algorithm
+decltype(auto) LUDecomposition(){
+
+	// ensure matrix is square
+	assert(this->rows==this->cols);
+
+	// create result matrices
+	size_t side = this->cols;
+	auto matrix = *this;
+	auto lower = Matrix<double>::Zeroes(side);
+	auto upper = Matrix<double>::Zeroes(side);
+
+	// perform LU Decomposition
+    for (size_t i = 0; i < side; i++){
+        // Upper Triangular
+        for (size_t k = i; k < side; k++){
+            // Summation of L(i, j) * U(j, k)
+            double sum = 0;
+            for (size_t j = 0; j < i; j++){
+                sum += (lower(i, j) * upper(j, k));
+            }
+			// Evaluating U(i, k)
+            upper(i, k) = matrix(i, k) - sum;
+        }
+        // Lower Triangular
+        for (size_t k = i; k < side; k++){
+            if (i == k){
+                lower(i, i) = 1; // Diagonal as 1
+			}
+			else{
+                // Summation of L(k, j) * U(j, i)
+                double sum = 0;
+                for (size_t j = 0; j < i; j++){
+                    sum += (lower(k, j) * upper(j, i));
+				}
+				// Evaluating L(k, i)
+                lower(k, i) = (matrix(k, i) - sum) / upper(i, i);
+            }
+        }
+    }
+	// return tuple result
+	return make_pair(lower, upper);
+}
+
 
 
 
