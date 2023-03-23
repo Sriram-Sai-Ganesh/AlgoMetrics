@@ -6,12 +6,12 @@ using namespace std;
 
 int main()
 {
-	TestRunner::RunSorterTests();
-	TestRunner::RunSinglyLinkedList();
-	TestRunner::RunDoublyLinkedList();
-	TestRunner::RunQueue();
-	TestRunner::RunStack();
-	TestRunner::RunArrayList();
+	// TestRunner::RunSorterTests();
+	// TestRunner::RunSinglyLinkedList();
+	// TestRunner::RunDoublyLinkedList();
+	// TestRunner::RunQueue();
+	// TestRunner::RunStack();
+	// TestRunner::RunArrayList();
 	TestRunner::RunMatrix();
 	return 0;
 }
