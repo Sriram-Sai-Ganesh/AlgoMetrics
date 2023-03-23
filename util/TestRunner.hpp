@@ -14,6 +14,7 @@
 #include "../class/Stack.hpp"
 #include "../class/ArrayList.hpp"
 #include "../class/Matrix.hpp"
+#include "../class/BinaryTree.hpp"
 
 typedef long myType;					// type of variable
 const size_t len = 50;				// array length
@@ -197,6 +198,7 @@ namespace TestRunner{
 	}
 
 	void RunMatrix(){
+		out<<"Test Matrices.\n";
 		const int rows=5, columns=5;
 		out<<"Creating uniform random matrix:\n";
 		auto matrix = HelperUtils::CreateUniformRandomMatrix<myType, rows, columns>();
@@ -227,18 +229,30 @@ namespace TestRunner{
 
 
 		out<<"Testing LU Decomposition:\nRandom matrix is\n";
-		const int squareMatrixSide=3;
-		auto squareMatrix=HelperUtils::CreateRandomMatrix<myType, squareMatrixSide, squareMatrixSide>(0,10);
+		const int squareMatrixSide=20;
+		auto squareMatrix=HelperUtils::CreateRandomMatrix<myType, squareMatrixSide, squareMatrixSide>(10,500);
 		HelperUtils::PrintMatrix<myType>(squareMatrix);
 		out<<"Running LUDecomposition: \n";
 		auto lowerUpperPair = squareMatrix.LUDecomposition();
 
 		
+		auto first = lowerUpperPair.first;
+		auto second = lowerUpperPair.second;
 		out<<"Lower matrix is: \n";
-		HelperUtils::PrintMatrix<double>(lowerUpperPair.first);
+		HelperUtils::PrintMatrix<double>(first);
 		out<<"Upper matrix is: \n";
-		HelperUtils::PrintMatrix<double>(lowerUpperPair.second);
+		HelperUtils::PrintMatrix<double>(second);
+		auto shouldBeOriginal = first.Multiply(second);
+		out<<"Product of lower and upper is \n";
+		HelperUtils::PrintMatrix<double>(shouldBeOriginal);
+		endl();
 
+	}
+
+	void RunBinaryTree(){
+		out<<"Test BinaryTrees:\n";
+		BinaryTree<myType> test;
+		out<<test.root();
 	}
 
 
