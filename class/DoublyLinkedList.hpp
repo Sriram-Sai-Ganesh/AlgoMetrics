@@ -200,7 +200,6 @@ int Size() {
 /// @param ar array containing values to initialize 
 template<size_t len>
 void AddAll(array<T, len> ar){
-	// TODO check this.type = T
 	this->Clear();
 	for(T val:ar){
 		this->Add(val);

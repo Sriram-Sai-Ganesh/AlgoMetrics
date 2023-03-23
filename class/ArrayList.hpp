@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cstdlib>	// malloc and free
-#include <iterator>	// TODO std::iterator
 #include <array>	// AddAll(array)
 #include <typeinfo>	// typechecking
 #include <cassert>	// type errors
@@ -69,7 +68,6 @@ ArrayList<T>() {
 	array = allocateArray(limit);
 }
 
-// TODO: implement iterator
 
 /// @brief insert element to position 'index' in the ArrayList.
 /// @param value 

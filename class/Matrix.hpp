@@ -1,7 +1,6 @@
 #pragma once
 #include <cstdlib>	// malloc and free
 #include <cassert>	// assertions
-#include <iterator>	// TODO std::iterator
 #include <array>	// AddAll(array)
 
 using namespace std;
