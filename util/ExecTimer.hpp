@@ -1,10 +1,9 @@
+#pragma once
 #include <cstdlib>
 #include <array>
 #include <functional>
 #include <typeinfo>
 #include <chrono>
-
-#pragma once
 
 using namespace std;
 

@@ -12,6 +12,7 @@ typedef struct binaryTreeNode{
 	T data;
 	binaryTreeNode* left;
 	binaryTreeNode* right;
+	// ADD key
 }binaryTreeNode;
 
 binaryTreeNode myRoot;

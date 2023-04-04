@@ -4,9 +4,11 @@
 #include <array>
 #include <vector>
 
+#include "../util/Constants.hpp"
 #include "../util/ArrayUtils.hpp"
 #include "../util/HelperUtils.hpp"
 #include "../util/ExecTimer.hpp"
+#include "../util/ExportUtils.hpp"
 
 #include "../class/SinglyLinkedList.hpp"
 #include "../class/DoublyLinkedList.hpp"
@@ -16,7 +18,6 @@
 #include "../class/Matrix.hpp"
 #include "../class/BinaryTree.hpp"
 
-typedef long myType;					// type of variable
 const size_t len = 50;				// array length
 
 // output stream
@@ -250,7 +251,13 @@ namespace TestRunner{
 	}
 
 	void RunBinaryTree(){
+		out<<"Test file exporting: ";
+		const int rows=5, columns=5;
+		out<<"Creating uniform random matrix:\n";
+		auto matrix = HelperUtils::CreateUniformRandomMatrix<myType, rows, columns>();
+		ExportUtils::ExportMatrixToCSV(matrix, "test.csv");	
 		out<<"Test BinaryTrees:\n";
+
 		BinaryTree<myType> test;
 		out<<test.root();
 	}
