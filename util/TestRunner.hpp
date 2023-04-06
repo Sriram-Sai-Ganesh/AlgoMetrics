@@ -246,7 +246,7 @@ namespace TestRunner{
 		auto shouldBeOriginal = first.Multiply(second);
 		out<<"Product of lower and upper is \n";
 		HelperUtils::PrintMatrix<double>(shouldBeOriginal);
-		// ExportUtils::ExportMatrixToCSV(shouldBeOriginal, "test.csv");	
+		ExportUtils::ExportMatrixToCSV(shouldBeOriginal, "test.csv");	
 		endl();
 
 	}
@@ -265,8 +265,8 @@ namespace TestRunner{
 		out<<"Inserting 9"<<endl;
 		test.Insert(9);
 		out<<"Check if contains 9:  "<<test.Contains(9)<<endl;
-		out<<"Inserting 0"<<endl;
-		test.Insert(0);
+		out<<"Inserting 10"<<endl;
+		test.Insert(10);
 		out<<"Height is "<<test.Height()<<endl;
 		out<<"Total number of children of root is  "<<test.NumberOfChildren()<<endl;
 		out<<"Total tree size is "<<test.Size()<<endl;
@@ -280,12 +280,13 @@ namespace TestRunner{
 	void RunBinarySearchTree(){
 		out<<"Test BinarySearchTrees:\nInitial value = ";
 		BinarySearchTree<myType> test;
+		test.Value=7;
 		out<<test.Value;
 		out<<"\nHeight is "<<test.Height()<<endl;
-		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
-		out<<"Inserting 7"<<endl;
-		test.Insert(7);
-		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+		out<<"Check if contains 3:  "<<test.Contains(3)<<endl;
+		out<<"Inserting 3"<<endl;
+		test.Insert(3);
+		out<<"Check if contains 3:  "<<test.Contains(3)<<endl;
 		out<<"Inserting 8"<<endl;
 		test.Insert(8);
 		out<<"Inserting 9"<<endl;
