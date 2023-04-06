@@ -23,7 +23,7 @@ public:
 		// add to tree
 		// start the traverse pointer at tree's root
 		BinaryTree<T>* trav=this;
-
+		// TODO REFACTOR WHILE TRUE
 		while(true){	// break once inserted
 			if(val<trav->Value){
 				if(trav->left==NULL){

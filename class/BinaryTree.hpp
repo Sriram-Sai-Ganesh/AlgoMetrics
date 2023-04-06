@@ -8,6 +8,8 @@ using namespace std;
 template <class T>
 class BinaryTree;
 
+// TODO create binary tree node class and refactor this one
+
 /// @brief implementation of a BinaryTree object
 /// @tparam T type of data at each node of tree.
 template <class T>
