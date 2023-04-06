@@ -274,7 +274,7 @@ namespace TestRunner{
 		out<<"Check if contains 5:  "<<test.Contains(5)<<endl;
 		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
 
-		// ExportUtils::ExportBinaryTreeToCSV<myType>(test);
+		ExportUtils::ExportBinaryTreeToCSV<myType>(test);
 	}
 
 	void RunBinarySearchTree(){
