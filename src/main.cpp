@@ -13,6 +13,7 @@ int main()
 	// TestRunner::RunStack();
 	// TestRunner::RunArrayList();
 	// TestRunner::RunMatrix();
-	TestRunner::RunBinarySearchTree();
+	TestRunner::RunBinaryTree();
+	// TestRunner::RunBinarySearchTree();
 	return 0;
 }
