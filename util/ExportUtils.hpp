@@ -46,28 +46,12 @@ static void ExportMatrixToCSV(Matrix<T> matrix, string fileName = "matrix.csv"){
 }
 
 
-/// @brief export BinaryTree object to csv file
-/// @tparam T type of elements in BinaryTree
-/// @param tree BinaryTree to export
-/// @param order 0->pre-order, 1->in-order, 2->post-order
-/// @param fileName destination file name. "tree.csv" by default. 
 template<class T>
-static void ExportBinaryTreeToCSV(BinaryTree<T> tree, int order=1, string fileName = "tree.csv"){
-	assert(order<=3);
-	assert(order>0);
-
-	ofstream file = openFile(fileName);
-	// file<<returnTraversalString(tree);
-	file.close();
-	return;
-}
-
-template<class T>
-string returnTraversalString(BinaryTree<T> tree, int order=0){
+string returnTraversalString(BinaryTree<T>* tree, int order=1){
 	string part1, part2, part3;
-	part1=(tree.Left())?TraversalString(tree.Left(), order):"0";
-	part2=tree.data();
-	part3=(tree.Right())?TraversalString(tree.Right(), order):"0";
+	part1=(tree->Left())?returnTraversalString(tree->Left(), order):"\n";
+	part2=tree->Value;
+	part3=(tree->Right())?returnTraversalString(tree->Right(), order):"\n";
 
 	switch(order){
 		case 1:
@@ -79,6 +63,22 @@ string returnTraversalString(BinaryTree<T> tree, int order=0){
 		default:
 			return "ExportUtils: returnTraversalString: ERROR";
 	}
+}
+
+/// @brief export BinaryTree object to csv file
+/// @tparam T type of elements in BinaryTree
+/// @param tree BinaryTree to export
+/// @param order 0->pre-order, 1->in-order, 2->post-order
+/// @param fileName destination file name. "tree.csv" by default. 
+template<class T>
+static void ExportBinaryTreeToCSV(BinaryTree<T> tree, int order=1, string fileName = "tree.csv"){
+	assert(order<=3);
+	assert(order>0);
+
+	ofstream file = openFile(fileName);
+	file<<returnTraversalString(&tree);
+	file.close();
+	return;
 }
 
 
