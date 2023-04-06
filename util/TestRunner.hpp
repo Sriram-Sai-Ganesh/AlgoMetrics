@@ -16,7 +16,10 @@
 #include "../class/Stack.hpp"
 #include "../class/ArrayList.hpp"
 #include "../class/Matrix.hpp"
+#include "../class/IGraph.hpp"
+#include "../class/ITree.hpp"
 #include "../class/BinaryTree.hpp"
+#include "../class/BinarySearchTree.hpp"
 
 const size_t len = 50;				// array length
 
@@ -166,7 +169,6 @@ namespace TestRunner{
 	}
 
 	void RunArrayList(){
-
 		out<<"Test ArrayLists.\n";
 		ArrayList<myType> arr;
 		out<<"Initial table limit is "<<arr.Limit()<<endl;
@@ -210,7 +212,6 @@ namespace TestRunner{
 		out<<"Result is \n";
 		HelperUtils::PrintMatrix<myType>(result);
 
-
 		out<<"Creating random new matrix:\n";
 		auto randMatrix=HelperUtils::CreateUniformRandomMatrix<myType, rows, columns+2>();
 		HelperUtils::PrintMatrix<myType>(randMatrix);
@@ -227,7 +228,6 @@ namespace TestRunner{
 		auto fastSquare=matrix.Power(2);
 		HelperUtils::PrintMatrix<myType>(fastSquare);
 		endl();
-
 
 		out<<"Testing LU Decomposition:\nRandom matrix is\n";
 		const int squareMatrixSide=20;
@@ -246,20 +246,63 @@ namespace TestRunner{
 		auto shouldBeOriginal = first.Multiply(second);
 		out<<"Product of lower and upper is \n";
 		HelperUtils::PrintMatrix<double>(shouldBeOriginal);
+		ExportUtils::ExportMatrixToCSV(shouldBeOriginal, "test.csv");	
 		endl();
 
 	}
 
 	void RunBinaryTree(){
-		out<<"Test file exporting: ";
-		const int rows=5, columns=5;
-		out<<"Creating uniform random matrix:\n";
-		auto matrix = HelperUtils::CreateUniformRandomMatrix<myType, rows, columns>();
-		ExportUtils::ExportMatrixToCSV(matrix, "test.csv");	
-		out<<"Test BinaryTrees:\n";
-
+		out<<"Test BinaryTrees:\nInitial value = ";
 		BinaryTree<myType> test;
-		out<<test.root();
+		out<<test.Value;
+		out<<"\nHeight is "<<test.Height()<<endl;
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+		out<<"Inserting 7"<<endl;
+		test.Insert(7);
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+		out<<"Inserting 8"<<endl;
+		test.Insert(8);
+		out<<"Inserting 9"<<endl;
+		test.Insert(9);
+		out<<"Check if contains 9:  "<<test.Contains(9)<<endl;
+		out<<"Inserting 0"<<endl;
+		test.Insert(0);
+		out<<"Height is "<<test.Height()<<endl;
+		out<<"Total number of children of root is  "<<test.NumberOfChildren()<<endl;
+		out<<"Total tree size is "<<test.Size()<<endl;
+		out<<"Check if contains 0:  "<<test.Contains(0)<<endl;
+		out<<"Check if contains 5:  "<<test.Contains(5)<<endl;
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+	}
+
+	void RunBinarySearchTree(){
+		out<<"Test BinarySearchTrees:\nInitial value = ";
+		BinarySearchTree<myType> test;
+		out<<test.Value;
+		out<<"\nHeight is "<<test.Height()<<endl;
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+		out<<"Inserting 7"<<endl;
+		test.Insert(7);
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+		out<<"Inserting 8"<<endl;
+		test.Insert(8);
+		out<<"Inserting 9"<<endl;
+		test.Insert(9);
+		out<<"Check if contains 9:  "<<test.Contains(9)<<endl;
+		out<<"Inserting 0"<<endl;
+		test.Insert(0);
+		out<<"Height is "<<test.Height()<<endl;
+
+		out<<"Inserting 5"<<endl;
+		test.Insert(5);
+		out<<"Inserting 6"<<endl;
+		test.Insert(6);
+		out<<"Height is "<<test.Height()<<endl;
+		out<<"Total number of children of root is  "<<test.NumberOfChildren()<<endl;
+		out<<"Total tree size is "<<test.Size()<<endl;
+		out<<"Check if contains 0:  "<<test.Contains(0)<<endl;
+		out<<"Check if contains 5:  "<<test.Contains(5)<<endl;
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
 	}
 
 
