@@ -1,6 +1,9 @@
 import networkx as nx				# graphs and layouts
 import matplotlib.pyplot as plt		# draw graphs
 import csv 							# read graphs from file
+import pydot
+
+from networkx.drawing.nx_pydot import graphviz_layout
 
 # return a list of pairs of connected vertices in graph
 def GetPairs(fileAddress):
@@ -10,6 +13,7 @@ def GetPairs(fileAddress):
 		reader = csv.reader(file)
 		for row in reader:
 			result.append([s.strip() for s in row])
+		print(str(result))
 	return result
 
 # draw graph from 'fileAddress' in a structure descibed in 'structure'
@@ -29,7 +33,9 @@ def Draw(fileAddress, structure="graph"):
 		pos = nx.circular_layout(myGraph)
 	elif structure == "tree":
 		# k-ary tree
-		pos = nx.nx_agraph.graphviz_layout(myGraph, prog="dot")
+		# pos = nx.nx_agraph.graphviz_layout(myGraph, prog="dot")
+		pos=graphviz_layout(myGraph, prog="dot")
+		# pos = nx.graphviz_layout(myGraph, prog="dot")
 
 	# draw graph with nodes in evenly 
 	# distributed coordinate positions
