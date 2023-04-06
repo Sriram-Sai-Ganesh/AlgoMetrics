@@ -49,9 +49,13 @@ static void ExportMatrixToCSV(Matrix<T> matrix, string fileName = "matrix.csv"){
 template<class T>
 string returnTraversalString(BinaryTree<T>* tree, int order=1){
 	string part1, part2, part3;
-	part1=(tree->Left())?returnTraversalString(tree->Left(), order):"\n";
-	part2=tree->Value;
-	part3=(tree->Right())?returnTraversalString(tree->Right(), order):"\n";
+	part1=(tree->Left())?returnTraversalString(tree->Left(), order):"";
+	
+	if(tree->Parent()!=NULL){
+		part2 = to_string(tree->Value)+", "+to_string(tree->Parent()->Value)+"\n";
+	}
+
+	part3=(tree->Right())?returnTraversalString(tree->Right(), order):"";
 
 	switch(order){
 		case 1:
