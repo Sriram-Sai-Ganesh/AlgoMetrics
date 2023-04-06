@@ -49,9 +49,9 @@ def Draw(fileAddress, structure="graph"):
 
 
 # string address of file
-graphFileAddress = 'data/graph.csv'
+# graphFileAddress = 'data/graph.csv'
 treeFileAddress = 'data/tree.csv'
 
-Draw(graphFileAddress, structure="graph")
+# Draw(graphFileAddress, structure="graph")
 Draw(treeFileAddress, structure="tree")
 
