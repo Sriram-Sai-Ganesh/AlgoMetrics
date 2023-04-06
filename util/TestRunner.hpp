@@ -246,7 +246,7 @@ namespace TestRunner{
 		auto shouldBeOriginal = first.Multiply(second);
 		out<<"Product of lower and upper is \n";
 		HelperUtils::PrintMatrix<double>(shouldBeOriginal);
-		ExportUtils::ExportMatrixToCSV(shouldBeOriginal, "test.csv");	
+		// ExportUtils::ExportMatrixToCSV(shouldBeOriginal, "test.csv");	
 		endl();
 
 	}
@@ -273,6 +273,8 @@ namespace TestRunner{
 		out<<"Check if contains 0:  "<<test.Contains(0)<<endl;
 		out<<"Check if contains 5:  "<<test.Contains(5)<<endl;
 		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+
+		// ExportUtils::ExportBinaryTreeToCSV<myType>(test);
 	}
 
 	void RunBinarySearchTree(){
@@ -303,6 +305,8 @@ namespace TestRunner{
 		out<<"Check if contains 0:  "<<test.Contains(0)<<endl;
 		out<<"Check if contains 5:  "<<test.Contains(5)<<endl;
 		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+
+		ExportUtils::ExportBinaryTreeToCSV<myType>(test);
 	}
 
 
