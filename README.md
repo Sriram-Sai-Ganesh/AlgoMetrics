@@ -26,7 +26,7 @@ You'll need to install ```make``` if you want to use the makefile.
   - [x] HelperUtils
   - [ ] ExportUtils
 - [ ] Data structures
-  - [ ] Lists (table doubling)
+  - [x] Lists (table doubling)
   - [x] Linked Lists
     - [x] Singly Linked Lists
     - [x] Doubly Linked Lists 
