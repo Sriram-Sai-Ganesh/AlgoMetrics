@@ -9,6 +9,7 @@
 
 #include "../class/Matrix.hpp"
 #include "../class/BinaryTree.hpp"
+#include "../class/BinaryTree2.hpp"
 #include "../class/BinarySearchTree.hpp"
 
 using namespace std;
@@ -81,6 +82,22 @@ static void ExportBinaryTreeToCSV(BinaryTree<T> tree, int order=1, string fileNa
 
 	ofstream file = openFile(fileName);
 	file<<returnTraversalString(&tree);
+	file.close();
+	return;
+}
+
+/// @brief export BinaryTree2 object to csv file
+/// @tparam T type of elements in BinaryTree
+/// @param tree BinaryTree to export
+/// @param order 0->pre-order, 1->in-order, 2->post-order
+/// @param fileName destination file name. "tree.csv" by default. 
+template<class T>
+static void ExportBinaryTree2ToCSV(BinaryTree2<T> tree, int order=1, string fileName = "tree.csv"){
+	assert(order<=3);
+	assert(order>0);
+
+	ofstream file = openFile(fileName);
+	file<<tree.getTraversalString();
 	file.close();
 	return;
 }

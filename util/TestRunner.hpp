@@ -19,6 +19,7 @@
 #include "../class/IGraph.hpp"
 #include "../class/ITree.hpp"
 #include "../class/BinaryTree.hpp"
+#include "../class/BinaryTree2.hpp"
 #include "../class/BinarySearchTree.hpp"
 
 const size_t len = 50;				// array length
@@ -310,5 +311,30 @@ namespace TestRunner{
 		ExportUtils::ExportBinaryTreeToCSV<myType>(test);
 	}
 
+	void RunBinaryTree2(){
+		out<<"Test BinaryTrees2:\nInitial value = ";
+		BinaryTree2<myType> test = BinaryTree2<myType>();
+		out<<"Root is "<<test.rootValue()<<endl;
+		out<<"Height is "<<test.Height()<<endl;
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+		out<<"Inserting 7"<<endl;
+		test.Insert(7);
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
+		out<<"Inserting 8"<<endl;
+		test.Insert(8);
+		out<<"Inserting 9"<<endl;
+		test.Insert(9);
+		out<<"Check if contains 9:  "<<test.Contains(9)<<endl;
+		out<<"Inserting 10"<<endl;
+		test.Insert(10);
+		out<<"Height is "<<test.Height()<<endl;
+		out<<"Root is "<<test.rootValue()<<endl;
+		out<<"Number of direct root children = "<<test.NumberOfChildren()<<endl;
+		out<<"Total tree size is "<<test.Size()<<endl;
+		out<<"Check if contains 0:  "<<test.Contains(0)<<endl;
+		out<<"Check if contains 5:  "<<test.Contains(5)<<endl;
+		out<<"Check if contains 7:  "<<test.Contains(7)<<endl;
 
+		ExportUtils::ExportBinaryTree2ToCSV<myType>(test);
+	}
 }	// end namespace

@@ -86,6 +86,13 @@ public:
 		InsertLeftmost(val);
 		return;
 	}
+	// TODO helper Node* get(T val) returns reference to node with value val
+	// TODO insertLeftmost(Node parent, Node child) helper method inserts child into leftmost available position below parent 
+
+	virtual void Delete(T val){
+		cout<<"DELETING NODE VALUE "<<val;
+	}
+
 
 	virtual bool Contains(T val){
 		bool result=(this->Value==val);
@@ -97,6 +104,10 @@ public:
 		}
 		return result;
 	}
+
+
+
+
 
 	size_t NumberOfChildren(){
 		size_t ans=((this->left==NULL)?0:1);
