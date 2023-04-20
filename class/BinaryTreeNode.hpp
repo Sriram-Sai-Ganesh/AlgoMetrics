@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// todo remove fwd declaration?
 template<class T>
 class BinaryTreeNode;
 

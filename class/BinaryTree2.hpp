@@ -27,8 +27,8 @@ public:
 	}
 
 	~BinaryTree2(){
-		freeAllChildren(this->root);
-		free(this->root);
+		// freeAllChildren(this->root);
+		// free(this->root);
 	}
 
 	virtual void freeAllChildren(BinaryTreeNode<T>* start){
