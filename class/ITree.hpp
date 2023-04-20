@@ -5,9 +5,10 @@ using namespace std;
 
 template<class T>
 class ITree : IGraph<T>{
-	// TODO Delete
-	// pure virtual functions (= 0;)
-	// derived classes *must* override these
+	// Pure virtual functions (= 0;).
+	// Derived classes *must* override these.
+	// If they don't, they're automatically considered 
+	// abstract classes.
 	virtual size_t Height() = 0;
 	virtual size_t Size() = 0;
 	virtual void Insert(T arg) = 0;
