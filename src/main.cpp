@@ -16,5 +16,6 @@ int main()
 	// TestRunner::RunBinaryTree();
 	// TestRunner::RunBinarySearchTree();
 	TestRunner::RunBinaryTree2();
+	TestRunner::RunBinarySearchTree2();
 	return 0;
 }

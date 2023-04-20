@@ -55,8 +55,6 @@ public:
 		return 1+max(leftHeight, rightHeight);
 	}
 
-	/// @brief calculates size of this tree
-	/// @return returns total number of nodes in this
 	size_t Size(){
 
 		size_t leftSize = (this->left==NULL)?0:this->left->Size();
@@ -87,11 +85,16 @@ public:
 		InsertLeftmost(val);
 		return;
 	}
+	// TODO helper Node* get(T val) returns reference to node with value val
+	// TODO insertLeftmost(Node parent, Node child) helper method inserts child into leftmost available position below parent 
 
 	virtual void Delete(T val){
 		cout<<"DELETING NODE VALUE "<<val;
 	}
 
+	virtual void Clear(){
+		cout<<"CLEARING THIS BINARYTREE";
+	}
 
 	virtual bool Contains(T val){
 		bool result=(this->Value==val);
@@ -105,10 +108,7 @@ public:
 	}
 
 
-	void Clear(){
-		// TODO implement Clear (for older BinaryTree implementation)
-		cout<<"CLEARING THIS BINARY TREE";
-	}
+
 
 
 	size_t NumberOfChildren(){

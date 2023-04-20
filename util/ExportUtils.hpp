@@ -11,6 +11,7 @@
 #include "../class/BinaryTree.hpp"
 #include "../class/BinaryTree2.hpp"
 #include "../class/BinarySearchTree.hpp"
+#include "../class/BinarySearchTree2.hpp"
 
 using namespace std;
 
