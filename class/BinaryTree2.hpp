@@ -27,8 +27,14 @@ public:
 	}
 
 	~BinaryTree2(){
-		freeAllChildren(this->root);
-		free(this->root);
+		// freeAllChildren(this->root);
+		// free(this->root);
+	}
+
+	void freeAllChildren(BinaryTreeNode<T>* start){
+		if(start==NULL) return;
+		freeAllChildren(start->left);
+		freeAllChildren(start->right);
 	}
 
 	BinaryTreeNode<T>* allocateNode(T val = T()){
@@ -40,11 +46,8 @@ public:
 		return newNode;
 	}
 
-	void freeAllChildren(BinaryTreeNode<T>* start){
-		if(start==NULL) return;
-		freeAllChildren(start->left);
-		freeAllChildren(start->right);
-	}
+
+	// todo inline(?)
 
 	// helper doing recursive calls to find height
 	size_t getNodeHeight(BinaryTreeNode<T> *start){

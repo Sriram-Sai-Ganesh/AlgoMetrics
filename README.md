@@ -15,16 +15,15 @@ You'll need to install ```make``` if you want to use the makefile.
 
 ## Roadmap
 
-- [ ] Utility Namespaces
-  - [x] ArrayUtils
-  - [ ] ExecTimer
-  - [ ] TreeUtils
-  - [ ] GraphUtils
+- [ ] Algorithms
+  - [x] Arrays
+	- [x] Search
+	- [x] Sort
+  - [ ] Trees
+  - [ ] Graphs
   	- [ ] Minimum Spanning
   	- [ ] Shortest Path
   	- [ ] Travelling Salesman
-  - [x] HelperUtils
-  - [ ] ExportUtils
 - [ ] Data structures
   - [x] Lists (table doubling)
   - [x] Linked Lists
@@ -33,6 +32,7 @@ You'll need to install ```make``` if you want to use the makefile.
   	- [x] Stacks
   	- [x] Queues
   - [ ] Trees
+    - [x] Binary Trees
     - [ ] Binary Search Trees
     - [ ] Red and Black Trees
     - [ ] AVL Trees
@@ -45,6 +45,10 @@ You'll need to install ```make``` if you want to use the makefile.
   - [ ] Dictionaries
     - [ ] HashMaps
     - [ ] HashSets
+- [ ] Utility Namespaces
+  - [ ] ExecTimer
+  - [x] HelperUtils
+  - [x] ExportUtils
 
 ## Acknowledgements
 - Pseudorandom number generator [library](https://www.pcg-random.org/posts/ease-of-use-without-loss-of-power.html) by [imneme](https://gist.github.com/imneme)
