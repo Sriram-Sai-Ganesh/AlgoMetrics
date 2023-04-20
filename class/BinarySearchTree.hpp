@@ -22,30 +22,28 @@ public:
 
 		// add to tree
 		// start the traverse pointer at tree's root
-		BinaryTree<T>* trav=this;
-		// TODO REFACTOR WHILE TRUE
-		while(true){	// break once inserted
+		BinaryTree<T>* trav = this;		// traverses tree until we find newNode's location
+		BinaryTree<T>** travChildAddress;	// pointer to variable that stores newNode's reference
+
+		while(travChildAddress==NULL){	// break once we find newNode's location
 			if(val<trav->Value){
-				if(trav->left==NULL){
-					trav->left=newNode;
-					break;
+				if(trav->left==NULL){	
+					travChildAddress = &trav->left;
 				}
-				else {
+				else {		// 
 					trav=trav->left;
-					continue;
 				}
 			}
 			else{
 				if(trav->right==NULL){
-					trav->right=newNode;
-					break;
+					travChildAddress = &trav->right;
 				}
 				else {
 					trav=trav->right;
-					continue;
 				}
 			}
 		}
+		*travChildAddress = newNode;
 		newNode->parent=trav;
 		return;
 	}
