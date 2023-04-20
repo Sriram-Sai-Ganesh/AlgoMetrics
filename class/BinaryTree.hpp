@@ -8,7 +8,6 @@ using namespace std;
 template <class T>
 class BinaryTree;
 
-// TODO create binary tree node class and refactor this one
 
 /// @brief implementation of a BinaryTree object
 /// @tparam T type of data at each node of tree.
@@ -56,6 +55,8 @@ public:
 		return 1+max(leftHeight, rightHeight);
 	}
 
+	/// @brief calculates size of this tree
+	/// @return returns total number of nodes in this
 	size_t Size(){
 
 		size_t leftSize = (this->left==NULL)?0:this->left->Size();
@@ -86,8 +87,6 @@ public:
 		InsertLeftmost(val);
 		return;
 	}
-	// TODO helper Node* get(T val) returns reference to node with value val
-	// TODO insertLeftmost(Node parent, Node child) helper method inserts child into leftmost available position below parent 
 
 	virtual void Delete(T val){
 		cout<<"DELETING NODE VALUE "<<val;
@@ -106,7 +105,10 @@ public:
 	}
 
 
-
+	void Clear(){
+		// TODO implement Clear (for older BinaryTree implementation)
+		cout<<"CLEARING THIS BINARY TREE";
+	}
 
 
 	size_t NumberOfChildren(){
